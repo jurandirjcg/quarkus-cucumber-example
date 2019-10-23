@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myh3alth</groupId>
+  <artifactId>paciente-service</artifactId>
+  <name>Paciente Service</name>
+  <version>1.0.0-RC0</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- LIBS -->
+    <version.canary>1.0.0</version.canary>
+    <version.commons-collections>3.2.2</version.commons-collections>
+    <version.hibernate-jpamodelgen>5.1.0.Final</version.hibernate-jpamodelgen>
+    <version.postgresql>9.4.1212</version.postgresql>
+    <version.thorntail>2.5.0.Final</version.thorntail>
+    <version.hibernate-jpamodelgen>5.3.7.Final</version.hibernate-jpamodelgen>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.thorntail</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.thorntail}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>paciente-service</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>io.thorntail</groupId>
+        <artifactId>thorntail-maven-plugin</artifactId>
+        <version>${version.thorntail}</version>
+        
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+  	<!-- Logging -->
+  	<dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>logging</artifactId>
+  	</dependency>
+    <!-- JTA -->
+  	<dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>transactions</artifactId>
+  	</dependency>
+    <!-- JPA -->
+    <dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>jpa</artifactId>
+    </dependency>
+    <!-- Dependencias da especificação Eclipse Microprofile -->
+  	<dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>microprofile</artifactId>
+  	</dependency>
+    <!-- JPA Modelgen -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>${version.hibernate-jpamodelgen}</version>
+    </dependency>
+    <!-- Canary -->
+    <dependency>
+	  <groupId>br.com.jgon</groupId>
+	  <artifactId>canary</artifactId>
+	  <version>${version.canary}</version>
+	</dependency>
+    <!-- PostgreSQL -->
+    <dependency>
+	  <groupId>org.postgresql</groupId>
+	  <artifactId>postgresql</artifactId>
+	  <version>${version.postgresql}</version>
+    </dependency>
+    <!-- Outras dependencias -->
+	<dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>${version.commons-collections}</version>
+    </dependency>
+    <!-- MODELGEN -->
+	<dependency>
+	  <groupId>org.hibernate</groupId>
+		<artifactId>hibernate-jpamodelgen</artifactId>
+		<version>${version.hibernate-jpamodelgen}</version>
+		<exclusions>
+		  <exclusion>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+		  </exclusion>
+		</exclusions>
+	</dependency>
+  </dependencies>
+</project>

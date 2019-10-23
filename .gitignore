@@ -1,0 +1,6 @@
+/.apt_generated_tests/
+/target/
+/bin/
+/.settings/
+/.classpath
+/.project

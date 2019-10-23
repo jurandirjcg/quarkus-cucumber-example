@@ -1,0 +1,27 @@
+thorntail:
+   datasources:
+      jdbc-drivers:
+         org.postgresql:
+            driver-module-name: org.postgresql
+            driver-xa-datasource-class-name: org.postgresql.xa.PGXADataSource
+            driver-class-name: org.postgresql.Driver
+      data-sources:
+         pacienteDS:
+            driver-name: org.postgresql
+            connection-url: jdbc:postgresql://localhost:5432/paciente_service
+            user-name: postgres
+            password: postgres
+   logging:
+      pattern-formatters:
+         LOG_FORMATTER:
+            pattern: "CUSTOM LOG FORMAT %p [%c] %s%e%n"
+      periodic-rotating-file-handlers:
+         FILE:
+           file:
+             path: target/paciente-service.log
+           suffix: .yyyy-MM-dd
+           named-formatter: LOG_FORMATTER
+      root-logger:
+        handlers:
+        - CONSOLE
+        - FILE

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<persistence-unit name="pacienteMaster" transaction-type="JTA">
+		<!-- DATASOURCE -->
+		<jta-data-source>java:jboss/datasources/pacienteDS</jta-data-source>
+		
+		<class>com.myh3alth.paciente.entity.Paciente</class>
+		<class>com.myh3alth.paciente.entity.enumeration.converter.SituacaoConverter</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+		<properties>
+	  		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+	  		<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+	  		<property name="hibernate.format_sql" value="false"/>
+	  		<property name="hibernate.show_sql" value="true" />
+			<!-- Configuração do cache de segundo nível -->
+			<!-- <property name="hibernate.cache.use_second_level_cache" value="true" /> -->
+			<!-- <property name="hibernate.cache.use_query_cache" value="true" /> -->
+		
+			<!-- PERMITE QUE SEJAM LEVANTADOS INFORMAÇÕES SOBRE A CONEXÃO COMO BANCO REALIZADA -->
+			<!-- MAIORES INFORMAÇÕES PODEM SER ENCONTRADAS NESSE LINK <http://blog.caelum.com.br/cacando-seus-gargalos-com-o-hibernate-statistics/> -->
+			<!-- <property name="hibernate.generate_statistics" value="false" /> -->
+		
+			<!-- SEGUNDO INFORMACOES ENCONTRADAS POR DEFAULT O DRIVE JDBC LEVANTA POR COMPLETO O META DATA DA BASE DE DADOS, -->
+			<!-- INCLUINDO COMENTARIOS. ESSA CONFIGURACAO E NECESSARIA PARA EVITAR QUE ISSO OCORRA. -->
+			<!-- <http://www.docjar.com/html/api/org/hibernate/cfg/SettingsFactory.java.html> VERIFICAR LINHA 100 -->
+			<!-- <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" /> -->
+  		</properties>
+	</persistence-unit>
+	<persistence-unit name="pacienteSlave" transaction-type="JTA">
+		<!-- DATASOURCE -->
+		<jta-data-source>java:jboss/datasources/pacienteDS</jta-data-source>
+		<properties>
+	  		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+	  		<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+	  		<property name="hibernate.format_sql" value="false"/>
+	  		<property name="hibernate.show_sql" value="true" />
+	  	</properties>
+	</persistence-unit>
+</persistence>
