@@ -37,7 +37,7 @@ import br.com.jgon.canary.ws.rest.CanaryRestResources;
 				)
 		),
 		servers = @Server(
-				url = "http://localhost:8080/api/v1"
+				url = "http://paciente.desenv.myh3alth.com"
 		)
 )
 @ApplicationPath("/api/v1/")

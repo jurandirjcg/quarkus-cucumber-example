@@ -8,9 +8,9 @@ thorntail:
       data-sources:
          pacienteDS:
             driver-name: org.postgresql
-            connection-url: jdbc:postgresql://localhost:5432/paciente_service
+            connection-url: jdbc:postgresql://pgdesenv.myh3alth.com:5432/postgres
             user-name: postgres
-            password: postgres
+            password: AlupEm7V3YT5smGVYcB9
    logging:
       pattern-formatters:
          LOG_FORMATTER:

@@ -5,7 +5,7 @@
   <groupId>com.myh3alth</groupId>
   <artifactId>paciente-service</artifactId>
   <name>Paciente Service</name>
-  <version>1.0.0-RC0</version>
+  <version>1.0.0-RC2</version>
   <packaging>war</packaging>
 
   <properties>
@@ -36,6 +36,7 @@
 
   <build>
     <finalName>paciente-service</finalName>
+    <!-- Filtrar resources -->
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -43,19 +44,57 @@
       </resource>
     </resources>
     <plugins>
+      <!-- Thorntail -->
       <plugin>
         <groupId>io.thorntail</groupId>
         <artifactId>thorntail-maven-plugin</artifactId>
         <version>${version.thorntail}</version>
-        
         <executions>
           <execution>
+          	<id>package</id>
             <goals>
               <goal>package</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
+      <!--  -->
+<!-- 	  <plugin> -->
+<!-- 		<groupId>com.spotify</groupId> -->
+<!-- 		<artifactId>docker-maven-plugin</artifactId> -->
+<!-- 		<version>0.4.13</version> -->
+<!-- 		<configuration> -->
+<!-- <!- 			<imageName>${env.docker_registry_host}/${project.artifactId}</imageName> -->
+<!-- 			<imageName>${project.artifactId}</imageName> -->
+<!-- 			<dockerDirectory>src/main/docker</dockerDirectory> -->
+<!-- 			<useConfigFile>true</useConfigFile> -->
+<!-- <!- 			<registryUrl>${env.docker_registry_host}</registryUrl> -->
+<!-- 			<!-dockerHost>https://${docker.registry.host}</dockerHost -->
+<!-- 			<resources> -->
+<!-- 				<resource> -->
+<!-- 					<targetPath>/</targetPath> -->
+<!-- 					<directory>${project.build.directory}</directory> -->
+<!-- 					<include>${project.build.finalName}.war</include> -->
+<!-- 				</resource> -->
+<!-- 			</resources> -->
+<!-- 			<forceTags>false</forceTags> -->
+<!-- 			<imageTags> -->
+<!-- 				<imageTag>${project.version}</imageTag> -->
+<!-- 			</imageTags> -->
+<!-- 		</configuration> -->
+<!-- 	 </plugin> -->
+	<plugin>
+		<groupId>com.spotify</groupId>
+		<artifactId>dockerfile-maven-plugin</artifactId>
+		<version>1.4.13</version>
+		<configuration>
+			<repository>paciente-service</repository>
+			<tag>${project.version}</tag>
+			<buildArgs>
+				<JAR_FILE>${project.build.finalName}-thorntail.jar</JAR_FILE>
+			</buildArgs>	
+		</configuration>
+	</plugin>
     </plugins>
   </build>
   
