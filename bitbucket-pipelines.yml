@@ -8,11 +8,11 @@ pipelines:
         caches:
           - maven
         script:
-           - echo "Desativado - aguardando testes automatizados"
-#          - mvn -B clean verify
+          - echo "Desativado - aguardando testes automatizados"
+#         - mvn -B clean verify
   branches:
     release-*:
-       - step:
+        - step:
            name: Build e Package
            caches:
              - maven
@@ -20,7 +20,7 @@ pipelines:
              - mvn -B clean verify
            artifacts:
              - target/paciente-service-thorntail.jar
-       - step:
+        - step:
            name: Build e push da imagem Docker
            services:
              - docker
@@ -46,7 +46,7 @@ pipelines:
              - docker push ${AWS_REGISTRY_URL}:development
            artifacts:          
              - awscli-bundle/**
-       - step:
+        - step:
            name: Deploy para ambiente de desenvolvimento (Amazon ECS)
            deployment: desenv
            trigger: manual
@@ -65,4 +65,5 @@ pipelines:
    
              # Update the service
              - echo $UPDATED_TASK_DEFINITION
-             - aws ecs update-service --service myh3alth-desenvservice --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
+             - aws ecs update-service --service myh3alth-desenv-service --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
+
