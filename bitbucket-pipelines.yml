@@ -34,7 +34,7 @@ pipelines:
           # docker
           
           #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
-          - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:development
+          - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
           - docker push ${AWS_REGISTRY_URL}:development
     - step:
         name: Deploy para ambiente de desenvolvimento (Amazon ECS)
