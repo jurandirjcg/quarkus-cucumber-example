@@ -39,6 +39,8 @@ pipelines:
           #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
           - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
           - docker push ${AWS_REGISTRY_URL}:development
+        artifacts:
+          - bin/**
     - step:
         name: Deploy para ambiente de desenvolvimento (Amazon ECS)
         script:
@@ -47,7 +49,8 @@ pipelines:
           #- curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           #- unzip awscli-bundle.zip
           #- ./awscli-bundle/install -b ~/bin/aws
-          #- export PATH=~/bin:$PATH
+          - export PATH=bin:$PATH
+          - aws --version
 
           # Replace the container name in the task definition with the new image.
           - export IMAGE_NAME="${DOCKERHUB_USERNAME}/${BITBUCKET_REPO_SLUG}:${BITBUCKET_BUILD_NUMBER}"
