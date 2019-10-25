@@ -55,4 +55,4 @@ pipelines:
 
           # Update the service
           - echo $UPDATED_TASK_DEFINITION
-          - aws ecs update-service --service myh3alth-desenvservice --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
+          - aws ecs update-service --service myh3alth-desenv-service --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
