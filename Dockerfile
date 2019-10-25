@@ -1,8 +1,10 @@
 FROM frolvlad/alpine-java:jre8-slim
 
-ARG JAR_FILE
+#ARG JAR_FILE
 
-ADD dist/target/paciente-service-thorntail.jar app.jar
+RUN ls -la
+
+ADD paciente-service-thorntail.jar app.jar
 #ADD target/${JAR_FILE} app.jar
 
 EXPOSE 8080
