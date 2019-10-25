@@ -8,51 +8,61 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -B clean verify
-        artifacts:
-          - target/paciente-service-thorntail.jar
-    - step:
-        name: Build e push da imagem Docker
-        services:
-          - docker
-        script:
-          # Modify the commands below to build your repository.
-          # Set the name of the docker image we will be building.
-          - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
-          # Build the docker image
-          - docker build -t "$IMAGE_NAME" .
-          
-          # Install the AWS CLI
-          - apt-get update && apt-get install -y jq
-          - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-          - unzip awscli-bundle.zip
-          - ./awscli-bundle/install -b ~/bin/aws
-          - export PATH=~/bin:$PATH
-          
-          # aws login
-          - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
-          # docker
-          #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
-          - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
-          - docker push ${AWS_REGISTRY_URL}:development
-        artifacts:          
-          - awscli-bundle/**
-    - step:
-        name: Deploy para ambiente de desenvolvimento (Amazon ECS)
-#        deployment: desenvolvimento
-        script:
-          - awscli-bundle/install -b ~/bin/aws
-          - export PATH=~/bin:$PATH
-          
-          # Replace the container name in the task definition with the new image.
-          - export IMAGE_NAME="${DOCKERHUB_USERNAME}/${BITBUCKET_REPO_SLUG}:${BITBUCKET_BUILD_NUMBER}"
-          - envsubst < task-definition.json >  task-definition-envsubst.json
-  
-          # Update the task definition and capture the latest revision.
-          - >
-            export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://task-definition-envsubst.json | \
-                jq '.taskDefinition.taskDefinitionArn' --raw-output)
-
-          # Update the service
-          - echo $UPDATED_TASK_DEFINITION
-          - aws ecs update-service --service myh3alth-desenvservice --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
+           - echo "Desativado - aguardando testes automatizados"
+#          - mvn -B clean verify
+  branches:
+    release-*:
+       - step:
+           name: Build e Package
+           caches:
+             - maven
+           script:
+             - mvn -B clean verify
+           artifacts:
+             - target/paciente-service-thorntail.jar
+       - step:
+           name: Build e push da imagem Docker
+           services:
+             - docker
+           script:
+             # Modify the commands below to build your repository.
+             # Set the name of the docker image we will be building.
+             - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
+             # Build the docker image
+             - docker build -t "$IMAGE_NAME" .
+             
+             # Install the AWS CLI
+             - apt-get update && apt-get install -y jq
+             - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+             - unzip awscli-bundle.zip
+             - ./awscli-bundle/install -b ~/bin/aws
+             - export PATH=~/bin:$PATH
+             
+             # aws login
+             - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
+             # docker
+             #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
+             - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
+             - docker push ${AWS_REGISTRY_URL}:development
+           artifacts:          
+             - awscli-bundle/**
+       - step:
+           name: Deploy para ambiente de desenvolvimento (Amazon ECS)
+           deployment: desenv
+           trigger: manual
+           script:
+             - awscli-bundle/install -b ~/bin/aws
+             - export PATH=~/bin:$PATH
+             
+             # Replace the container name in the task definition with the new image.
+             - export IMAGE_NAME="${DOCKERHUB_USERNAME}/${BITBUCKET_REPO_SLUG}:${BITBUCKET_BUILD_NUMBER}"
+             - envsubst < task-definition.json >  task-definition-envsubst.json
+     
+             # Update the task definition and capture the latest revision.
+             - >
+               export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://task-definition-envsubst.json | \
+                   jq '.taskDefinition.taskDefinitionArn' --raw-output)
+   
+             # Update the service
+             - echo $UPDATED_TASK_DEFINITION
+             - aws ecs update-service --service myh3alth-desenvservice --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
