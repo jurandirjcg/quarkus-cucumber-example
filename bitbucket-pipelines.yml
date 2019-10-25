@@ -8,7 +8,7 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -B clean verify
+#          - mvn -B clean verify
           - apt-get update && apt-get install -y jq
           - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           - unzip awscli-bundle.zip
@@ -21,8 +21,11 @@ pipelines:
         services:
           - docker
         script:
-          - ls -la ~/bin
-          - export PATH=~/bin:$PATH
+          - ls -la
+          - echo "-----"
+          - ls -la ./awscli-bundle/
+          
+#         - export PATH=~/bin:$PATH
           - aws --version
           # Modify the commands below to build your repository.
           # Set the name of the docker image we will be building.
