@@ -8,7 +8,7 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn -B verify
+          - mvn -B clean package
     - step:
         name: Build e Publish da imagem Docker
         services:
@@ -55,4 +55,4 @@ pipelines:
 
           # Update the service
           - echo $UPDATED_TASK_DEFINITION
-          - aws ecs update-service --service example-ecs-service --cluster example-ecs-cluster --task-definition ${UPDATED_TASK_DEFINITION}
+          - aws ecs update-service --service myh3alth-desenvservice --cluster myh3alth-desenv --task-definition ${UPDATED_TASK_DEFINITION}
