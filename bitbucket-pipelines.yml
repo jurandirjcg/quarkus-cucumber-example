@@ -4,18 +4,18 @@ image:
 pipelines:
   default:
     - step:
-        name: Verify
+        name: Build e Package
         caches:
           - maven
         script:
-          - mvn -B verify
+          - mvn -B clean verify
+        artifacts:
+          - dist/**
     - step:
-        name: Build do Projeto da imagem Docker
+        name: Build e push da imagem Docker
         services:
           - docker
         script:
-          # Build do projeto
-          - mvn -B clean package
           # Modify the commands below to build your repository.
           # Set the name of the docker image we will be building.
           - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
@@ -32,6 +32,8 @@ pipelines:
           # aws login
           - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
           # docker
+          
+          - aws --version
           
           #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
           - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
