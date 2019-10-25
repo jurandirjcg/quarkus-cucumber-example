@@ -9,14 +9,21 @@ pipelines:
           - maven
         script:
           - mvn -B clean verify
+          - apt-get update && apt-get install -y jq
+          - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          - unzip awscli-bundle.zip
+          - ./awscli-bundle/install -b ~/bin/aws
+          - export PATH=~/bin:$PATH
         artifacts:
-          - target/**
+          - target/paciente-service-thorntail.jar
     - step:
         name: Build e push da imagem Docker
         services:
           - docker
         script:
-          - ls -la target/
+          - ls -la ~/bin
+          - export PATH=~/bin:$PATH
+          - aws --version
           # Modify the commands below to build your repository.
           # Set the name of the docker image we will be building.
           - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
@@ -24,11 +31,11 @@ pipelines:
           - docker build -t "$IMAGE_NAME" .
           
           # Install the AWS CLI
-          - apt-get update && apt-get install -y jq
-          - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-          - unzip awscli-bundle.zip
-          - ./awscli-bundle/install -b ~/bin/aws
-          - export PATH=~/bin:$PATH
+#          - apt-get update && apt-get install -y jq
+#          - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+#          - unzip awscli-bundle.zip
+#          - ./awscli-bundle/install -b ~/bin/aws
+#          - export PATH=~/bin:$PATH
           
           # aws login
           - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
@@ -39,17 +46,19 @@ pipelines:
           #- docker push ${AWS_REGISTRY_URL}:$BUILD_ID
           - docker tag $IMAGE_NAME ${AWS_REGISTRY_URL}:development
           - docker push ${AWS_REGISTRY_URL}:development
-        artifacts:
-          - bin/**
+        #artifacts:
+        #  - bin/**
     - step:
         name: Deploy para ambiente de desenvolvimento (Amazon ECS)
+#        deployment: desenvolvimento
         script:
+          - ls -la ~/bin
           # Install the AWS CLI
           # - apt-get update && apt-get install -y jq
           #- curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           #- unzip awscli-bundle.zip
           #- ./awscli-bundle/install -b ~/bin/aws
-          - export PATH=bin:$PATH
+          - export PATH=~/bin:$PATH
           - aws --version
 
           # Replace the container name in the task definition with the new image.
