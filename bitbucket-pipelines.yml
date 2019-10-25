@@ -16,14 +16,14 @@ pipelines:
           - export PATH=~/bin:$PATH
         artifacts:
           - target/paciente-service-thorntail.jar
+          - awscli-bundle/**
     - step:
         name: Build e push da imagem Docker
         services:
           - docker
         script:
-          - ls -la
-          - echo "-----"
-          - ls -la ./awscli-bundle/
+          - ls -la awscli-bundle
+          - echp $PATH
           
 #         - export PATH=~/bin:$PATH
           - aws --version
