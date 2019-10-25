@@ -10,13 +10,13 @@ pipelines:
         script:
           - mvn -B clean verify
         artifacts:
-          - dist/**
+          - target/**
     - step:
         name: Build e push da imagem Docker
         services:
           - docker
         script:
-          - ls -la dist/
+          - ls -la target/
           # Modify the commands below to build your repository.
           # Set the name of the docker image we will be building.
           - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
