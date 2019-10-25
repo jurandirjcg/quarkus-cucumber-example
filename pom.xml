@@ -83,18 +83,20 @@
 <!-- 			</imageTags> -->
 <!-- 		</configuration> -->
 <!-- 	 </plugin> -->
-	<plugin>
-		<groupId>com.spotify</groupId>
-		<artifactId>dockerfile-maven-plugin</artifactId>
-		<version>1.4.13</version>
-		<configuration>
-			<repository>paciente-service</repository>
-			<tag>${project.version}</tag>
-			<buildArgs>
-				<JAR_FILE>${project.build.finalName}-thorntail.jar</JAR_FILE>
-			</buildArgs>	
-		</configuration>
-	</plugin>
+	
+	<!-- mover para profile -->
+<!-- 	<plugin> -->
+<!-- 		<groupId>com.spotify</groupId> -->
+<!-- 		<artifactId>dockerfile-maven-plugin</artifactId> -->
+<!-- 		<version>1.4.13</version> -->
+<!-- 		<configuration> -->
+<!-- 			<repository>paciente-service</repository> -->
+<!-- 			<tag>${project.version}</tag> -->
+<!-- 			<buildArgs> -->
+<!-- 				<JAR_FILE>${project.build.finalName}-thorntail.jar</JAR_FILE> -->
+<!-- 			</buildArgs>	 -->
+<!-- 		</configuration> -->
+<!-- 	</plugin> -->
     </plugins>
   </build>
   
