@@ -23,9 +23,9 @@ pipelines:
           - docker
         script:
           - ls -la awscli-bundle
-          - echp $PATH
-          
-#         - export PATH=~/bin:$PATH
+          - echo $PATH
+          - awscli-bundle/install -b ~/bin/aws
+          - export PATH=~/bin:$PATH
           - aws --version
           # Modify the commands below to build your repository.
           # Set the name of the docker image we will be building.
