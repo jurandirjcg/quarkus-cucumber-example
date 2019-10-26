@@ -32,6 +32,7 @@
 		<version.org.jacoco.core>0.8.3</version.org.jacoco.core>
 		<version.postgresql>9.4.1212</version.postgresql>
 		<version.replacer>1.5.2</version.replacer>
+		<version.reporting-plugin>3.0.8</version.reporting-plugin>
 		<version.rest-assured>4.1.2</version.rest-assured>
 		<version.sonar-maven-plugin>3.2</version.sonar-maven-plugin>
 		<version.thorntail>2.5.0.Final</version.thorntail>
@@ -362,6 +363,11 @@
 					<artifactId>org.jacoco.core</artifactId>
 					<version>${version.org.jacoco.core}</version>
 					<scope>test</scope>
+				</dependency>
+				<dependency>
+				  <groupId>de.monochromata.cucumber</groupId>
+				  <artifactId>reporting-plugin</artifactId>
+				  <version>${version.reporting-plugin}</version>
 				</dependency>
 			</dependencies>
 			<build>
