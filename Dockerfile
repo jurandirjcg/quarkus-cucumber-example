@@ -2,8 +2,6 @@ FROM frolvlad/alpine-java:jre8-slim
 
 #ARG JAR_FILE
 
-RUN ls -la
-
 ADD target/paciente-service-thorntail.jar app.jar
 #ADD target/${JAR_FILE} app.jar
 
