@@ -5,8 +5,8 @@ pipelines:
   default:
     - step:
         name: Build e Package
-        caches:
-          - maven
+#        caches:
+#          - maven
         script:
           - echo "Desativado - aguardando testes automatizados"
 #         - mvn -B clean verify
@@ -17,7 +17,7 @@ pipelines:
            caches:
              - maven
            script:
-             - mvn -B clean verify
+             - mvn -B clean verify -Pcheck-project
            artifacts:
              - target/paciente-service-thorntail.jar
         - step:
