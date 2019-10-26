@@ -156,6 +156,11 @@
 						<goals>
 							<goal>package</goal>
 						</goals>
+						<configuration>
+					       <fractions>
+					         <fraction>!undertow</fraction>
+					       </fractions>
+					    </configuration>
 					</execution>
 				</executions>
 				<configuration>
@@ -353,7 +358,7 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>full-test</id>
+			<id>check-project</id>
 			<properties>
 				<skipTests>false</skipTests>
 			</properties>
