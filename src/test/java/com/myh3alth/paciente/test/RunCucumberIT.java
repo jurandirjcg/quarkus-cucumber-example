@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		plugin = {"pretty", "html:target/site/cucumber"}, 
+		plugin = {"pretty", "json:target/cucumber.json", "de.monochromata.cucumber.report.PrettyReports:target/site"}, 
 		features = "target/features",
 		tags = "not @analise",
 		glue = "com.myh3alth.paciente.test.step",
