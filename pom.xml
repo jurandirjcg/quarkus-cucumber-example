@@ -459,7 +459,7 @@
       </build>
     </profile>
 	<profile>
-		<id>check-features</id>
+		<id>develop-features</id>
 		<properties>
 			<skipTests>true</skipTests>
 			<skipCucumberReports>true</skipCucumberReports>
@@ -476,7 +476,7 @@
 								<goal>integration-test</goal>
 							</goals>
 							<configuration>
-								<test>RunCucumberCheckFeatures</test>
+								<test>RunCucumberDevelopFeatures</test>
 								<skipTests>false</skipTests>
 							</configuration>
 						</execution>
