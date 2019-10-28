@@ -2,12 +2,12 @@ package com.myh3alth.paciente.test;
 
 import org.junit.runner.RunWith;
 
-import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import io.quarkus.test.junit.QuarkusTestCucumber;
 
-@RunWith(Cucumber.class)
+@RunWith(QuarkusTestCucumber.class)
 @CucumberOptions(
-		plugin = {"pretty", "json:target/cucumber.json", "de.monochromata.cucumber.report.PrettyReports:target/site"}, 
+		plugin = {"pretty", "json:target/cucumber.json"},//, "de.monochromata.cucumber.report.PrettyReports:target/site"}, 
 		features = "target/features",
 		tags = "not @analise",
 		glue = "com.myh3alth.paciente.test.step",
