@@ -1,14 +1,12 @@
 package com.myh3alth.paciente.test.step;
 
+import static io.restassured.RestAssured.given;
+
 import io.cucumber.core.api.Scenario;
 import io.cucumber.java8.Pt;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
-import static io.restassured.RestAssured.*;
-import static  io.restassured.matcher.RestAssuredMatchers.*;
-import static  org.hamcrest.Matchers.*;
 
 /**
  * 
@@ -25,6 +23,7 @@ public class PesquisarPacienteSteps implements Pt{
 		
 		BeforeStep((Scenario scenario) -> {
 		//	RestAssured.baseURI = "http://paciente.desenv.myh3alth.com";
+			RestAssured.baseURI = "http://localhost:8081";
 			RestAssured.basePath = "/api/v1";
 		});
 	
