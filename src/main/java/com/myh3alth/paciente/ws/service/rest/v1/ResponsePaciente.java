@@ -15,7 +15,7 @@ import br.com.jgon.canary.ws.rest.util.ResponseConverter;
  */
 @HalJsonRootName("paciente")
 @Schema(name = "Paciente", description = "informações do paciente")
-class ResponsePaciente extends ResponseConverter<Paciente>{
+public class ResponsePaciente extends ResponseConverter<Paciente>{
 
 	private Long id;
 	private String nome;
