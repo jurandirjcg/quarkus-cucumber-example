@@ -29,7 +29,7 @@ pipelines:
              # Set the name of the docker image we will be building.
              - export IMAGE_NAME="${AWS_REGISTRY_URL}/${BITBUCKET_BRANCH}_${BITBUCKET_COMMIT}_${BITBUCKET_BUILD_NUMBER}"
              # Build the docker image
-             - docker build -t "$IMAGE_NAME" .
+             - docker build -f src/main/docker/Dockerfile.jvm -t "$IMAGE_NAME" .
              
              # Install the AWS CLI
              - apt-get update && apt-get install -y jq
