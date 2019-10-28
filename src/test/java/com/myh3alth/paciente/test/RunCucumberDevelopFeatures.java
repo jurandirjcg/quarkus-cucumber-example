@@ -14,6 +14,6 @@ import io.quarkus.test.junit.QuarkusTestCucumber;
 		dryRun = false,
 		monochrome = false,
 		strict = true)
-public class RunCucumberCheckFeatures {
+public class RunCucumberDevelopFeatures {
 
 }
