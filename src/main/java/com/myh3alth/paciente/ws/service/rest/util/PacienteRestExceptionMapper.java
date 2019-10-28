@@ -22,7 +22,7 @@ public class PacienteRestExceptionMapper extends RestExceptionMapper{
 
     @Inject
     @Metric(name = "failure_endpoint_counter")
-    private Counter counterFailure;
+    Counter counterFailure;
 	
     @Override
 	@Produces(MediaType.APPLICATION_JSON)

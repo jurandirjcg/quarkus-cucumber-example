@@ -34,6 +34,8 @@ import br.com.jgon.canary.ws.rest.param.WSFieldParam;
 import br.com.jgon.canary.ws.rest.param.WSParamFormat;
 import br.com.jgon.canary.ws.rest.param.WSSortParam;
 import br.com.jgon.canary.ws.rest.util.DominiosRest;
+import br.com.jgon.canary.ws.rest.link.LinkResource;
+import br.com.jgon.canary.ws.rest.link.LinkResources;
 
 /**
  * 
@@ -47,7 +49,7 @@ import br.com.jgon.canary.ws.rest.util.DominiosRest;
 @Produces({DominiosRest.APPLICATION_HAL_JSON, MediaType.APPLICATION_JSON})
 //Fault Tolerance
 @Retry(maxRetries = 2)
-@Timeout(Utils.DEFAULT_REST_TIMEOUT)
+//@Timeout(Utils.DEFAULT_REST_TIMEOUT)
 @CircuitBreaker(delay = 1000, requestVolumeThreshold = 5, failureRatio = 0.75, successThreshold = 10)
 //Metrics
 @Counted(
@@ -64,7 +66,7 @@ import br.com.jgon.canary.ws.rest.util.DominiosRest;
 public class PacienteEndpoint {
   
 	@Inject
-	private PacienteBusiness pacienteBusiness;
+	PacienteBusiness pacienteBusiness;
 	
 	/**
 	 * 
@@ -78,6 +80,12 @@ public class PacienteEndpoint {
 	@GET
 	@Path("/{id}")
 	@Timed
+	@LinkResources(value={
+			@LinkResource(rel="self", title="Self", pathParameters={"${id}"}),
+			@LinkResource(rel="update", title="Update", pathParameters={"${id}"}),
+			@LinkResource(rel="delete", title="Delete", pathParameters={"${id}"}),
+			@LinkResource(rel="create", title="Create", pathParameters={""})
+		})
 	@Operation(summary = "obtém as informações do paciente")
 	@APIResponse(content = @Content(schema = @Schema(implementation = ResponsePaciente.class)))
 	public ResponsePaciente obterPaciente(
@@ -113,7 +121,7 @@ public class PacienteEndpoint {
 	@Path("/")
 	@Timeout(3000)
 	@Timed
-	@LinkPaginate(pageParamName = "page", limitParamName = "limit")
+	@LinkPaginate(pageParamName = "page", limitParamName = "limit", embeddedCollectionName = "pacientes")
 	@Operation(summary = "paginação de pacientes conforme filtros aplicados")
 	@APIResponse(content = @Content(schema = @Schema(implementation = ResponsePaciente.class)))
 	public Page<ResponsePaciente> paginarPaciente(

@@ -2,12 +2,10 @@ package com.myh3alth.paciente.ws.service.health;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-@SuppressWarnings("deprecation")
-@Health
+
 @ApplicationScoped
 public class ServiceHealthCheck implements HealthCheck {
 
