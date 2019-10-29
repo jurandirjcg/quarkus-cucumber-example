@@ -46,110 +46,104 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-    	</dependencies>
+		</dependencies>
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-resteasy</artifactId>
 		</dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-hibernate-orm</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-infinispan-client</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-hibernate-validator</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-smallrye-openapi</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-smallrye-health</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-smallrye-metrics</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-arc</artifactId>
-	    </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-infinispan-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-openapi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-health</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-metrics</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-arc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-resteasy-jsonb</artifactId>
 		</dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-jaxb</artifactId>
-	    </dependency>
-	    <dependency>
-	        <groupId>io.quarkus</groupId>
-	        <artifactId>quarkus-flyway</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-jdbc-postgresql</artifactId>
-	    </dependency>
-	    <dependency>
-	      <groupId>br.com.jgon</groupId>
-	      <artifactId>canary</artifactId>
-	      <version>${canary.version}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.hibernate</groupId>
-	      <artifactId>hibernate-jpamodelgen</artifactId>
-	      <version>${hibernate-jpamodelgen.version}</version>
-	      <exclusions>
-	        <exclusion>
-	          <artifactId>jboss-logging</artifactId>
-	          <groupId>org.jboss.logging</groupId>
-	        </exclusion>
-	      </exclusions>
-	    </dependency>
-	    <!-- Test Dependecies -->
-	     <dependency>
-	      <groupId>io.quarkus</groupId>
-	      <artifactId>quarkus-junit5</artifactId>
-	      <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.rest-assured</groupId>
-	      <artifactId>rest-assured</artifactId>
-	      <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.cucumber</groupId>
-	      <artifactId>cucumber-java8</artifactId>
-	      <version>${cucumber-java.version}</version>
-	      <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	      <groupId>io.cucumber</groupId>
-	      <artifactId>cucumber-junit</artifactId>
-	      <version>${cucumber-java.version}</version>
-	      <scope>test</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>org.jacoco</groupId>
-	        <artifactId>org.jacoco.agent</artifactId>
-	        <classifier>runtime</classifier>
-	        <scope>test</scope>
-	        <version>${jacoco.version}</version>
-	    </dependency>
-  	</dependencies>
-	  <build>
-	  	<finalName>paciente-service</finalName>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jaxb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-flyway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jdbc-postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.jgon</groupId>
+			<artifactId>canary</artifactId>
+			<version>${canary.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>${hibernate-jpamodelgen.version}</version>
+		</dependency>
+		<!-- Test Dependecies -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>${cucumber-java.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber-java.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>org.jacoco.agent</artifactId>
+			<classifier>runtime</classifier>
+			<scope>test</scope>
+			<version>${jacoco.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>paciente-service</finalName>
 		<!-- Filtrar resources -->
 		<resources>
 			<resource>
@@ -157,148 +151,148 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-	    <plugins>
-	      <plugin>
-	        <groupId>io.quarkus</groupId>
-	        <artifactId>quarkus-maven-plugin</artifactId>
-	        <version>${quarkus.version}</version>
-	        <executions>
-	          <execution>
-	            <goals>
-	              <goal>build</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-	      </plugin>
-	      <plugin>
-	        <artifactId>maven-compiler-plugin</artifactId>
-	        <version>${compiler-plugin.version}</version>
-	        <configuration>
-	          <compilerArguments>
-	            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-	          </compilerArguments>
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <artifactId>maven-surefire-plugin</artifactId>
-	        <version>${surefire-plugin.version}</version>
-	        <configuration>
-	          <systemProperties>
-	            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-	          </systemProperties>
-	        </configuration>
-	      </plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-checkstyle-plugin</artifactId>
-	        <version>3.1.0</version>
-	        <dependencies>
-	        	<dependency>
-					  <groupId>com.puppycrawl.tools</groupId>
-					  <artifactId>checkstyle</artifactId>
-					  <version>8.26</version>
-				</dependency>
-	        </dependencies>
-	        <executions>
-	          <execution>
-	            <id>verify-style</id>
-	            <phase>process-classes</phase>
-	            <goals>
-	              <goal>check</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-			<configuration>
-				<configLocation>checkstyle.xml</configLocation>
-				<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-        	</configuration>
-	      </plugin>
-		  <plugin>
-		  	<!-- CONFIGURAR O PLUGIN DO SONAR -->
-			<groupId>org.sonarsource.scanner.maven</groupId>
-			<artifactId>sonar-maven-plugin</artifactId>
-			<version>${sonar-maven-plugin.version}</version>
-		  </plugin>
-		  <plugin>
-			<groupId>com.google.code.maven-replacer-plugin</groupId>
-			<artifactId>replacer</artifactId>
-			<version>${replacer.version}</version>
-			<executions>
-				<execution>
-					<id>replace-cucumber-files</id>
-					<!-- <phase>process-test-resources</phase> -->
-					<phase>prepare-package</phase>
-					<goals>
-						<goal>replace</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<includes>
-					<include>docs/ucs/**/*.md</include>
-				</includes>
-				<!-- <excludes> -->
-				<!-- <exclude>docs/casos_de_uso/**/UCS01*</exclude> -->
-				<!-- </excludes> -->
-				<inputFilePattern>.md</inputFilePattern>
-				<outputFilePattern>.feature</outputFilePattern>
-				<preserveDir>false</preserveDir>
-				<outputDir>target/features</outputDir>
-				<replacements>
-					<replacement>
-						<token><![CDATA[[\w\W]*<!BDD.INICIO>]]></token>
-						<value>#language: pt</value>
-					</replacement>
-					<replacement>
-						<token><![CDATA[<!BDD.FIM>[\w\W]*]]></token>
-						<value></value>
-					</replacement>
-					<replacement>
-						<token>#+\sTAG(\s*|(\n)*)</token>
-						<value></value>
-					</replacement>
-					<replacement>
-						<token>#+\sFuncionalidade\s?:</token>
-						<value>Funcionalidade:</value>
-					</replacement>
-					<replacement>
-						<token>#+\sRegras de Neg(o|ó)cio\s?:</token>
-						<value>Regras de Negocio:</value>
-					</replacement>
-					<replacement>
-						<token>#+\sContexto\s?:</token>
-						<value>Contexto:</value>
-					</replacement>
-					<replacement>
-						<token>#+\s*Esquema\sdo\sCen(a|á)rio\s?:</token>
-						<value>Esquema do Cenário:</value>
-					</replacement>
-					<replacement>
-						<token>#+\sCen(a|á)rio\s?:</token>
-						<value>Cenário:</value>
-					</replacement>
-					<replacement>
-						<token>`</token>
-						<value></value>
-					</replacement>
-					<replacement>
-						<token>\*\*</token>
-						<value></value>
-					</replacement>
-					<replacement>
-						<token>\ \(\[?[\w\d\,\- \[\]\(\)\#áàâãéèêíïóôõöúçñ]+\){1,2}\ *</token>
-						<value></value>
-					</replacement>
-					<replacement>
-						<token>\|\s?\-+[ \-\|\t]+\|\s*\n</token>
-						<value></value>
-					</replacement>
-				</replacements>
-				<regexFlags>
-					<regexFlag>CASE_INSENSITIVE</regexFlag>
-					<regexFlag>MULTILINE</regexFlag>
-				</regexFlags>
-			  </configuration>
+		<plugins>
+			<plugin>
+				<groupId>io.quarkus</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<version>${quarkus.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler-plugin.version}</version>
+				<configuration>
+					<compilerArguments>
+						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire-plugin.version}</version>
+				<configuration>
+					<systemProperties>
+						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+					</systemProperties>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>8.26</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>verify-style</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+					<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- CONFIGURAR O PLUGIN DO SONAR -->
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar-maven-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>${replacer.version}</version>
+				<executions>
+					<execution>
+						<id>replace-cucumber-files</id>
+						<!-- <phase>process-test-resources</phase> -->
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includes>
+						<include>docs/ucs/**/*.md</include>
+					</includes>
+					<!-- <excludes> -->
+					<!-- <exclude>docs/casos_de_uso/**/UCS01*</exclude> -->
+					<!-- </excludes> -->
+					<inputFilePattern>.md</inputFilePattern>
+					<outputFilePattern>.feature</outputFilePattern>
+					<preserveDir>false</preserveDir>
+					<outputDir>target/features</outputDir>
+					<replacements>
+						<replacement>
+							<token><![CDATA[[\w\W]*<!BDD.INICIO>]]></token>
+							<value>#language: pt</value>
+						</replacement>
+						<replacement>
+							<token><![CDATA[<!BDD.FIM>[\w\W]*]]></token>
+							<value></value>
+						</replacement>
+						<replacement>
+							<token>#+\sTAG(\s*|(\n)*)</token>
+							<value></value>
+						</replacement>
+						<replacement>
+							<token>#+\sFuncionalidade\s?:</token>
+							<value>Funcionalidade:</value>
+						</replacement>
+						<replacement>
+							<token>#+\sRegras de Neg(o|ó)cio\s?:</token>
+							<value>Regras de Negocio:</value>
+						</replacement>
+						<replacement>
+							<token>#+\sContexto\s?:</token>
+							<value>Contexto:</value>
+						</replacement>
+						<replacement>
+							<token>#+\s*Esquema\sdo\sCen(a|á)rio\s?:</token>
+							<value>Esquema do Cenário:</value>
+						</replacement>
+						<replacement>
+							<token>#+\sCen(a|á)rio\s?:</token>
+							<value>Cenário:</value>
+						</replacement>
+						<replacement>
+							<token>`</token>
+							<value></value>
+						</replacement>
+						<replacement>
+							<token>\*\*</token>
+							<value></value>
+						</replacement>
+						<replacement>
+							<token>\ \(\[?[\w\d\,\- \[\]\(\)\#áàâãéèêíïóôõöúçñ]+\){1,2}\ *</token>
+							<value></value>
+						</replacement>
+						<replacement>
+							<token>\|\s?\-+[ \-\|\t]+\|\s*\n</token>
+							<value></value>
+						</replacement>
+					</replacements>
+					<regexFlags>
+						<regexFlag>CASE_INSENSITIVE</regexFlag>
+						<regexFlag>MULTILINE</regexFlag>
+					</regexFlags>
+				</configuration>
 			</plugin>
 			<!-- Test Plugins -->
 			<plugin>
@@ -447,53 +441,88 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-	  </build>
-	  <profiles>
-	    <profile>
-	      <id>native</id>
-	      <activation>
-	        <property>
-	          <name>native</name>
-	        </property>
-	      </activation>
-	      <build>
-	        <plugins>
-	          <plugin>
-	            <groupId>io.quarkus</groupId>
-	            <artifactId>quarkus-maven-plugin</artifactId>
-	            <version>${quarkus.version}</version>
-	            <executions>
-	              <execution>
-	                <goals>
-	                  <goal>native-image</goal>
-	                </goals>
-	                <configuration>
-	                  <enableHttpUrlHandler>true</enableHttpUrlHandler>
-	                </configuration>
-	              </execution>
-	            </executions>
-	          </plugin>
-	          <plugin>
-	            <artifactId>maven-failsafe-plugin</artifactId>
-	            <version>${surefire-plugin.version}</version>
-	            <executions>
-	              <execution>
-	                <goals>
-	                  <goal>integration-test</goal>
-	                  <goal>verify</goal>
-	                </goals>
-	                <configuration>
-	                  <systemProperties>
-	                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-	                  </systemProperties>
-	                </configuration>
-	              </execution>
-	            </executions>
-	          </plugin>
-	        </plugins>
-	      </build>
-	    </profile>
-	    <!-- Profile utilizado para o desenvolvimento de novas features (tag @desenv) -->
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-checkstyle-plugin
+										</artifactId>
+										<versionRange>
+											[3.1.0,)
+										</versionRange>
+										<goals>
+											<goal>check</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<profiles>
+		<profile>
+			<id>native</id>
+			<activation>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.quarkus</groupId>
+						<artifactId>quarkus-maven-plugin</artifactId>
+						<version>${quarkus.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>native-image</goal>
+								</goals>
+								<configuration>
+									<enableHttpUrlHandler>true</enableHttpUrlHandler>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>${surefire-plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemProperties>
+										<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+									</systemProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- Profile utilizado para o desenvolvimento de novas features (tag @desenv) -->
 		<profile>
 			<id>develop-features</id>
 			<properties>
@@ -521,39 +550,39 @@
 				</plugins>
 			</build>
 		</profile>
-		<!-- Profile utlizado para gerar a imagem localmente.
-		 	 Bitbucket configurado para realizar o build e envio da imagem para a nuvem-->
+		<!-- Profile utlizado para gerar a imagem localmente. Bitbucket configurado 
+			para realizar o build e envio da imagem para a nuvem -->
 		<profile>
 			<id>docker-build-local</id>
 			<build>
 				<plugins>
 					<plugin>
-				        <groupId>io.fabric8</groupId>
-				        <artifactId>docker-maven-plugin</artifactId>
-				        <version>${docker-maven-plugin.version}</version>
-				        <configuration>
-				          <images>
-				            <image>
-				              <name>zion/${project.artifactId}:${project.version}</name>			          
-				              <build>		     
-				              	<contextDir>${project.basedir}</contextDir>        
-				                <dockerFile>${project.basedir}/src/main/docker/Dockerfile.jvm</dockerFile>
-				                <tags>
-				                	<tag>latest</tag>
-				                </tags>
-				              </build>
-				            </image>
-				          </images>
-				        </configuration>
-				        <executions>
-				        	<execution>
-				        		<id>docker-build</id>
-				        		<goals>
-				        			<goal>build</goal>
-				        		</goals>
-				        	</execution>
-				        </executions>
-				      </plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker-maven-plugin.version}</version>
+						<configuration>
+							<images>
+								<image>
+									<name>zion/${project.artifactId}:${project.version}</name>
+									<build>
+										<contextDir>${project.basedir}</contextDir>
+										<dockerFile>${project.basedir}/src/main/docker/Dockerfile.jvm</dockerFile>
+										<tags>
+											<tag>latest</tag>
+										</tags>
+									</build>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<id>docker-build</id>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -565,57 +594,58 @@
 			<build>
 				<plugins>
 					<plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${docker-maven-plugin.version}</version>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>postgres:11.5-alpine</name>
-                                    <alias>postgresql</alias>
-                                    <run>
-                                        <env>
-                                            <POSTGRES_USER>${test-postgresql-user}</POSTGRES_USER>
-                                            <POSTGRES_PASSWORD>${test-postgresql-passwd}</POSTGRES_PASSWORD>
-                                            <POSTGRES_DB>${test-postgresql-db}</POSTGRES_DB>
-                                        </env>
-                                        <ports>
-                                            <port>${test-postgresql-port}:5432</port>
-                                        </ports>
-                                        <wait>
-                                            <tcp>
-                                                <mode>mapped</mode>
-                                                <ports>
-                                                    <port>5432</port>
-                                                </ports>
-                                            </tcp>
-                                            <time>10000</time>
-                                        </wait>
-                                    </run>
-                                </image>
-                            </images>
-                            <!--Stops all postgres:10.5 images currently running, not just those we just started.
-                              Useful to stop processes still running from a previously failed integration test run -->
-                            <allContainers>true</allContainers>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>docker-start</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>docker-stop</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker-maven-plugin.version}</version>
+						<configuration>
+							<images>
+								<image>
+									<name>postgres:11.5-alpine</name>
+									<alias>postgresql</alias>
+									<run>
+										<env>
+											<POSTGRES_USER>${test-postgresql-user}</POSTGRES_USER>
+											<POSTGRES_PASSWORD>${test-postgresql-passwd}</POSTGRES_PASSWORD>
+											<POSTGRES_DB>${test-postgresql-db}</POSTGRES_DB>
+										</env>
+										<ports>
+											<port>${test-postgresql-port}:5432</port>
+										</ports>
+										<wait>
+											<tcp>
+												<mode>mapped</mode>
+												<ports>
+													<port>5432</port>
+												</ports>
+											</tcp>
+											<time>10000</time>
+										</wait>
+									</run>
+								</image>
+							</images>
+							<!--Stops all postgres:10.5 images currently running, not just those 
+								we just started. Useful to stop processes still running from a previously 
+								failed integration test run -->
+							<allContainers>true</allContainers>
+						</configuration>
+						<executions>
+							<execution>
+								<id>docker-start</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>docker-stop</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -623,36 +653,36 @@
 			<id>embedded-postgres-test</id>
 			<build>
 				<plugins>
-				  <plugin>
-			        <groupId>com.github.slavaz</groupId>
-			        <artifactId>embedded-postgresql-maven-plugin</artifactId>
-			        <version>${embedded-postgresql-maven-plugin.version}</version>
-			        <configuration>
-			          <pgServerVersion>latest</pgServerVersion>
-			          <pgServerPort>${test-postgresql-port}</pgServerPort>
-			          <dbName>${test-postgresql-db}</dbName>
-			          <userName>${test-postgresql-user}</userName>
-			          <password>${test-postgresql-passwd}</password>
-			        </configuration>
-			        <executions>
-			          <execution>
-			            <id>start-pgsql</id>
-			            <phase>pre-integration-test</phase>
-			            <goals>
-			              <goal>start</goal>
-			            </goals>
-			          </execution>
-			          <execution>
-			            <id>stop-pgsql</id>
-			            <phase>post-integration-test</phase>
-			            <goals>
-			              <goal>stop</goal>
-			            </goals>
-			          </execution>
-			        </executions>
-			      </plugin>
+					<plugin>
+						<groupId>com.github.slavaz</groupId>
+						<artifactId>embedded-postgresql-maven-plugin</artifactId>
+						<version>${embedded-postgresql-maven-plugin.version}</version>
+						<configuration>
+							<pgServerVersion>latest</pgServerVersion>
+							<pgServerPort>${test-postgresql-port}</pgServerPort>
+							<dbName>${test-postgresql-db}</dbName>
+							<userName>${test-postgresql-user}</userName>
+							<password>${test-postgresql-passwd}</password>
+						</configuration>
+						<executions>
+							<execution>
+								<id>start-pgsql</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-pgsql</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
-	  </profiles>
+	</profiles>
 </project>
