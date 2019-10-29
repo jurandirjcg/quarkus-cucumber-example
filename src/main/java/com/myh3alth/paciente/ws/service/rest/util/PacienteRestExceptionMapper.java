@@ -12,22 +12,24 @@ import org.eclipse.microprofile.metrics.annotation.Metric;
 import br.com.jgon.canary.ws.rest.exception.RestExceptionMapper;
 
 /**
- * 
  * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
  * @since 23/10/2019
  *
  */
 @Provider
-public class PacienteRestExceptionMapper extends RestExceptionMapper{
+public class PacienteRestExceptionMapper extends RestExceptionMapper {
 
     @Inject
     @Metric(name = "failure_endpoint_counter")
     Counter counterFailure;
-	
+
+    /**
+     *
+     */
     @Override
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response toResponse(Exception exception) {
-    	counterFailure.inc();
-    	return super.toResponse(exception);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response toResponse(final Exception exception) {
+        counterFailure.inc();
+        return super.toResponse(exception);
     }
 }

@@ -1,3 +1,10 @@
+<!-- 
+
+Persistence XML removido devido a inclusão da biblioteca FlyWay, que fará a gestão das execução dos scripts na base de dados
+Verificar o comportamento no ambiente de build, principalmente com relação ao tempo de build, pois no Bitbucket o tempo é limitado
+
+-->
+
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
@@ -12,8 +19,8 @@
 		<!-- Connection specific -->
 		<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
 
-		<property name="hibernate.show_sql" value="true" />
-		<property name="hibernate.format_sql" value="true" />
+<!-- 		<property name="hibernate.show_sql" value="true" /> -->
+<!-- 		<property name="hibernate.format_sql" value="true" /> -->
 
 		<property name="javax.persistence.schema-generation.database.action" value="create" />
 		<property name="javax.persistence.schema-generation.create-source" value="script" />

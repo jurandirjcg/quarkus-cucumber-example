@@ -94,6 +94,10 @@
 	      <artifactId>quarkus-jaxb</artifactId>
 	    </dependency>
 	    <dependency>
+	        <groupId>io.quarkus</groupId>
+	        <artifactId>quarkus-flyway</artifactId>
+	    </dependency>
+	    <dependency>
 	      <groupId>io.quarkus</groupId>
 	      <artifactId>quarkus-jdbc-postgresql</artifactId>
 	    </dependency>
@@ -183,6 +187,31 @@
 	            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
 	          </systemProperties>
 	        </configuration>
+	      </plugin>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-checkstyle-plugin</artifactId>
+	        <version>3.1.0</version>
+	        <dependencies>
+	        	<dependency>
+					  <groupId>com.puppycrawl.tools</groupId>
+					  <artifactId>checkstyle</artifactId>
+					  <version>8.26</version>
+				</dependency>
+	        </dependencies>
+	        <executions>
+	          <execution>
+	            <id>verify-style</id>
+	            <phase>process-classes</phase>
+	            <goals>
+	              <goal>check</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+			<configuration>
+				<configLocation>checkstyle.xml</configLocation>
+				<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+        	</configuration>
 	      </plugin>
 		  <plugin>
 		  	<!-- CONFIGURAR O PLUGIN DO SONAR -->
