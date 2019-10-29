@@ -14,6 +14,10 @@
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<skipCucumberReports>false</skipCucumberReports>
+		<test-postgresql-user>qa_user</test-postgresql-user>
+		<test-postgresql-passwd>qa_pass</test-postgresql-passwd>
+		<test-postgresql-port>5433</test-postgresql-port>
+		<test-postgresql-db>qadb</test-postgresql-db>
 		<!-- dependencies -->
 		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
 		<cucumber-java.version>4.7.4</cucumber-java.version>
@@ -22,6 +26,7 @@
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
+		<embedded-postgresql-maven-plugin.version>1.2.2</embedded-postgresql-maven-plugin.version>
 		<jacoco.version>0.8.4</jacoco.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven-cucumber-reporting.version>4.11.0</maven-cucumber-reporting.version>
@@ -520,6 +525,103 @@
 				        	</execution>
 				        </executions>
 				      </plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>docker-postgres-test</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.version}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>postgres:11.5-alpine</name>
+                                    <alias>postgresql</alias>
+                                    <run>
+                                        <env>
+                                            <POSTGRES_USER>${test-postgresql-user}</POSTGRES_USER>
+                                            <POSTGRES_PASSWORD>${test-postgresql-passwd}</POSTGRES_PASSWORD>
+                                            <POSTGRES_DB>${test-postgresql-db}</POSTGRES_DB>
+                                        </env>
+                                        <ports>
+                                            <port>${test-postgresql-port}:5432</port>
+                                        </ports>
+                                        <wait>
+                                            <tcp>
+                                                <mode>mapped</mode>
+                                                <ports>
+                                                    <port>5432</port>
+                                                </ports>
+                                            </tcp>
+                                            <time>10000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                            <!--Stops all postgres:10.5 images currently running, not just those we just started.
+                              Useful to stop processes still running from a previously failed integration test run -->
+                            <allContainers>true</allContainers>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>docker-start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>docker-stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>embedded-postgres-test</id>
+			<build>
+				<plugins>
+				  <plugin>
+			        <groupId>com.github.slavaz</groupId>
+			        <artifactId>embedded-postgresql-maven-plugin</artifactId>
+			        <version>${embedded-postgresql-maven-plugin.version}</version>
+			        <configuration>
+			          <pgServerVersion>latest</pgServerVersion>
+			          <pgServerPort>${test-postgresql-port}</pgServerPort>
+			          <dbName>${test-postgresql-db}</dbName>
+			          <userName>${test-postgresql-user}</userName>
+			          <password>${test-postgresql-passwd}</password>
+			        </configuration>
+			        <executions>
+			          <execution>
+			            <id>start-pgsql</id>
+			            <phase>pre-integration-test</phase>
+			            <goals>
+			              <goal>start</goal>
+			            </goals>
+			          </execution>
+			          <execution>
+			            <id>stop-pgsql</id>
+			            <phase>post-integration-test</phase>
+			            <goals>
+			              <goal>stop</goal>
+			            </goals>
+			          </execution>
+			        </executions>
+			      </plugin>
 				</plugins>
 			</build>
 		</profile>
