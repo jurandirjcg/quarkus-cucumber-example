@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
- * 
  * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
  * @since 22/10/2019
  *
@@ -18,8 +17,13 @@ public class ConfigController {
     @ConfigProperty(name = "ambiente")
     private String ambiente;
 
-	public String getAmbiente() {
-		return ambiente;
-	}
-
+    /**
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 29/10/2019
+     *
+     * @return {@link String}
+     */
+    public String getAmbiente() {
+        return ambiente;
+    }
 }
