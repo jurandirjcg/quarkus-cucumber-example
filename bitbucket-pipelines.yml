@@ -19,7 +19,8 @@ pipelines:
            script:
              - mvn -B clean verify -Pcheck-project
            artifacts:
-             - target/paciente-service-thorntail.jar
+             - target/*-runner.jar
+             - target/lib/**
         - step:
            name: Build e push da imagem Docker
            services:
