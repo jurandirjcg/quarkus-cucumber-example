@@ -1,0 +1,46 @@
+UCS–  Aceitar Termos e Condições 
+
+1. Introdução
+
+Este caso de uso descreve as funções de Termos e Condições.
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Termos e Condições 
+Como Usuario 
+Precisa aceitar os Termos e Condições 
+
+#### Regras de Negocio:
+
+### Contexto: Tela de Termos e Condições
+Dado que eu esteja na tela Termos e Condições
+
+### Esquema do cenario: Tela de Cadastro inicial
+Quando eu clicar no botão **Aceitar**
+Então o sistema deverá apresentar a tela Main
+
+Exemplos:
+
+|Aceite|
+|------|
+|Box|
+ 
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| termos & condiçoes                                           | /main/                     |        |         |      |         |
+
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
