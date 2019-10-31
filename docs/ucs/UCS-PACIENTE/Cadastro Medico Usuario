@@ -1,0 +1,125 @@
+UCS – Cadastro Medico Usuario
+
+1. Introdução
+
+Este caso de uso descreve as funções de Cadastro Medico do Usuario. nivel 3 informações adicionais
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Cadastro Medico do Usuario
+Como Usuario 
+Precisa efetuar o Cadastro Medico do Usuario
+
+#### Regras de Negocio:
+RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+
+### Contexto: Tela de Cadastro Medico do Usuario
+Dado que eu esteja na tela Cadastro Medico do Usuario
+
+### Esquema do cenario: Tela Cadastro Medico do Usuario
+Quando eu preencher os campos `<tipo sanguineo>`,`<fator rh>`,`<transfusão de sangue>`,`<necessidades especiais>`,`<necessidade limitação>`,
+`<Preexistentes>`,`<Preexistentestipo>`,`<Preexistentesnomedoença>`,`<doenças graves na família>`,`<Nome da doença>`,`<Qual o parentesco>`,`<houve cura>`,`<alérgico>`,`<alérgico qual tipo>`,`<causa>`,`<reação>`,`<tratamento rápido>`,`<dependência química>`,
+`<não conlpartilhar com meus contatos>`,`<você é fumante, tabagista>`,`<há quanto tempo>`,`<quantos cigarros por dia>`,`<você é um alcoólatra s/n>`,`<com que frequência você bebe>`,`<você usa entorpecentes ilícitos drogas>`,`<qual>`,`<com que frequência>` e clicar no botão **Salvar**
+Então o sistema deverá apresentar a tela Menu
+
+Exemplos:
+
+|tipo sanguineo|Fator rh|Você fez alguma transfusão de sangue nos últimos 10 anos? s/n|
+|-------|-----|-----|
+|a|-|n|
+
+necessidades especiais|s/n|qual é esta necessidade limitação|
+|-------|-----|
+|n|nenhuma|
+
+|doenças preexistentes| você possui alguma s/n|qual é o tipo|qual é o nome da doença|
+|-------|-----|-----|
+|n|nenhuma|nenhuma|
+
+|histórico familiar existem doenças graves na família s/n|nome da doença|qual o parentesco|Houve cura|
+|-----|-----|-----|-------|
+|n|nenhuma|nenhuma|nenhuma|
+
+|distúrbios alérgicos |Você é alérgico à alguma coisa S/N|Qual tipo|Qual é a gravidade|Qual a causa|Qual é a reação|Há um tratamento rápido|
+|-------|-----|-----|-------|-----|-----|-------|
+|distúrbios alérgicos |n|nenhuma|nenhuma|nenhuma|nenhuma|nenhuma|
+
+|dependência química |não conlpartilhar com meus contatos|
+|-------|------|
+|dependência química|n|
+
+|você é fumante, tabagista|há quanto tempo|quantos cigarros por dia|você é um alcoólatra s/n|Com que frequência você bebe|
+|-------|-----|-------|-----|-----|
+|n|0|0|n|nenhuma|
+
+|você usa entorpecentes ilícitos Drogas S/N| Qual|Com que frequência|
+|-------|-----|-----|
+|n|nenhuma|nenhuma|
+ 
+### Esquema do cenario: Realizar Cadastro Incorreto
+Quando eu preencher os campos `<tipo sanguineo>`
+E clicar no botão **Salvar**
+Então o sistema deverá apresentar a mensager 'Item Obrigatorio Não Preenchido'.
+
+Exemplos:
+
+|tipo sanguineo|
+|-------|
+|a| 
+
+2. Requisitos
+
+F01 - Tipo sanguineo  
+F02 - Fator Rh  
+F03 - Você fez alguma transfusão de sangue nos últimos 10 anos? S/N  
+F04 - Necessidades especiais S/N  
+F05 - Qual é esta necessidade limitação.  
+F06 - Doenças Preexistentes Você possui alguma S/N  
+F07 - Qual é o tipo  
+F08 - Qual é o nome da doença  
+F09 - Histórico Familiar  
+F01 - Existem doenças graves na família S/N  
+F02 - Nome da doença  
+F03 - Qual o parentesco  
+F04 - Houve Cura  
+F05 - Distúrbios alérgicos   
+F06 - Você é alérgico à alguma coisa S/N  
+F07 - Qual tipo  
+F08 - Qual é a gravidade  
+F09 - Qual a causa  
+F01 - Qual é a reação  
+F02 - Há um tratamento rápido  
+F03 - Dependência química  
+F04 - Não conlpartilhar com meus contatos?  
+F05 - Você é fumante, tabagista?  
+F06 - Há quanto tempo  
+F07 - Quantos cigarros por dia  
+F08 - Você é um alcoólatra S/N  
+F09 - Com que frequência você bebe  
+F01 - Você usa entorpecentes ilícitos Drogas S/N  
+F02 - Qual  
+F03 - Com que frequência  
+
+<!BDD.FIM> Finish
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -----  | -----   |----- |---------|
+| cadastro medico                                              | /usuario/                  |        |         |      |         |
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
