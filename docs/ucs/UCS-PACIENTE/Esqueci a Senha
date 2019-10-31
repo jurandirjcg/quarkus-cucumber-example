@@ -1,0 +1,67 @@
+UCS – Esqueci a Senha
+
+1. Introdução
+
+Este caso de uso descreve as funções de Alteração da Senha.
+ 
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Esqueci a Senha
+Como Usuario 
+Precisa inserir email no sistema.
+
+#### Regras de Negocio:
+RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial.
+
+### Contexto: Tela Esqueci a Senha
+Dado que eu esteja na tela de Esqueci a Senha.
+
+### Esquema do cenario: Esqueci a Senha
+Quando eu preencher os campos `<Email>`
+E clicar no botão **Redefinir Senha**
+Então o sistema deverá enviar um link para o email
+e redirecionar para tela do Autenticação do Usuario.
+
+Exemplos:
+
+|Email|
+|----|
+|allanlsilvestre@gmail.com|
+|jurandir@gmail.com| 
+
+
+### Esquema do cenario: Email Incorreto
+Quando eu preencher os campos `<Email>`
+e clicar no botão **Redefinir Senha**
+Então o sistema deverá apresentar a mensager 'Email invalido ou Não Cadastrado'.
+
+Exemplos:
+
+|Email|
+|----|
+|allan123@gmail.com|
+|jurandir1234@gmail.com| 
+
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+* **RN01.** Pesquisa por "Email" deverá possibilitar a busca parcial.
+
+## 5. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -----  | -----   |----- |---------|
+| Redefinir Senha                                              | /Redefinir Senha /         |        |         |      |         |
+| Login                                                        | /Login/                    |        |         |      |         |        
+  
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso.
