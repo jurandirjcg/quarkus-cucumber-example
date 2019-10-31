@@ -1,81 +1,86 @@
 UCS – Autenticação do Usuario
 
-1. Introdução
-
+## 1. Introdução
 Este caso de uso descreve as funções de autenticação do usuario.
  
 ## 3. Fluxo
 <!BDD.INICIO>
+
 ### Tag
 @analise
 ### Funcionalidade: UCS - Autenticação do Usuario
 Como Usuario 
-Precisa efetuar o login no sistema.
+Precisa efetuar o login no sistema
 
 #### Regras de Negocio:
-RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+RN01: Efetivar autenticação por "Email" deverá possibilitar o acesso no sistema
 
 ### Contexto: Tela de Login
-Dado que eu esteja na tela de login.
+Dado que eu esteja na tela de (login)
 
-### Esquema do cenario: Efetuar Login
-Quando eu preencher os campos `<Usuario>`,`<Senha>`
+### Esquema do cenario: Efetuar login
+Quando eu preencher os campos `<Usuario>`,`<Senha>`(RN01)
 E clicar no botão **logar**
-Então o sistema deverá apresentar a tela inicial.
+Então o sistema deverá apresentar a tela inicial
 
 Exemplos:
 
-|Usuario|Senha|
-|----|----|
-|Allan|1234|
-|Jurandir|1234|
+| usuario | senha  |
+|-------  |--------|
+| allan   | 1234   |
+|jurandir | 12345  |
 
 
 ### Esquema do cenario: Efetuar Login Incorreto
 Quando eu preencher os campos `<Usuario>`,`<Senha>`
 E clicar no botão **logar**
-Então o sistema deverá apresentar a mensager 'Usuario ou Senha invalida'.
+Então o sistema deverá apresentar a mensager AVISO.1
 
 Exemplos:
 
-|Usuario|Senha|
-|----|----|
-|Allan|11111|
-|Jurandir|11111|
+| usuario | senha  |
+|-------  |--------|
+| allan   | 11111  |
+|jurandir | 11111  |
 
 
 ### Esquema do cenario: Esqueceu a Senha
-Quando eu preencher os campos `<Usuario>`.
+Quando eu preencher os campos `<usuario>`.
 E clicar no botão **Esqueceu sua Senha**
 Então o sistema deverá direcionar para tela 'Redefinir Senha'.
 
 Exemplos:
 
-|Usuario|
-|----|
-|Allan|
-|Jurandir|
+| usuario | senha  |
+|-------  |--------|
+| allan   |        |
+|jurandir |        |
+
 
 ### Esquema do cenario: Register
+Quando eu preencher os campos `<usuario>`. (RN02) 
+E clicar no botão **Register**
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
+
+### Cenario: Redirecionar para UCS - Register - Cadastro inicial (UCS - Cadastro inicial) 
 Quando eu clicar no botão **Register**
-Então o sistema deverá direcionar para tela 'Register'.
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
 
 <!BDD.FIM>
 
-## 4. Regras de Negócio
-
-## 5. Casos de Uso Relacionados
+## 4. Casos de Uso Relacionados
 * UCS - Cadastro Inicial
 
-## 6. Interface
-| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
-| ------                                                       | ------                     | -------|---------|----- |---------|
-| Login                                                        | /Login/                    |        |         |      |         |
-| Home                                                         | /home/                     |        |         |      |         |
-| Esqueceu sua Senha                                           | /Esqueceu sua Senha/       |        |         |      |         |
-| Register                                                     | /Register/                 |        |         |      |         |
 
-## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties)) ()/Registar a mensagem bit bucker
+## 5. Interface
+| Protótipo                                                   | Path                       | Desenv | Homolog | Prod |
+| ------                                                      | ------                     | -------|---------|----- |---------|
+| Login                                                       | /login/                    |        |         |      |         |
+| Home                                                        | /home/                     |        |         |      |         |
+| Esqueceu sua Senha                                          | /esqueceu senha/           |        |         |      |         |
+| Register                                                    | /register/                 |        |         |      |         |
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
 * AVISO.001
 * AVISO.002
 * AVISO.003
@@ -83,5 +88,5 @@ Então o sistema deverá direcionar para tela 'Register'.
 * AVISO.005
 * AVISO.006
 
-## 8. Projeto
-> Link para os artefatos de projeto relacionados ao caso de uso.
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
