@@ -1,0 +1,87 @@
+UCS – Autenticação do Usuario
+
+1. Introdução
+
+Este caso de uso descreve as funções de autenticação do usuario.
+ 
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Autenticação do Usuario
+Como Usuario 
+Precisa efetuar o login no sistema.
+
+#### Regras de Negocio:
+RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+
+### Contexto: Tela de Login
+Dado que eu esteja na tela de login.
+
+### Esquema do cenario: Efetuar Login
+Quando eu preencher os campos `<Usuario>`,`<Senha>`
+E clicar no botão **logar**
+Então o sistema deverá apresentar a tela inicial.
+
+Exemplos:
+
+|Usuario|Senha|
+|----|----|
+|Allan|1234|
+|Jurandir|1234|
+
+
+### Esquema do cenario: Efetuar Login Incorreto
+Quando eu preencher os campos `<Usuario>`,`<Senha>`
+E clicar no botão **logar**
+Então o sistema deverá apresentar a mensager 'Usuario ou Senha invalida'.
+
+Exemplos:
+
+|Usuario|Senha|
+|----|----|
+|Allan|11111|
+|Jurandir|11111|
+
+
+### Esquema do cenario: Esqueceu a Senha
+Quando eu preencher os campos `<Usuario>`.
+E clicar no botão **Esqueceu sua Senha**
+Então o sistema deverá direcionar para tela 'Redefinir Senha'.
+
+Exemplos:
+
+|Usuario|
+|----|
+|Allan|
+|Jurandir|
+
+### Esquema do cenario: Register
+Quando eu clicar no botão **Register**
+Então o sistema deverá direcionar para tela 'Register'.
+
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| Login                                                        | /Login/                    |        |         |      |         |
+| Home                                                         | /home/                     |        |         |      |         |
+| Esqueceu sua Senha                                           | /Esqueceu sua Senha/       |        |         |      |         |
+| Register                                                     | /Register/                 |        |         |      |         |
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties)) ()/Registar a mensagem bit bucker
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+* AVISO.006
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso.
