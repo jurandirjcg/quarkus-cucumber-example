@@ -1,0 +1,67 @@
+UCS – Cadastro inicial  
+
+1. Introdução
+
+Este caso de uso descreve as funções de Cadastro inicial do Usuario.
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Cadastro inicial
+Como Usuario 
+Precisa efetuar o Cadastro no Sistema
+
+#### Regras de Negocio:
+RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+
+### Contexto: Tela de Cadastro inicial
+Dado que eu esteja na tela Cadastro inicial
+
+### Esquema do cenario: Realizar Cadastro
+Quando eu preencher os campos `<Usuario>`, `<Email>`, `<Senha>`
+E clicar no botão **Criar**
+Então o sistema deverá apresentar a tela Cadastro Pessoal
+
+Exemplos:
+
+|Usuario|Email|Senha|
+|-------|-----|-----|
+|Allan|allanlsilvestre@gmail.com|1234|
+|Jurandir|jurandir@gmail.com|1234|
+ 
+### Esquema do cenario: Realizar Cadastro Incorreto
+Quando eu preencher os campos `<Usuario>`, `<Email>`, `<Senha>`
+E clicar no botão **Criar**
+Então o sistema deverá apresentar a mensagem Email ou Senha Invalida'.
+
+Exemplos:
+
+|Usuario|Email|Senha|
+|-------|-----|-----|
+|Allan|allanlsilvestre@gmail.com|1234|
+|Jurandir|jurandir@gmail.com|1234|
+
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| nome                                                         | /login/                    |        |         |      |         |
+| home                                                         | /home/                     |        |         |      |         |
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+* AVISO.006
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
