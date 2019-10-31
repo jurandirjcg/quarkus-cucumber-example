@@ -1,61 +1,62 @@
 UCS – Cadastro inicial  
 
-1. Introdução
-
+## 1. Introdução
 Este caso de uso descreve as funções de Cadastro inicial do Usuario.
 
 ## 3. Fluxo
 <!BDD.INICIO>
+
 ### Tag
 @analise
 ### Funcionalidade: UCS - Cadastro inicial
 Como Usuario 
-Precisa efetuar o Cadastro no Sistema
+Precisa efetuar o cadastro no sistema
 
 #### Regras de Negocio:
-RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+RN01: Efetivar o cadastro por "Nome"
 
-### Contexto: Tela de Cadastro inicial
-Dado que eu esteja na tela Cadastro inicial
+### Contexto: Tela de cadastro
+Dado que eu esteja na tela para cadastro inicial (Cadastro Inicial)
 
-### Esquema do cenario: Realizar Cadastro
-Quando eu preencher os campos `<Usuario>`, `<Email>`, `<Senha>`
+### Esquema do cenario: Cadastrar usuarios
+Quando eu preencher os campos `<usuario>`, `<email>`, `<senha>` (RN01)
 E clicar no botão **Criar**
-Então o sistema deverá apresentar a tela Cadastro Pessoal
+Então o sistema deverá apresentar a tela cadastro efetivado
 
 Exemplos:
 
-|Usuario|Email|Senha|
-|-------|-----|-----|
-|Allan|allanlsilvestre@gmail.com|1234|
-|Jurandir|jurandir@gmail.com|1234|
+| usuario |email|senha|
+| ------- |-----|-----|
+| allan   | allanlsilvestre@gmail.com|1234|
+| jurandir| jurandir@gmail.com|1234|
+
  
-### Esquema do cenario: Realizar Cadastro Incorreto
-Quando eu preencher os campos `<Usuario>`, `<Email>`, `<Senha>`
+### Cenario: Realizar cadastro incorreto
+Quando eu preencher os campos `<usuario>`, `<email>`, `<senha>`
 E clicar no botão **Criar**
-Então o sistema deverá apresentar a mensagem Email ou Senha Invalida'.
+Então o sistema deverá apresentar a mensagem "AVISO.001"
 
-Exemplos:
 
-|Usuario|Email|Senha|
-|-------|-----|-----|
-|Allan|allanlsilvestre@gmail.com|1234|
-|Jurandir|jurandir@gmail.com|1234|
+### Cenario: Redirecionar para UCS - Cadastro Pessoal (UCS - Cadastro Pessoal) 
+Quando eu clicar no botão **Salvar**
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
 
 <!BDD.FIM>
 
-## 4. Regras de Negócio
+## 4. Casos de Uso Relacionados
+* UCS - Cadastrar Paciente
 
 ## 5. Casos de Uso Relacionados
 * UCS - Cadastro Inicial
 
-## 6. Interface
+## 5. Interface
 | Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
 | ------                                                       | ------                     | -------|---------|----- |---------|
-| nome                                                         | /login/                    |        |         |      |         |
-| home                                                         | /home/                     |        |         |      |         |
+| Nome                                                         | /login/                    |        |         |      |         |
+| home                                                         | /cadastro inicial/         |        |         |      |         |
 
-## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
 * AVISO.001
 * AVISO.002
 * AVISO.003
@@ -63,5 +64,5 @@ Exemplos:
 * AVISO.005
 * AVISO.006
 
-## 8. Projeto
-> Link para os artefatos de projeto relacionados ao caso de uso
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de usoo
