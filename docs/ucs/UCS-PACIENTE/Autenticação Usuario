@@ -58,7 +58,7 @@ Exemplos:
 
 
 ### Esquema do cenario: Register
-Quando eu preencher os campos `<usuario>`. (RN02) 
+Quando eu preencher os campos `<usuario>` 
 E clicar no botão **Register**
 Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
 
