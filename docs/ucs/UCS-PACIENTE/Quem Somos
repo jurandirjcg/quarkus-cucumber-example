@@ -1,0 +1,46 @@
+UCS – Quem Somos
+
+1. Introdução
+
+Este caso de uso descreve as funções de Quem Somos.
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@desenvolvimento 
+### Funcionalidade: UCS - Quem Somos 
+Como Usuario 
+Precisa aceitar os Termos e Condições
+
+#### Regras de Negocio:
+
+### Contexto: Tela de Quem Somos 
+Dado que eu esteja na tela Quem Somos 
+
+### Esquema do cenario: Tela de Quem Somos 
+Quando clicar no botão **Voltar**
+Então o sistema deverá apresentar a tela Menu
+
+Exemplos:
+
+|Aceite|
+|------|
+|Missão:|
+|Melhorar a prestação de serviços|
+
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| main                                                         | /main/                     |        |         |      |         |
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
