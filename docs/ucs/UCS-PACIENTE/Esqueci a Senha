@@ -1,8 +1,7 @@
-UCS – Esqueci a Senha
+# UCS – Esqueci a Senha
 
-1. Introdução
-
-Este caso de uso descreve as funções de Alteração da Senha.
+## 1. Introdução
+Este caso de uso descreve as funções para alteração de senha
  
 ## 3. Fluxo
 <!BDD.INICIO>
@@ -10,19 +9,19 @@ Este caso de uso descreve as funções de Alteração da Senha.
 @analise
 ### Funcionalidade: UCS - Esqueci a Senha
 Como Usuario 
-Precisa inserir email no sistema.
+Precisa altera a senha cadastrada
 
 #### Regras de Negocio:
-RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial.
+RN01: O sistema deverá alterar a senha por "Email" do usuario
 
-### Contexto: Tela Esqueci a Senha
-Dado que eu esteja na tela de Esqueci a Senha.
+### Contexto: Tela esqueci a senha
+Dado que eu esteja na tela de esqueci minha senha. (Esqueci a Senha)  
 
 ### Esquema do cenario: Esqueci a Senha
-Quando eu preencher os campos `<Email>`
+Quando eu preencher os campos `<Email>` (RN01) 
 E clicar no botão **Redefinir Senha**
 Então o sistema deverá enviar um link para o email
-e redirecionar para tela do Autenticação do Usuario.
+e redirecionar para tela do Autenticação do Usuario
 
 Exemplos:
 
@@ -32,36 +31,30 @@ Exemplos:
 |jurandir@gmail.com| 
 
 
-### Esquema do cenario: Email Incorreto
+### Cenario: Email incorreto
 Quando eu preencher os campos `<Email>`
 e clicar no botão **Redefinir Senha**
-Então o sistema deverá apresentar a mensager 'Email invalido ou Não Cadastrado'.
+Entao o sistema deverá retornar a mensagem de "AVISO.001"
 
-Exemplos:
+### Cenario: Redirecionar para UCS - Autenticação do Usuairo  (UCS - Autenticação do Usuairo) 
+Quando eu clicar no botão **Redefinir**
+Então o sistema deverá direcionar para tela **Autenticação do Usuairo** (Autenticação do Usuairo)
 
-|Email|
-|----|
-|allan123@gmail.com|
-|jurandir1234@gmail.com| 
 
 <!BDD.FIM>
 
-## 4. Regras de Negócio
+## 4. Casos de Uso Relacionados
+* UCS - Autenticação do Usuario
 
-* **RN01.** Pesquisa por "Email" deverá possibilitar a busca parcial.
-
-## 5. Casos de Uso Relacionados
-* UCS - Cadastro Inicial
-
-## 6. Interface
+## 5. Interface
 | Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
 | ------                                                       | ------                     | -----  | -----   |----- |---------|
 | Redefinir Senha                                              | /Redefinir Senha /         |        |         |      |         |
 | Login                                                        | /Login/                    |        |         |      |         |        
-  
-## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
 * AVISO.001
 * AVISO.002
 
-## 8. Projeto
-> Link para os artefatos de projeto relacionados ao caso de uso.
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
