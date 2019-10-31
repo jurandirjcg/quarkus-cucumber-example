@@ -1,0 +1,66 @@
+UCS – Cadastro Pessoal
+
+1. Introdução
+
+Este caso de uso descreve as funções de Cadastro Pessoal.
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise 
+### Funcionalidade: UCS - Cadastro Pessoal
+Como Usuario 
+Precisa efetuar o Cadastro Pessoal
+
+#### Regras de Negocio:
+RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
+
+### Contexto: Tela de Cadastro Pessoal
+Dado que eu esteja na tela Cadastro Pessoal
+
+### Esquema do cenario: Cadastro Pessoal
+Quando eu preencher os campos `<foto>`,`<data de nascimento>`,`<Cidadede nacimento>`,`<Cidade de res déncia>`,`<Nome do pai>`,
+`<Borne da mãe>`, `<Estado civil>`,`<Você possui fihos? Se sim Quanbs?>`,`<Raça>`,`<Etenia>`, `<Crie orientação sexual>`,`<Religião>`,`<Escolaridace>`,`<Proflssão>`,`<peso>`,`<Altura>`,`<Telefone>`,`<Telefone comercial>` E clicar no botão **Salvar**
+então o sistema deverá apresentar a tela Cadastro Adicional.
+
+Exemplos:
+
+|foto|data de nascimento|cidadede nacimento|cidade de residéncia|nome do pai|nome da mãe|estado civil|quantos fihos|dna|raça|orientação sexual|religião|escolaridace|proflssão|peso|altura|telefone|telefone comercial|
+|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-----|
+|imagem|27-01-2000|curitiba|curitiba|jose|maria|casado|5|dna|branco|hetero|crista|3 grau|medico|80|1.80|413333-0000|413333-0000| 
+ 
+### Esquema do cenario: Realizar Cadastro Incorreto
+Quando eu preencher os campos `<foto>`,`<data de nascimento>`,`<Cidadede nacimento>`,`<Cidade de res déncia>`,`<Nome do pai>`,
+`<Borne da mãe>`, `<Estado civil>`,`<Você possui fihos? Se sim Quanbs?>`,`<Raça>`,`<Etenia>`, `<Crie orientação sexual>`,`<Religião>`,`<Orientaçao sexual>`,`<Religião>`,`<Escolaridace>`,`<Proflssão>`,`<peso>`,`<Altura>`,`<Telefone>`,`<Telefone comercial>`
+E clicar no botão **Salvar**
+Então o sistema deverá apresentar a mensager 'Item Obrigatorio Não Preenchido'.
+
+Exemplos:
+
+|foto|data de nascimento|cidadede nacimento|cidade de residéncia|nome do pai|nome da mãe|estado civil|quantos fihos|dna|raça|orientação sexual|religião|escolaridace|proflssão|peso|altura|telefone|telefone comercial|
+|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-------|-----|-----|-----|
+|imagem|27-01-2000|curitiba|curitiba|jose|maria|casado|5|dna|branco|hetero|crista|3 grau|medico|80|1.80|413333-0000|413333-0000| 
+
+<!BDD.FIM>
+
+## 4. Regras de Negócio
+
+## 5. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+## 6. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -----  | -----   |----- |---------|
+| cadastro pessoal                                             | /cadastro pessoal/         |        |         |      |         |
+| home                                                         | /home/                     |        |         |      |         |
+
+## 7. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+* AVISO.006
+
+## 8. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
