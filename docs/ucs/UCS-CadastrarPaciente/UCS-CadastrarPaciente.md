@@ -30,9 +30,10 @@ Exemplos:
 |imagem|27-01-2000|"CURITIBA"|"CURITIBA"|"JOSE"|"MARIA"|"CASADO"|"SIM"|5|""|"BRANCO"|"HETERO"|"CRISTA"|"TERCEIRO GRAU"|"MEDICO"|80|1.80|4133330000|4133330000|
 
 ### Esquema do cenario: Realizar Cadastro Incorreto
-Quando eu preencher os campos `<foto>`,`<data de nascimento>`,`<Cidadede nacimento>`,`<Cidade de res déncia>`,`<Nome do pai>`,
-`<Borne da mãe>`, `<Estado civil>`,`<Você possui fihos? Se sim Quanbs?>`,`<Raça>`,`<Etenia>`, `<Crie orientação sexual>`,`<Religião>`,`<Orientaçao sexual>`,`<Religião>`,`<Escolaridace>`,`<Proflssão>`,`<peso>`,`<Altura>`,`<Telefone>`,`<Telefone comercial>`
-E clicar no botão **Salvar**
+Quando eu preencher os campos `<Foto>`,`<DataNascimento>`, `<CidadedeNacimento>`, `<CidadeResidência>`, `<NomePai>`, `<NomeMãe>`, `<EstadoCivil>`, `<PossuiFihos>`  
+E `<QuantosFilhos>`, `<Raca>`, `<Etnia>`, `<OrientacaoSexual>`, `<Religiao>`, `<Escolaridace>`, `<Profissao>`,  
+E `<Peso>`, `<Altura>`, `<Telefone>`, `<TelefoneComercial>`  
+E clicar no botão **Salvar**  
 Então o sistema deverá apresentar a mensager 'Item Obrigatorio Não Preenchido'.
 
 Exemplos:
