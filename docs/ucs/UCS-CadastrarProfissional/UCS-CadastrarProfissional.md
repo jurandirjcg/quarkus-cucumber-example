@@ -1,4 +1,4 @@
-# UCS – Cadastro Medico Usuario
+# UCS – Cadastro Profissional
 
 ## 1. Introdução
 Este caso de uso descreve as funções de Cadastro Medico do Usuario. nivel 3 informações adicionais
@@ -8,7 +8,7 @@ Este caso de uso descreve as funções de Cadastro Medico do Usuario. nivel 3 in
 
 ### Tag
 @analise
-### Funcionalidade: UCS - Cadastro Medico do Usuario
+### Funcionalidade: UCS - Cadastro Profissional
 Como Usuario 
 Precisa efetuar o cadastro no sistema
 

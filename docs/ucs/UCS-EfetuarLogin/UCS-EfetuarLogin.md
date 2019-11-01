@@ -1,4 +1,4 @@
-# UCS – Autenticação do Usuario
+# UCS – Efetuar Login
 
 ## 1. Introdução
 Este caso de uso descreve as funções de autenticação do usuario.
@@ -8,9 +8,9 @@ Este caso de uso descreve as funções de autenticação do usuario.
 
 ### Tag
 @analise
-### Funcionalidade: UCS - Autenticação do Usuario
-Como Usuario 
-Precisa efetuar o login no sistema
+### Funcionalidade: UCS - Efetuar Login
+Como Usuario  
+Precisa efetua o login no sistema  
 
 #### Regras de Negocio:
 RN01: Efetivar autenticação por "Email" deverá possibilitar o acesso no sistema
@@ -19,51 +19,48 @@ RN01: Efetivar autenticação por "Email" deverá possibilitar o acesso no siste
 Dado que eu esteja na tela de (login)
 
 ### Esquema do cenario: Efetuar login
-Quando eu preencher os campos `<Usuario>`,`<Senha>`(RN01)
-E clicar no botão **logar**
-Então o sistema deverá apresentar a tela inicial
+Quando eu preencher os campos `<Usuario>`,`<Senha>`(RN01)  
+E clicar no botão **logar**  
+Então o sistema deverá apresentar a tela inicial  
 
 Exemplos:
 
-| usuario | senha  |
-|-------  |--------|
-| allan   | 1234   |
-|jurandir | 12345  |
-
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   | 1234   |  
+|jurandir | 12345  |  
 
 ### Esquema do cenario: Efetuar Login Incorreto
-Quando eu preencher os campos `<Usuario>`,`<Senha>`
-E clicar no botão **logar**
+Quando eu preencher os campos `<Usuario>`,`<Senha>`  
+E clicar no botão **logar**  
 Então o sistema deverá apresentar a mensager AVISO.1
 
 Exemplos:
 
-| usuario | senha  |
-|-------  |--------|
-| allan   | 11111  |
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   | 11111  |  
 |jurandir | 11111  |
 
-
 ### Esquema do cenario: Esqueceu a Senha
-Quando eu preencher os campos `<usuario>`.
-E clicar no botão **Esqueceu sua Senha**
+Quando eu preencher os campos `<usuario>`.  
+E clicar no botão **Esqueceu sua Senha**  
 Então o sistema deverá direcionar para tela 'Redefinir Senha'.
 
 Exemplos:
 
-| usuario | senha  |
-|-------  |--------|
-| allan   |        |
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   |        |  
 |jurandir |        |
 
-
 ### Esquema do cenario: Register
-Quando eu preencher os campos `<usuario>` 
-E clicar no botão **Register**
-Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
+Quando eu preencher os campos `<usuario>`  
+E clicar no botão **Register**  
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)  
 
 ### Cenario: Redirecionar para UCS - Register - Cadastro inicial (UCS - Cadastro inicial) 
-Quando eu clicar no botão **Register**
+Quando eu clicar no botão **Register**  
 Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
 
 <!BDD.FIM>

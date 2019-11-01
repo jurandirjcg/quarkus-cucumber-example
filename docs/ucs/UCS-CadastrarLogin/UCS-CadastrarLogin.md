@@ -1,4 +1,4 @@
-# UCS – Cadastro inicial  
+# UCS – Cadastrar Login  
 
 ## 1. Introdução
 Este caso de uso descreve as funções de Cadastro inicial do Usuario.
@@ -8,7 +8,7 @@ Este caso de uso descreve as funções de Cadastro inicial do Usuario.
 
 ### Tag
 @analise
-### Funcionalidade: UCS - Cadastro inicial
+### Funcionalidade: UCS - Cadastrar Login
 Como Usuario 
 Precisa efetuar o cadastro no sistema
 

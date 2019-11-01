@@ -1,4 +1,4 @@
-# UCS – Informaçoes de Emergencia
+# UCS – Cadastrar Informaçoes de Emergencia
 
 ## 1. Introdução
 Este caso de uso descreve as funções de informaçoes de emergencia.
@@ -7,7 +7,7 @@ Este caso de uso descreve as funções de informaçoes de emergencia.
 <!BDD.INICIO>
 ### Tag
 @analise
-### Funcionalidade: UCS - Informações do Perfil Emergencia
+### Funcionalidade: UCS - Cadastrar Informaçoes de Emergencia
 Como administrador  
 Preciso consultar as informações do pacientes  
 

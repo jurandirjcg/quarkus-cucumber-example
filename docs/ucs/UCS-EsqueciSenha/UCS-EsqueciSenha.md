@@ -5,8 +5,10 @@ Este caso de uso descreve as funções para alteração de senha
  
 ## 3. Fluxo
 <!BDD.INICIO>
+
 ### Tag
 @analise
+
 ### Funcionalidade: UCS - Esqueci a Senha
 Como Usuario 
 Precisa altera a senha cadastrada
@@ -19,32 +21,30 @@ Dado que eu esteja na tela de esqueci minha senha. (Esqueci a Senha)
 
 ### Esquema do cenario: Esqueci a Senha
 Quando eu preencher os campos `<Email>` (RN01) 
-E clicar no botão **Redefinir Senha**
-Então o sistema deverá enviar um link para o email
-e redirecionar para tela do Autenticação do Usuario
+E clicar no botão **Redefinir Senha**  
+Então o sistema deverá enviar um link para o email  
+E redirecionar para tela do Autenticação do Usuario
 
 Exemplos:
 
-|Email|
-|----|
-|allanlsilvestre@gmail.com|
-|jurandir@gmail.com| 
+|Email|  
+|----|  
+|allanlsilvestre@gmail.com|  
+|jurandir@gmail.com|
 
-
-### Cenario: Email incorreto
-Quando eu preencher os campos `<Email>`
-e clicar no botão **Redefinir Senha**
-Entao o sistema deverá retornar a mensagem de "AVISO.001"
+### Cenario: Email Incorreto
+Quando eu preencher o campo `<Email>`  
+e clicar no botão **Redefinir Senha**  
+Entao o sistema deverá retornar a mensagem de "AVISO.001"  
 
 ### Cenario: Redirecionar para UCS - Autenticação do Usuairo  (UCS - Autenticação do Usuairo) 
-Quando eu clicar no botão **Redefinir**
-Então o sistema deverá direcionar para tela **Autenticação do Usuairo** (Autenticação do Usuairo)
-
+Quando eu clicar no botão **Redefinir**  
+Então o sistema deverá direcionar para tela **Autenticação do Usuairo** (UCS-Efetuar Login)
 
 <!BDD.FIM>
 
 ## 4. Casos de Uso Relacionados
-* UCS - Autenticação do Usuario
+* UCS - Efetuar Login
 
 ## 5. Interface
 | Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
