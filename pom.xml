@@ -22,7 +22,7 @@
 		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
 		<cucumber-java.version>4.7.4</cucumber-java.version>
 		<hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
-		<quarkus.version>0.26.1</quarkus.version>
+		<quarkus.version>0.27.0</quarkus.version>
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
@@ -101,6 +101,16 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-jdbc-postgresql</artifactId>
 		</dependency>
+        <!-- KEYCLOACK Config -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-authorization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-oidc</artifactId>
+        </dependency>
+        <!-- Canary -->
 		<dependency>
 			<groupId>br.com.jgon</groupId>
 			<artifactId>canary</artifactId>
