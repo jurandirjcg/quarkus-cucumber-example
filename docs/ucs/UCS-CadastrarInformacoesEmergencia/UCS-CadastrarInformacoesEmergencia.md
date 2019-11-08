@@ -5,6 +5,7 @@ Este caso de uso descreve as funções de informaçoes de emergencia.
  
 ## 3. Fluxo
 <!BDD.INICIO>
+
 ### Tag
 @analise
 ### Funcionalidade: UCS - Cadastrar Informaçoes de Emergencia
@@ -18,44 +19,18 @@ RN01: Pesquisa por "Nome" deverá possibilitar a busca parcial
 Dado que eu esteja na tela pesquisa perfil (Informações do Perfil Emergencia)  
 
 ### Esquema do cenario: Tela Cadastro Medico do Usuario
-Quando eu preencher os campos `<tipo sanguineo>`,`<fator rh>`,`<transfusão de sangue>`,`<necessidades especiais>`,`<necessidade limitação>`,
-`<Preexistentes>`,`<Preexistentestipo>`,`<Preexistentesnomedoença>`,`<doenças graves na família>`,`<Nome da doença>`,`<Qual o parentesco>`,`<houve cura>`,`<alérgico>`,`<alérgico qual tipo>`,`<causa>`,`<reação>`,`<tratamento rápido>`,`<dependência química>`,
-`<não conlpartilhar com meus contatos>`,`<você é fumante, tabagista>`,`<há quanto tempo>`,`<quantos cigarros por dia>`,`<você é um alcoólatra s/n>`,`<com que frequência você bebe>`,`<você usa entorpecentes ilícitos drogas>`,`<qual>`,`<com que frequência>` (RN01) e clicar no botão **Salvar** 
-Entao o sistema deverá cadastrar itens correspondentes 
+Quando eu preencher os campos `<TipoSanguineo>`, `<FatorRH>`, `<TransfusaoSangue>`, `<NecessidadesEspeciais>`, `<NecessidadeLimitacao>`, `<Preexistentes>`, `<PreexistentesTipo>`  
+E `<PreexistentesNomeDoenca>`, `<DoencasGravesFamilia>`, `<NomeDoenca>`, `<QualParentesco>`, `<HouveCura>`, `<Alergico>`, `<AlergicoTipo>`  
+E `<Causa>`, `<Reacao>`,` <TratamentoRapido>`, `<DependenciaQuimica>`, `<NaoCompartilharContatos>`, `<VoceFumante>`, `<QuantoTempo>`  
+E `<QuantosCigarros>`, `<VoceAlcoolatra>`, `<FrequenciaBebe>`, `<Entorpecentes>`, `<QualEntorpecente>`, `<EntorpecentesFrequencia>` (RN01)  
+E clicar no botão **Salvar**  
+Entao o sistema deverá cadastrar itens correspondentes
 
 Exemplos:
 
-|tipo sanguineo|Fator rh|Você fez alguma transfusão de sangue nos últimos 10 anos? s/n|
-|-------|-----|-----|
-|a|-|n|
-
-|necessidades especiais|s/n|qual é esta necessidade limitação|
-|-------|-----|
-|n|nenhuma|
-
-|doenças preexistentes| você possui alguma s/n|qual é o tipo|qual é o nome da doença|
-|-------|-----|-----|
-|n|nenhuma|nenhuma|
-
-|histórico familiar existem doenças graves na família s/n|nome da doença|qual o parentesco|Houve cura|
-|-----|-----|-----|-------|
-|n|nenhuma|nenhuma|nenhuma|
-
-|distúrbios alérgicos |Você é alérgico à alguma coisa S/N|Qual tipo|qual é a gravidade|qual a causa|qual é a reação|Há um tratamento rápido|
-|-------|-----|-----|-------|-----|-----|-------|
-|distúrbios alérgicos |n|nenhuma|nenhuma|nenhuma|nenhuma|nenhuma|
-
-|dependência química |não conlpartilhar com meus contatos|
-|-------|------|
-|dependência química|n|
-
-|você é fumante, tabagista|há quanto tempo|quantos cigarros por dia|você é um alcoólatra s/n|Com que frequência você bebe|
-|-------|-----|-------|-----|-----|
-|n|0|0|n|nenhuma|
-
-|você usa entorpecentes ilícitos drogas S/N| qual|com que frequência|
-|-------|-----|-----|
-|n|nenhuma|nenhuma|
+|TipoSanguineo|FatorRH|TransfusaoSangue|NecessidadesEspeciais|Preexistentes|PreexistentesTipo|PreexistentesNomeDoenca|DoencasGravesFamilia|NomeDoenca|QualParentesco|HouveCura|Alergico|AlergicoTipo|Causa|Reacao|TratamentoRapido|DependenciaQuimica|NaoCompartilharContatos|VoceFumante|QuantoTempo|QuantosCigarros|VoceAlcoolatra|FrequenciaBebe|Entorpecentes|QualEntorpecente|EntorpecentesFrequencia|  
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|  
+|O    |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 
 <!BDD.FIM>
 

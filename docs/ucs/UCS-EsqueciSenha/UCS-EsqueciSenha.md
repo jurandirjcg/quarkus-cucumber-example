@@ -32,10 +32,16 @@ Exemplos:
 |allanlsilvestre@gmail.com|  
 |jurandir@gmail.com|
 
-### Cenario: Email Incorreto
+### Esquema do Cenario: Email Incorreto
 Quando eu preencher o campo `<Email>`  
-e clicar no botão **Redefinir Senha**  
-Entao o sistema deverá retornar a mensagem de "AVISO.001"  
+E clicar no botão **Redefinir Senha**  
+Entao o sistema deverá retornar a mensagem de "AVISO.001"
+
+Exemplos:
+
+|Email|  
+|----|  
+|allanlsilvestre|
 
 ### Cenario: Redirecionar para UCS - Autenticação do Usuairo  (UCS - Autenticação do Usuairo) 
 Quando eu clicar no botão **Redefinir**  
