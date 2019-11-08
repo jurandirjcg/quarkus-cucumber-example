@@ -20,10 +20,17 @@ import br.com.jgon.canary.ws.rest.CanaryRestResources;
  * @since 22/10/2019
  *
  */
-@OpenAPIDefinition(info = @Info(version = "1.0.0", title = "Paciente Service API", description = "API de serviços de pacientes",
-    license = @License(name = "Zion Mountain Software - 2019", url = "https://zionsofware.com/licenca"),
-    contact = @Contact(email = "suporte@zionmountain.com", name = "Suporte API", url = "https://zionsofware.com/suporte")),
-    servers = @Server(url = "http://paciente-desenv.myh3alth.com"))
+@OpenAPIDefinition(
+        info = @Info(
+                version = "1.0.0",
+                title = "Paciente Service API",
+                description = "API de serviços de pacientes",
+                license = @License(name = "Zion Mountain Software - 2019", url = "https://zionsofware.com/licenca"),
+                contact = @Contact(
+                        email = "suporte@zionmountain.com",
+                        name = "Suporte API",
+                        url = "https://zionsofware.com/suporte")),
+        servers = @Server(url = "http://paciente-desenv.myh3alth.com"))
 @ApplicationPath("/api/v1/")
 public class RestApplication extends Application {
 
