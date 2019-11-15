@@ -13,7 +13,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<skipCucumberReports>false</skipCucumberReports>
+		<skipReports>false</skipReports>
 		<test-postgresql-user>qa_user</test-postgresql-user>
 		<test-postgresql-passwd>qa_pass</test-postgresql-passwd>
 		<test-postgresql-port>5433</test-postgresql-port>
@@ -22,7 +22,7 @@
 		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
 		<cucumber-java.version>4.7.4</cucumber-java.version>
 		<hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
-		<quarkus.version>0.26.1</quarkus.version>
+		<quarkus.version>1.0.0.CR1</quarkus.version>
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
@@ -68,12 +68,12 @@
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-smallrye-openapi</artifactId>
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>io.quarkus</groupId> -->
-<!-- 					<artifactId>quarkus-swagger-ui</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
+			<!-- <exclusions> -->
+			<!-- <exclusion> -->
+			<!-- <groupId>io.quarkus</groupId> -->
+			<!-- <artifactId>quarkus-swagger-ui</artifactId> -->
+			<!-- </exclusion> -->
+			<!-- </exclusions> -->
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -315,7 +315,7 @@
 						</goals>
 						<configuration>
 							<projectName>PacienteService</projectName>
-							<skip>${skipCucumberReports}</skip>
+							<skip>${skipReports}</skip>
 							<outputDirectory>${project.reporting.outputDirectory}/cucumber-report-html</outputDirectory>
 							<inputDirectory>${project.build.directory}</inputDirectory>
 							<jsonFiles>
@@ -430,6 +430,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>${maven-surefire-report-plugin.version}</version>
+				<configuration>
+				    <skipFailsafeReport>${skipReports}</skipFailsafeReport>
+				    <skipSurefireReport>${skipReports}</skipSurefireReport>
+				</configuration>
 				<executions>
 					<execution>
 						<id>reports</id>
@@ -533,9 +537,14 @@
 		<!-- Profile utilizado para o desenvolvimento de novas features (tag @desenv) -->
 		<profile>
 			<id>develop-features</id>
+			<activation>
+				<property>
+					<name>develop-features</name>
+				</property>
+			</activation>
 			<properties>
 				<skipTests>true</skipTests>
-				<skipCucumberReports>true</skipCucumberReports>
+				<skipReports>true</skipReports>
 			</properties>
 			<build>
 				<plugins>
@@ -560,7 +569,7 @@
 						<artifactId>maven-checkstyle-plugin</artifactId>
 						<version>3.1.0</version>
 						<configuration>
-						  <skip>true</skip>
+							<skip>true</skip>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -622,6 +631,9 @@
 			<id>docker-postgres-test</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>develop-features</name>
+				</property>
 			</activation>
 			<build>
 				<plugins>
