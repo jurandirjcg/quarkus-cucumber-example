@@ -30,9 +30,12 @@ import br.com.jgon.canary.ws.rest.CanaryRestResources;
                         email = "suporte@zionmountain.com",
                         name = "Suporte API",
                         url = "https://zionsofware.com/suporte")),
-        servers = @Server(url = "http://paciente-desenv.myh3alth.com"))
+        servers = {
+                @Server(url = "http://paciente-desenv.myh3alth.com"),
+                @Server(url = "http://localhost:8080")
+        })
 @ApplicationPath("/api/v1/")
-public class RestApplication extends Application {
+public class V1RestApplication extends Application {
 
     private Set<Object> singletons = new HashSet<Object>();
     private Set<Class<?>> resources = new HashSet<Class<?>>();
@@ -40,9 +43,9 @@ public class RestApplication extends Application {
     /**
      *
      */
-    public RestApplication() {
+    public V1RestApplication() {
         resources.addAll(CanaryRestResources.getClasses());
-        resources.add(PacienteEndpoint.class);
+        resources.add(V1PacienteEndpoint.class);
 
         CorsFilter corsFilter = new CorsFilter();
         corsFilter.getAllowedOrigins().add("*");
