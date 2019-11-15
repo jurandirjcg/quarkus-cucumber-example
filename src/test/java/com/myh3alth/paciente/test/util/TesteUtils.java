@@ -91,7 +91,6 @@ public abstract class TesteUtils {
         Statement stmt = createConnection();
         while ((line = br.readLine()) != null) {
             if (StringUtils.isNotBlank(line)) {
-                System.out.println(line);
                 stmt.executeUpdate(line);
             }
         }
