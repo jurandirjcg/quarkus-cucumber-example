@@ -347,6 +347,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
+				<configuration>
+				    <excludes>
+				        <exclude>**/entity/*_.*</exclude>
+				    </excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>instrument-ut</id>
