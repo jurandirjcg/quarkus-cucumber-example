@@ -22,10 +22,10 @@ Verificar o comportamento no ambiente de build, principalmente com relação ao 
 <!-- 		<property name="hibernate.show_sql" value="true" /> -->
 <!-- 		<property name="hibernate.format_sql" value="true" /> -->
 
-		<property name="javax.persistence.schema-generation.database.action" value="create" />
-		<property name="javax.persistence.schema-generation.create-source" value="script" />
-		<property name="javax.persistence.schema-generation.create-script-source" value="scripts/create.sql" />
-		<property name="javax.persistence.sql-load-script-source" value="scripts/load.sql"/>
+<!-- 		<property name="javax.persistence.schema-generation.database.action" value="create" /> -->
+<!-- 		<property name="javax.persistence.schema-generation.create-source" value="script" /> -->
+<!-- 		<property name="javax.persistence.schema-generation.create-script-source" value="scripts/create.sql" /> -->
+<!-- 		<property name="javax.persistence.sql-load-script-source" value="scripts/load.sql"/> -->
 	</properties>
 
     </persistence-unit>

@@ -11,4 +11,5 @@
   <suppress checks="DesignForExtension" files=".java"/>
   <suppress checks="NewlineAtEndOfFile" files=".java"/>
   <suppress checks="ParameterNumber" files=".java"/>
+  <suppress checks="LineLength" files="Endpoint.java"/>
 </suppressions>

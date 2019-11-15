@@ -62,11 +62,13 @@ public class QuarkusTestCucumber extends Cucumber {
 	
     public QuarkusTestCucumber(Class clazz) throws InitializationError {
 		super(clazz);
-		
+
 		//Criado para tratar comportamento da classe Cucumber que chama o contrutor duas vezes
     	if(!isServerRunning) {
     		doJavaStart(clazz);
     	}
+    	
+    	//Arc.initialize();
 	}
 
 	private URLClassLoader appCl;

@@ -10,7 +10,7 @@
 <!BDD.INICIO>
 
 ### Tag
-@desenv
+@analise
 ### Funcionalidade: UCS - Pesquisar Paciente
 Como administrador  
 Preciso consultar as informações dos pacientes cadastrados 
@@ -25,7 +25,7 @@ E que os filtros estejam em branco
 ### Esquema do Cenario: Pesquisar pacientes   
 Quando eu preencher os campos `<Nome>`, `<DataNascimento>`, `<CPF>`, `<RG>`, `<UFRG>` (RN01)  
 E eu acionar o botão de **Pesquisar**  
-Entao o sistema deverá listar os pacientes correspondentes 
+Entao o sistema deverá listar os pacientes correspondentes
   
 Exemplos:
   
