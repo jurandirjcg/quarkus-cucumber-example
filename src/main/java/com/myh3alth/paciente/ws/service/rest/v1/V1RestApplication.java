@@ -34,7 +34,7 @@ import br.com.jgon.canary.ws.rest.CanaryRestResources;
                 @Server(url = "http://paciente-desenv.myh3alth.com"),
                 @Server(url = "http://localhost:8080")
         })
-@ApplicationPath("/api/v1/")
+@ApplicationPath("/v1")
 public class V1RestApplication extends Application {
 
     private Set<Object> singletons = new HashSet<Object>();
