@@ -5,8 +5,6 @@ import static io.restassured.RestAssured.given;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.http.HttpStatus;
@@ -32,7 +30,6 @@ public class CadastrarPacienteSteps implements Pt {
     private RequestSpecification requestSpecification;
     private Response response;
     private V1RequestPaciente paciente;
-    Jsonb jsonb;
 
     public CadastrarPacienteSteps() {
         Before(() -> {
@@ -41,7 +38,6 @@ public class CadastrarPacienteSteps implements Pt {
             // RestAssured.baseURI = "http://paciente.desenv.myh3alth.com";
             RestAssured.baseURI = "http://localhost:8081";
             RestAssured.basePath = "/api/v1";
-            jsonb = JsonbBuilder.newBuilder().build();
         });
 
         After(() -> {
@@ -53,7 +49,8 @@ public class CadastrarPacienteSteps implements Pt {
             paciente = new V1RequestPaciente();
         });
 
-        Quando("eu preencher os campos {string}, {localDate}, {string}, {string}, {string}, {string}, {string}",
+        Quando(
+            "eu preencher os campos foto {string}, dataNascimento {localDate}, cidadedeNacimento {string}, cidadeResidencia {string}, pai {string}, mae {string}, estadoCivil {string}",
             (
                 String foto,
                 LocalDate dataNascimento,
@@ -72,7 +69,7 @@ public class CadastrarPacienteSteps implements Pt {
                 paciente.setEstadoCivil(estadoCivil);
             });
 
-        E("{string}, {int}, {string}, {string}, {string}, {string}, {string}",
+        E("possuiFilhos {string}, quantosFilhos {int}, raca {string}, etnia {string}, orientacaoSexual {string}, religiao {string}, CPF {string}",
             (
                 String possuiFilho,
                 Integer quantosFilhos,
@@ -90,7 +87,7 @@ public class CadastrarPacienteSteps implements Pt {
                 paciente.setCpf(cpf);
             });
 
-        E("{string}, {string}, {double}, {double}, {string}, {string}",
+        E("escolaridade {string}, profissao {string}, peso {double}, altura {double}, telefone {string}, telefoneComercial {string}",
             (String escolaridade, String profissao, Double peso, Double altura, String telefone, String telefoneComercial) -> {
                 paciente.setEscolaridade(escolaridade);
                 paciente.setProfissao(profissao);
@@ -100,8 +97,8 @@ public class CadastrarPacienteSteps implements Pt {
                 paciente.setTelefoneComercial(telefoneComercial);
             });
 
-        E("clicar no botão Salvar", () -> {
-            requestSpecification.body(jsonb.toJson(paciente));
+        E("clicar no botão Salvar da tela de Cadastro de Paciente", () -> {
+            requestSpecification.body(TesteUtils.toJson(paciente));
             response = requestSpecification.post("/pacientes");
         });
 
@@ -112,8 +109,7 @@ public class CadastrarPacienteSteps implements Pt {
         });
 
         Então("o sistema deverá apresentar a mensagem {string}.", (String string) -> {
-            // Write code here that turns the phrase above into concrete actions
-            // throw new cucumber.api.PendingException();
+
         });
     }
 }

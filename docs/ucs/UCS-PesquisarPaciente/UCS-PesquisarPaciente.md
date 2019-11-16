@@ -1,4 +1,4 @@
-# UCS – Pesquisar Paciente
+# UCS - Pesquisar Paciente
 
 ## 1. Introdução
 > Este caso de uso descreve as funções para pesquisa de paciente
@@ -11,7 +11,7 @@
 
 ### Tag
 @analise
-### Funcionalidade: UCS - Pesquisar Paciente
+### Funcionalidade
 Como administrador  
 Preciso consultar as informações dos pacientes cadastrados 
 

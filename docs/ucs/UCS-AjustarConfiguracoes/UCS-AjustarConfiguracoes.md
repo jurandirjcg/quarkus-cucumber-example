@@ -1,13 +1,14 @@
-# UCS – Ajustar Configuracoes 
+# UCS - Ajustar Configuracoes 
 
 ## 1. Introdução
 Este caso de uso descreve as funções de Configurações.
 
 ## 3. Fluxo
 <!BDD.INICIO>
+
 ### Tag
 @analise
-### Funcionalidade: UCS - Ajustar Configuracoes  
+### Funcionalidade
 Como Usuario
 Preciso ultilizar o menu para acessar as funcionalidades do sistema
 

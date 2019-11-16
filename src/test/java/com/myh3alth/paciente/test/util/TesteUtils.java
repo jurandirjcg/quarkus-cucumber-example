@@ -1,11 +1,18 @@
 package com.myh3alth.paciente.test.util;
 
+import static org.hamcrest.Matchers.matchesRegex;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -15,6 +22,7 @@ import com.google.gson.GsonBuilder;
 
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.path.json.mapper.factory.GsonObjectMapperFactory;
+import io.restassured.response.ValidatableResponse;
 
 /**
  * 
@@ -120,6 +128,18 @@ public abstract class TesteUtils {
 
         return con.createStatement();
     }
+    
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 15/11/2019
+     *
+     * @param key
+     * @param validatableResponse
+     */
+    public static void checkErrorMessage(String key, ValidatableResponse validatableResponse) {
+        validatableResponse.body("message", matchesRegex("*"));
+    }
 
     /**
      * 
@@ -135,5 +155,40 @@ public abstract class TesteUtils {
                 return new GsonBuilder().setDateFormat(dateFormat).create();
             }
         });
+    }
+    
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 15/11/2019
+     *
+     * @param <T> generic para receber qualquer tipo de objeto
+     * @param obj objeto para conversão
+     * @return {@link String}
+     */
+    public static <T> String toJson(T obj) {
+        Jsonb jsonb = JsonbBuilder.newBuilder().build();
+        return jsonb.toJson(obj);
+    }
+    
+    public static void main(String[] args) {
+        Pattern p = Pattern.compile("(?<=(UCS[\\ \\w\\-]{10,100})[\\w\\W]{0,700}\\@\\w{3,10})\n#{1,5}\\s?Funcionalidade\\s?");
+        Matcher m = p.matcher("# UCS - Cadastrar Paciente\n" + 
+            "\n" + 
+            "## 1. Introdução\n" + 
+            "\n" + 
+            "Este caso de uso descreve as funções de cadastro do paciente.\n" + 
+            "\n" + 
+            "## 2. Fluxo\n" + 
+            "<!BDD.INICIO>\n" + 
+            "\n" + 
+            "### Tag\n" + 
+            "@desenv\n" + 
+            "### Funcionalidade: \n" + 
+            "Como Usuário, após t");
+        
+        if(m.find()){
+            System.out.println(m.group(1));
+        }
     }
 }

@@ -8,7 +8,7 @@ Este caso de uso descreve as funções de autenticação do usuario.
 
 ### Tag
 @analise
-### Funcionalidade: UCS - Efetuar Login
+### Funcionalidade
 Como Usuario  
 Precisa efetua o login no sistema  
 

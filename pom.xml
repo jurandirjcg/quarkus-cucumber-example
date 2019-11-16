@@ -246,21 +246,25 @@
 					<preserveDir>false</preserveDir>
 					<outputDir>target/features</outputDir>
 					<replacements>
+					    <replacement>
+                            <token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@\w{3,10}\n{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
+                            <value>Funcionalidade: $1</value>
+                        </replacement>
 						<replacement>
-							<token><![CDATA[[\w\W]*<!BDD.INICIO>]]></token>
+							<token><![CDATA[[\s\S]*<!BDD.INICIO>]]></token>
 							<value>#language: pt</value>
 						</replacement>
 						<replacement>
-							<token><![CDATA[<!BDD.FIM>[\w\W]*]]></token>
+							<token><![CDATA[<!BDD.FIM>[\s\S]*]]></token>
 							<value></value>
+						</replacement>
+						<replacement>
+						  <token><![CDATA[(`[\'\"\ ]*\<(\w+)\>[\'\"\ ]*`)]]></token>
+						  <value>$2 $1</value>
 						</replacement>
 						<replacement>
 							<token>#+\sTAG(\s*|(\n)*)</token>
 							<value></value>
-						</replacement>
-						<replacement>
-							<token>#+\sFuncionalidade\s?:</token>
-							<value>Funcionalidade:</value>
 						</replacement>
 						<replacement>
 							<token>#+\sRegras de Neg(o|ó)cio\s?:</token>
@@ -297,7 +301,7 @@
 					</replacements>
 					<regexFlags>
 						<regexFlag>CASE_INSENSITIVE</regexFlag>
-						<regexFlag>MULTILINE</regexFlag>
+<!-- 						<regexFlag>MULTILINE</regexFlag> -->
 					</regexFlags>
 				</configuration>
 			</plugin>

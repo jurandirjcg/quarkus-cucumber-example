@@ -8,8 +8,7 @@ Este caso de uso descreve as funções para alteração de senha
 
 ### Tag
 @analise
-
-### Funcionalidade: UCS - Esqueci a Senha
+### Funcionalidade
 Como Usuario 
 Precisa altera a senha cadastrada
 
