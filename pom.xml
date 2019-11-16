@@ -246,10 +246,10 @@
 					<preserveDir>false</preserveDir>
 					<outputDir>target/features</outputDir>
 					<replacements>
-					    <replacement>
-                            <token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@\w{3,10}\n{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
-                            <value>Funcionalidade: $1</value>
-                        </replacement>
+						<replacement>
+							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@\w{3,10}\n{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
+							<value>Funcionalidade: $1</value>
+						</replacement>
 						<replacement>
 							<token><![CDATA[[\s\S]*<!BDD.INICIO>]]></token>
 							<value>#language: pt</value>
@@ -259,8 +259,8 @@
 							<value></value>
 						</replacement>
 						<replacement>
-						  <token><![CDATA[(`[\'\"\ ]*\<(\w+)\>[\'\"\ ]*`)]]></token>
-						  <value>$2 $1</value>
+							<token><![CDATA[(`[\'\"\ ]*\<(\w+)\>[\'\"\ ]*`)]]></token>
+							<value>$2 $1</value>
 						</replacement>
 						<replacement>
 							<token>#+\sTAG(\s*|(\n)*)</token>
@@ -301,7 +301,7 @@
 					</replacements>
 					<regexFlags>
 						<regexFlag>CASE_INSENSITIVE</regexFlag>
-<!-- 						<regexFlag>MULTILINE</regexFlag> -->
+						<!-- <regexFlag>MULTILINE</regexFlag> -->
 					</regexFlags>
 				</configuration>
 			</plugin>
@@ -352,9 +352,9 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
 				<configuration>
-				    <excludes>
-				        <exclude>**/entity/*_.*</exclude>
-				    </excludes>
+					<excludes>
+						<exclude>**/entity/*_.*</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -440,8 +440,8 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>${maven-surefire-report-plugin.version}</version>
 				<configuration>
-				    <skipFailsafeReport>${skipReports}</skipFailsafeReport>
-				    <skipSurefireReport>${skipReports}</skipSurefireReport>
+					<skipFailsafeReport>${skipReports}</skipFailsafeReport>
+					<skipSurefireReport>${skipReports}</skipSurefireReport>
 				</configuration>
 				<executions>
 					<execution>

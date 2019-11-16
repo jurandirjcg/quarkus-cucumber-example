@@ -11,11 +11,9 @@ import org.apache.http.HttpStatus;
 
 import com.myh3alth.paciente.entity.enumeration.SimNao;
 import com.myh3alth.paciente.test.util.TesteUtils;
-import com.myh3alth.paciente.test.util.TesteUtils.DBTestFile;
 import com.myh3alth.paciente.ws.service.rest.v1.request.V1RequestPaciente;
 
 import io.cucumber.java8.Pt;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -32,17 +30,6 @@ public class CadastrarPacienteSteps implements Pt {
     private V1RequestPaciente paciente;
 
     public CadastrarPacienteSteps() {
-        Before(() -> {
-            TesteUtils.executeSqlFile(DBTestFile.DELETE_PACIENTE);
-
-            // RestAssured.baseURI = "http://paciente.desenv.myh3alth.com";
-            RestAssured.baseURI = "http://localhost:8081";
-            RestAssured.basePath = "/api/v1";
-        });
-
-        After(() -> {
-            TesteUtils.executeSqlFile(DBTestFile.DELETE_PACIENTE);
-        });
 
         Dado("que eu esteja na tela Cadastro de Paciente", () -> {
             requestSpecification = given();

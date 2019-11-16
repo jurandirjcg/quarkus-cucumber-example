@@ -4,9 +4,7 @@ import static io.restassured.RestAssured.given;
 
 import java.util.Date;
 
-import io.cucumber.core.api.Scenario;
 import io.cucumber.java8.Pt;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -22,12 +20,6 @@ public class PesquisarPacienteSteps implements Pt {
     private Response response;
 
     public PesquisarPacienteSteps() {
-
-        BeforeStep((Scenario scenario) -> {
-            // RestAssured.baseURI = "http://paciente.desenv.myh3alth.com";
-            RestAssured.baseURI = "http://localhost:8081";
-            RestAssured.basePath = "/api/v1";
-        });
 
         Dado("que eu esteja na tela para pesquisa de paciente", () -> {
             requestSpecification = given();
