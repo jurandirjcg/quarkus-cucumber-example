@@ -47,6 +47,7 @@ import io.quarkus.runner.RuntimeRunner;
 import io.quarkus.runner.TransformerTarget;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.common.PathTestHelper;
+import io.quarkus.test.common.RestAssuredURLManager;
 import io.quarkus.test.common.http.TestHTTPResourceManager;
 
 /**
@@ -59,9 +60,11 @@ import io.quarkus.test.common.http.TestHTTPResourceManager;
 public class QuarkusTestCucumber extends Cucumber {
 
 	private static boolean isServerRunning;
-	
+	//TODO implementar CDI usando como referencia a classe QuarkusTestExtension
     public QuarkusTestCucumber(Class clazz) throws InitializationError {
 		super(clazz);
+
+        restAssuredURLManager.setURL();
 
 		//Criado para tratar comportamento da classe Cucumber que chama o contrutor duas vezes
     	if(!isServerRunning) {
@@ -83,6 +86,8 @@ public class QuarkusTestCucumber extends Cucumber {
      * run we remove them if this file exists.
      */
     private static final String CREATED_FILES = "CREATED_FILES.txt";
+    private final RestAssuredURLManager restAssuredURLManager = new RestAssuredURLManager(false);
+
 
     /**
      * Adapatado do projeto da classe io.quarkus.test.junit.QuarkusTestExtension
@@ -261,6 +266,7 @@ public class QuarkusTestCucumber extends Cucumber {
                 @Override
                 public void close() throws IOException {
                     runtimeRunner.close();
+                    restAssuredURLManager.clearURL();
                     while (!shutdownTasks.isEmpty()) {
                         shutdownTasks.pop().run();
                     }

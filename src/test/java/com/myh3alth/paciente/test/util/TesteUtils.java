@@ -8,8 +8,6 @@ import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -169,26 +167,5 @@ public abstract class TesteUtils {
     public static <T> String toJson(T obj) {
         Jsonb jsonb = JsonbBuilder.newBuilder().build();
         return jsonb.toJson(obj);
-    }
-    
-    public static void main(String[] args) {
-        Pattern p = Pattern.compile("(?<=(UCS[\\ \\w\\-]{10,100})[\\w\\W]{0,700}\\@\\w{3,10})\n#{1,5}\\s?Funcionalidade\\s?");
-        Matcher m = p.matcher("# UCS - Cadastrar Paciente\n" + 
-            "\n" + 
-            "## 1. Introdução\n" + 
-            "\n" + 
-            "Este caso de uso descreve as funções de cadastro do paciente.\n" + 
-            "\n" + 
-            "## 2. Fluxo\n" + 
-            "<!BDD.INICIO>\n" + 
-            "\n" + 
-            "### Tag\n" + 
-            "@desenv\n" + 
-            "### Funcionalidade: \n" + 
-            "Como Usuário, após t");
-        
-        if(m.find()){
-            System.out.println(m.group(1));
-        }
     }
 }
