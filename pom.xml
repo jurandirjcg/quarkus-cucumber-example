@@ -22,7 +22,7 @@
 		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
 		<cucumber-java.version>4.7.4</cucumber-java.version>
 		<hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
-		<quarkus.version>1.0.0.CR1</quarkus.version>
+		<quarkus.version>1.0.0.CR2</quarkus.version>
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
@@ -604,6 +604,9 @@
 			para realizar o build e envio da imagem para a nuvem -->
 		<profile>
 			<id>docker-build-local</id>
+			<properties>
+			 <skipTests>true</skipTests>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
