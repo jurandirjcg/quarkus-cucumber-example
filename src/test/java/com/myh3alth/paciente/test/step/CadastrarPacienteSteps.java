@@ -33,51 +33,55 @@ public class CadastrarPacienteSteps implements Pt {
 
         Dado("que eu esteja na tela Cadastro de Paciente", () -> {
             requestSpecification = given();
+            requestSpecification.contentType(MediaType.APPLICATION_JSON);
             paciente = new V1RequestPaciente();
+        });
+        
+        E("o sistema tenha preenchido o campo nome:{string}, obtido do usuário logado", (String nome) -> {
+            paciente.setNome(nome);
         });
 
         Quando(
-            "eu preencher os campos foto {string}, dataNascimento {localDate}, cidadedeNacimento {string}, cidadeResidencia {string}, pai {string}, mae {string}, estadoCivil {string}",
+            "eu preencher os campos foto:{string}, dataNascimento:{localDate}, CPF:{string}, cidadedeNacimento:{string}, cidadeResidencia:{string}, pai:{string}, mae:{string}",
             (
                 String foto,
                 LocalDate dataNascimento,
+                String cpf,
                 String cidadeNascimento,
                 String cidadeResidencia,
                 String nomePai,
-                String nomeMae,
-                String estadoCivil) -> {
-                requestSpecification.contentType(MediaType.APPLICATION_JSON);
+                String nomeMae) -> {
 
                 paciente.setFoto(foto);
+                paciente.setCpf(cpf);
+                paciente.setCidadeNascimento(TesteUtils.obterCidade(cidadeNascimento));
+                paciente.setCidadeResidencia(TesteUtils.obterCidade(cidadeResidencia));
                 paciente.setDataNascimento(dataNascimento);
-                paciente.setNome("Nome do usuário logado");
                 paciente.setNomePai(nomePai);
                 paciente.setNomeMae(nomeMae);
-                paciente.setEstadoCivil(estadoCivil);
             });
 
-        E("possuiFilhos {string}, quantosFilhos {int}, raca {string}, etnia {string}, orientacaoSexual {string}, religiao {string}, CPF {string}",
+        E("estadoCivil:{string}, possuiFilhos:{string}, quantosFilhos:{int}, etnia:{string}, orientacaoSexual:{string}, religiao:{string}",
             (
+                String estadoCivil,
                 String possuiFilho,
                 Integer quantosFilhos,
-                String raca,
                 String etnia,
                 String orientacaoSexual,
-                String religiao,
-                String cpf) -> {
+                String religiao) -> {
 
+                paciente.setEstadoCivil(TesteUtils.obterEstadoCivil(estadoCivil));
                 paciente.setPossuiFilhos(SimNao.valueOf(possuiFilho));
                 paciente.setQuantidadeFilhos(quantosFilhos);
-                paciente.setEtnia(etnia);
-                paciente.setOrientacaoSexual(orientacaoSexual);
-                paciente.setReligiao(religiao);
-                paciente.setCpf(cpf);
+                paciente.setEtnia(TesteUtils.obterEtnia(etnia));
+                paciente.setOrientacaoSexual(TesteUtils.obterOrientacaoSexual(orientacaoSexual));
+                paciente.setReligiao(TesteUtils.obterReligiao(religiao));
             });
 
-        E("escolaridade {string}, profissao {string}, peso {double}, altura {double}, telefone {string}, telefoneComercial {string}",
+        E("escolaridade:{string}, profissao:{string}, peso:{double}, altura:{double}, telefone:{string}, telefoneComercial:{string}",
             (String escolaridade, String profissao, Double peso, Double altura, String telefone, String telefoneComercial) -> {
-                paciente.setEscolaridade(escolaridade);
-                paciente.setProfissao(profissao);
+                paciente.setEscolaridade(TesteUtils.obterEscolaridade(escolaridade));
+                paciente.setProfissao(TesteUtils.obterProfissao(profissao));
                 paciente.setPeso(new BigDecimal(peso));
                 paciente.setAltura(new BigDecimal(altura));
                 paciente.setTelefone(telefone);
@@ -85,6 +89,7 @@ public class CadastrarPacienteSteps implements Pt {
             });
 
         E("clicar no botão Salvar da tela de Cadastro de Paciente", () -> {
+            System.out.println(TesteUtils.toJson(paciente));
             requestSpecification.body(TesteUtils.toJson(paciente));
             response = requestSpecification.post("/pacientes");
         });

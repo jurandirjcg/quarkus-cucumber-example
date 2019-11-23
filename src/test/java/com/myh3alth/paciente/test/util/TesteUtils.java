@@ -1,5 +1,6 @@
 package com.myh3alth.paciente.test.util;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.matchesRegex;
 
 import java.io.BufferedReader;
@@ -18,6 +19,8 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.jgon.canary.ws.rest.util.DominiosRest;
+import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.path.json.mapper.factory.GsonObjectMapperFactory;
 import io.restassured.response.ValidatableResponse;
@@ -126,7 +129,7 @@ public abstract class TesteUtils {
 
         return con.createStatement();
     }
-    
+
     /**
      * 
      * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
@@ -154,7 +157,7 @@ public abstract class TesteUtils {
             }
         });
     }
-    
+
     /**
      * 
      * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
@@ -167,5 +170,104 @@ public abstract class TesteUtils {
     public static <T> String toJson(T obj) {
         Jsonb jsonb = JsonbBuilder.newBuilder().build();
         return jsonb.toJson(obj);
+    }
+
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 20/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterEscolaridade(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/escolaridades")
+            .then().extract().path("_embedded.escolaridades[0].id");
+    }
+    
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterEstadoCivil(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/estados-civis")
+            .then().extract().path("_embedded.estados-civis[0].id");
+    }
+
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterReligiao(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/religioes")
+            .then().extract().path("_embedded.religioes[0].id");
+    }
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterOrientacaoSexual(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/orientacoes-sexuais")
+            .then().extract().path("_embedded.orientacoes-sexuais[0].id");
+    }
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterEtnia(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/etnias")
+            .then().extract().path("_embedded.etnias[0].id");
+    }
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterProfissao(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/profissoes")
+            .then().extract().path("_embedded.profissoes[0].id");
+    }
+    /**
+     * 
+     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
+     * @since 21/11/2019
+     *
+     * @param nome
+     * @return
+     */
+    public static Integer obterCidade(String nome) {
+        return given().queryParam("nome", nome).accept(DominiosRest.APPLICATION_HAL_JSON).get("/dominios/municipios")
+            .then().extract().path("_embedded.municipios[0].id");
+    }
+
+    public static void main(String[] args) {
+        RestAssured.basePath = "/v1";
+        RestAssured.port = 8080;
+        System.out.println(obterEscolaridade("Analfabeto"));
+        System.out.println(obterCidade("Curitiba"));
+        System.out.println(obterEstadoCivil("CASADO"));
+        System.out.println(obterEtnia("Branco"));
+        System.out.println(obterOrientacaoSexual("HETERO"));
+        System.out.println(obterProfissao("outro"));
+        System.out.println(obterReligiao("Outro"));
     }
 }

@@ -260,7 +260,7 @@
 						</replacement>
 						<replacement>
 							<token><![CDATA[(`[\'\"\ ]*\<(\w+)\>[\'\"\ ]*`)]]></token>
-							<value>$2 $1</value>
+							<value>$2:$1</value>
 						</replacement>
 						<replacement>
 							<token>#+\sTAG(\s*|(\n)*)</token>
@@ -295,13 +295,13 @@
 							<value></value>
 						</replacement>
 						<replacement>
-							<token>\|\s?\-+[ \-\|\t]+\|\s*\n</token>
+							<token>^[\ \t]*\|([\ \t]*\-{3,}[\ \t]*\|)+\ {2,}\n</token>
 							<value></value>
 						</replacement>
 					</replacements>
 					<regexFlags>
 						<regexFlag>CASE_INSENSITIVE</regexFlag>
-						<!-- <regexFlag>MULTILINE</regexFlag> -->
+						<regexFlag>MULTILINE</regexFlag>
 					</regexFlags>
 				</configuration>
 			</plugin>
