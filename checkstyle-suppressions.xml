@@ -12,4 +12,5 @@
   <suppress checks="NewlineAtEndOfFile" files=".java"/>
   <suppress checks="ParameterNumber" files=".java"/>
   <suppress checks="LineLength" files="Endpoint.java"/>
+  <suppress checks="MagicNumber" files="/entity/"/>
 </suppressions>
