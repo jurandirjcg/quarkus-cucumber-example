@@ -13,9 +13,9 @@ import io.restassured.RestAssured;
  * @since 16/11/2019
  *
  */
-public class CucumberDefaultConfigSteps implements Pt {
+public class CucumberGenericSteps implements Pt {
 
-    public CucumberDefaultConfigSteps() {
+    public CucumberGenericSteps() {
         Before((Scenario scenario) -> {
             RestAssured.basePath = "/v1";
             if (isScenarioUri(scenario, "UCS-CadastrarPaciente")) {

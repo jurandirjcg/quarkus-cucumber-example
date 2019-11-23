@@ -13,6 +13,9 @@ import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.servers.Server;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
+import com.myh3alth.paciente.ws.service.rest.v1.endpoint.V1DominioEndpoint;
+import com.myh3alth.paciente.ws.service.rest.v1.endpoint.V1PacienteEndpoint;
+
 import br.com.jgon.canary.ws.rest.CanaryRestResources;
 
 /**
@@ -21,19 +24,19 @@ import br.com.jgon.canary.ws.rest.CanaryRestResources;
  *
  */
 @OpenAPIDefinition(
-        info = @Info(
-                version = "1.0.0",
-                title = "Paciente Service API",
-                description = "API de serviços de pacientes",
-                license = @License(name = "Zion Mountain Software - 2019", url = "https://zionsofware.com/licenca"),
-                contact = @Contact(
-                        email = "suporte@zionmountain.com",
-                        name = "Suporte API",
-                        url = "https://zionsofware.com/suporte")),
-        servers = {
-                @Server(url = "http://paciente-desenv.myh3alth.com"),
-                @Server(url = "http://localhost:8080")
-        })
+    info = @Info(
+        version = "1.0.0",
+        title = "Paciente Service API",
+        description = "API de serviços de pacientes",
+        license = @License(name = "Zion Mountain Software - 2019", url = "https://zionsofware.com/licenca"),
+        contact = @Contact(
+            email = "suporte@zionmountain.com",
+            name = "Suporte API",
+            url = "https://zionsofware.com/suporte")),
+    servers = {
+        @Server(url = "http://paciente-desenv.myh3alth.com"),
+        @Server(url = "http://localhost:8080")
+    })
 @ApplicationPath("/v1")
 public class V1RestApplication extends Application {
 
@@ -45,7 +48,9 @@ public class V1RestApplication extends Application {
      */
     public V1RestApplication() {
         resources.addAll(CanaryRestResources.getClasses());
+
         resources.add(V1PacienteEndpoint.class);
+        resources.add(V1DominioEndpoint.class);
 
         CorsFilter corsFilter = new CorsFilter();
         corsFilter.getAllowedOrigins().add("*");
@@ -53,7 +58,7 @@ public class V1RestApplication extends Application {
         corsFilter.setCorsMaxAge(-1);
         corsFilter.setAllowedHeaders("Origin, Content-Type, Accept");
         corsFilter.setExposedHeaders(
-                "X-Pagintion-Current-Page, X-Pagination-Page-Count, X-Pagination-Per-Page, X-Pagination-Total-Count, Link");
+            "X-Pagintion-Current-Page, X-Pagination-Page-Count, X-Pagination-Per-Page, X-Pagination-Total-Count, Link");
         singletons.add(corsFilter);
     }
 
