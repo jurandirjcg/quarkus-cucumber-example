@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
 
 import com.myh3alth.paciente.entity.enumeration.SimNao;
 import com.myh3alth.paciente.test.util.TesteUtils;
-import com.myh3alth.paciente.ws.service.rest.v1.request.V1RequestPaciente;
+import com.myh3alth.paciente.ws.service.rest.v1.request.V1PacienteRequest;
 
 import io.cucumber.java8.Pt;
 import io.restassured.response.Response;
@@ -27,14 +27,14 @@ public class CadastrarPacienteSteps implements Pt {
 
     private RequestSpecification requestSpecification;
     private Response response;
-    private V1RequestPaciente paciente;
+    private V1PacienteRequest paciente;
 
     public CadastrarPacienteSteps() {
 
         Dado("que eu esteja na tela Cadastro de Paciente", () -> {
             requestSpecification = given();
             requestSpecification.contentType(MediaType.APPLICATION_JSON);
-            paciente = new V1RequestPaciente();
+            paciente = new V1PacienteRequest();
         });
         
         E("o sistema tenha preenchido o campo nome:{string}, obtido do usuário logado", (String nome) -> {
