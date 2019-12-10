@@ -13,7 +13,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<skipCucumberReports>false</skipCucumberReports>
+		<skipReports>false</skipReports>
 		<test-postgresql-user>qa_user</test-postgresql-user>
 		<test-postgresql-passwd>qa_pass</test-postgresql-passwd>
 		<test-postgresql-port>5433</test-postgresql-port>
@@ -22,7 +22,7 @@
 		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
 		<cucumber-java.version>4.7.4</cucumber-java.version>
 		<hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
-		<quarkus.version>0.27.0</quarkus.version>
+		<quarkus.version>1.0.1.Final</quarkus.version>
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
 		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
@@ -68,6 +68,20 @@
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-smallrye-openapi</artifactId>
+			<!-- <exclusions> -->
+			<!-- <exclusion> -->
+			<!-- <groupId>io.quarkus</groupId> -->
+			<!-- <artifactId>quarkus-swagger-ui</artifactId> -->
+			<!-- </exclusion> -->
+			<!-- </exclusions> -->
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-keycloak-authorization</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-oidc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -101,15 +115,6 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-jdbc-postgresql</artifactId>
 		</dependency>
-        <!-- KEYCLOACK Config -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-keycloak-authorization</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-oidc</artifactId>
-        </dependency>
         <!-- Canary -->
 		<dependency>
 			<groupId>br.com.jgon</groupId>
@@ -119,7 +124,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>${hibernate-jpamodelgen.version}</version>
+<!-- 			<version>${hibernate-jpamodelgen.version}</version> -->
 		</dependency>
 		<!-- Test Dependecies -->
 		<dependency>
@@ -213,6 +218,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<skip>${skipCheck}</skip>
 					<configLocation>checkstyle.xml</configLocation>
 					<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
 				</configuration>
@@ -250,20 +256,24 @@
 					<outputDir>target/features</outputDir>
 					<replacements>
 						<replacement>
-							<token><![CDATA[[\w\W]*<!BDD.INICIO>]]></token>
+							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@\w{3,10}\n{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
+							<value>Funcionalidade: $1</value>
+						</replacement>
+						<replacement>
+							<token><![CDATA[[\s\S]*<!BDD.INICIO>]]></token>
 							<value>#language: pt</value>
 						</replacement>
 						<replacement>
-							<token><![CDATA[<!BDD.FIM>[\w\W]*]]></token>
+							<token><![CDATA[<!BDD.FIM>[\s\S]*]]></token>
 							<value></value>
+						</replacement>
+						<replacement>
+							<token><![CDATA[(`[\'\"\ ]*\<(\w+)\>[\'\"\ ]*`)]]></token>
+							<value>$2:$1</value>
 						</replacement>
 						<replacement>
 							<token>#+\sTAG(\s*|(\n)*)</token>
 							<value></value>
-						</replacement>
-						<replacement>
-							<token>#+\sFuncionalidade\s?:</token>
-							<value>Funcionalidade:</value>
 						</replacement>
 						<replacement>
 							<token>#+\sRegras de Neg(o|ó)cio\s?:</token>
@@ -294,7 +304,7 @@
 							<value></value>
 						</replacement>
 						<replacement>
-							<token>\|\s?\-+[ \-\|\t]+\|\s*\n</token>
+							<token>^[\ \t]*\|([\ \t]*\-{3,}[\ \t]*\|)+\ {2,}\n</token>
 							<value></value>
 						</replacement>
 					</replacements>
@@ -318,7 +328,7 @@
 						</goals>
 						<configuration>
 							<projectName>PacienteService</projectName>
-							<skip>${skipCucumberReports}</skip>
+							<skip>${skipReports}</skip>
 							<outputDirectory>${project.reporting.outputDirectory}/cucumber-report-html</outputDirectory>
 							<inputDirectory>${project.build.directory}</inputDirectory>
 							<jsonFiles>
@@ -350,6 +360,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>**/entity/*_.*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>instrument-ut</id>
@@ -433,6 +448,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>${maven-surefire-report-plugin.version}</version>
+				<configuration>
+					<skipFailsafeReport>${skipReports}</skipFailsafeReport>
+					<skipSurefireReport>${skipReports}</skipSurefireReport>
+				</configuration>
 				<executions>
 					<execution>
 						<id>reports</id>
@@ -453,7 +472,8 @@
 		</testResources>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -535,12 +555,41 @@
 		<!-- Profile utilizado para o desenvolvimento de novas features (tag @desenv) -->
 		<profile>
 			<id>develop-features</id>
+			<activation>
+				<property>
+					<name>develop-features</name>
+				</property>
+			</activation>
 			<properties>
 				<skipTests>true</skipTests>
-				<skipCucumberReports>true</skipCucumberReports>
+				<skipReports>true</skipReports>
 			</properties>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>io.quarkus</groupId>
+						<artifactId>quarkus-maven-plugin</artifactId>
+						<version>${quarkus.version}</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco.version}</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<version>3.1.0</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
@@ -564,6 +613,9 @@
 			para realizar o build e envio da imagem para a nuvem -->
 		<profile>
 			<id>docker-build-local</id>
+			<properties>
+				<skipTests>true</skipTests>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -600,6 +652,9 @@
 			<id>docker-postgres-test</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>develop-features</name>
+				</property>
 			</activation>
 			<build>
 				<plugins>

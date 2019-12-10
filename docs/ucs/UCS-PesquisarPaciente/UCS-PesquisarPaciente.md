@@ -1,4 +1,4 @@
-# UCS – Pesquisar Paciente
+# UCS - Pesquisar Paciente
 
 ## 1. Introdução
 > Este caso de uso descreve as funções para pesquisa de paciente
@@ -10,8 +10,8 @@
 <!BDD.INICIO>
 
 ### Tag
-@desenv
-### Funcionalidade: UCS - Pesquisar Paciente
+@analise
+### Funcionalidade
 Como administrador  
 Preciso consultar as informações dos pacientes cadastrados 
 
@@ -25,7 +25,7 @@ E que os filtros estejam em branco
 ### Esquema do Cenario: Pesquisar pacientes   
 Quando eu preencher os campos `<Nome>`, `<DataNascimento>`, `<CPF>`, `<RG>`, `<UFRG>` (RN01)  
 E eu acionar o botão de **Pesquisar**  
-Entao o sistema deverá listar os pacientes correspondentes 
+Entao o sistema deverá listar os pacientes correspondentes
   
 Exemplos:
   

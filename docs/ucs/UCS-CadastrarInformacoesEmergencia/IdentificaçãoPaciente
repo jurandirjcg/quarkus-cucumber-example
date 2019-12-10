@@ -1,0 +1,67 @@
+UCS – IdentificaçãoPaciente
+
+## 1. Introdução
+Este caso de uso descreve as funções de Identificação paciente emergencia.
+
+## 3. Fluxo
+<!BDD.INICIO>
+
+### Tag
+@analise
+### Funcionalidade: UCS - IdentificaçãoPaciente
+Como Usuario 
+Precisa autenticar paciente emergencia
+
+#### Regras de Negocio:
+RN01: Efetivar o cadastro por "Nome"
+
+### Contexto: Tela Identificação
+Dado que eu esteja na tela para paciente emergencia (Identificação Paciente)
+
+### Esquema do cenario: Cadastrar usuarios
+Quando eu preencher os campos `<digital>`, `cpf`
+
+(RN01)
+E clicar no botão **Continuar**
+Então o sistema deverá apresentar a tela Informações Emergencia
+
+Exemplos:
+
+| digital|cpf|
+| ------ |---|
+|   n   |003.009.333-09|
+
+ 
+### Cenario: Inserir dados incorreto
+Quando eu preencher os campos `<digital>`, `cpf`
+E clicar no botão **Aceitar**
+Então o sistema deverá apresentar a mensagem "AVISO.001"
+
+
+### Cenario: Redirecionar para UCS - Informações Emergencia (UCS - Informações Emergencia) 
+Quando eu clicar no botão **Aceitar**
+Então o sistema deverá direcionar para tela **Informações Emergencia** (UCS-CadastrarInformacoesEmergencia.md)
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Informações Emergencia 
+
+## 5. Casos de Uso Relacionados
+* UCS - UCS-CadastrarInformacoesEmergencia
+
+## 5. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| Perfil de Emergência                                         | /Perfil/                   |        |         |      |         |
+| Informacoes Emergencia                                       | /InformacoesEmergencial/   |        |         |      |         |      |         |
+
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
+
+
+

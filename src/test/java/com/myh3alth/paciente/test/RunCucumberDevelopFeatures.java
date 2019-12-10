@@ -7,13 +7,13 @@ import io.quarkus.test.junit.QuarkusTestCucumber;
 
 @RunWith(QuarkusTestCucumber.class)
 @CucumberOptions(
-		plugin = {"pretty", "summary"}, 
-		features = "target/features",
-		tags = "@desenv",
-		glue = "com.myh3alth.paciente.test.step",
-		dryRun = false,
-		monochrome = false,
-		strict = true)
+    plugin = { "pretty", "summary" },
+    features = "target/features",
+    tags = "@desenv",
+    glue = "com.myh3alth.paciente.test.step",
+    dryRun = false,
+    monochrome = false,
+    strict = true)
 public class RunCucumberDevelopFeatures {
 
 }

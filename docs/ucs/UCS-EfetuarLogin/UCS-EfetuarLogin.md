@@ -1,0 +1,89 @@
+# UCS – Efetuar Login
+
+## 1. Introdução
+Este caso de uso descreve as funções de autenticação do usuario.
+ 
+## 3. Fluxo
+<!BDD.INICIO>
+
+### Tag
+@analise
+### Funcionalidade
+Como Usuario  
+Precisa efetua o login no sistema  
+
+#### Regras de Negocio:
+RN01: Efetivar autenticação por "Email" deverá possibilitar o acesso no sistema
+
+### Contexto: Tela de Login
+Dado que eu esteja na tela de (login)
+
+### Esquema do cenario: Efetuar login
+Quando eu preencher os campos `<Usuario>`,`<Senha>`(RN01)  
+E clicar no botão **logar**  
+Então o sistema deverá apresentar a tela inicial  
+
+Exemplos:
+
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   | 1234   |  
+|jurandir | 12345  |  
+
+### Esquema do cenario: Efetuar Login Incorreto
+Quando eu preencher os campos `<Usuario>`,`<Senha>`  
+E clicar no botão **logar**  
+Então o sistema deverá apresentar a mensager AVISO.1
+
+Exemplos:
+
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   | 11111  |  
+|jurandir | 11111  |
+
+### Esquema do cenario: Esqueceu a Senha
+Quando eu preencher os campos `<usuario>`.  
+E clicar no botão **Esqueceu sua Senha**  
+Então o sistema deverá direcionar para tela 'Redefinir Senha'.
+
+Exemplos:
+
+| Usuario | Senha  |  
+|-------  |--------|  
+| allan   |        |  
+|jurandir |        |
+
+### Esquema do cenario: Register
+Quando eu preencher os campos `<usuario>`  
+E clicar no botão **Register**  
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)  
+
+### Cenario: Redirecionar para UCS - Register - Cadastro inicial (UCS - Cadastro inicial) 
+Quando eu clicar no botão **Register**  
+Então o sistema deverá direcionar para tela **Cadastro inicial** (Cadastro inicial)
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Cadastro Inicial
+
+
+## 5. Interface
+| Protótipo                                                   | Path                       | Desenv | Homolog | Prod |
+| ------                                                      | ------                     | -------|---------|----- |---------|
+| Login                                                       | /login/                    |        |         |      |         |
+| Home                                                        | /home/                     |        |         |      |         |
+| Esqueceu sua Senha                                          | /esqueceu senha/           |        |         |      |         |
+| Register                                                    | /register/                 |        |         |      |         |
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+* AVISO.006
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso

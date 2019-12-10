@@ -1,0 +1,65 @@
+# UCS – Main Paciente 
+
+## 1. Introdução
+Este caso de uso descreve as funções de menu do sistema
+ 
+## 3. Fluxo
+<!BDD.INICIO>
+
+### Tag
+@analise
+### Funcionalidade: UCS - Main Paciente
+Como Usuario 
+Preciso ultilizar o menu para acessar as funcionalidades do sistema
+
+#### Regras de Negocio:
+RN01: Selecionar itens de botão menu disponiveis
+
+### Contexto: Tela de menu
+Dado que eu esteja na tela para seleção opção menu (Main)  
+
+### Esquema do cenario: Main Paciente
+Selecionar as opçoes `<foto>`,`<nome usuario>`,`<email>`,`<meus dados pessoais>`,`<meus dados clinicos>`,`<meus medicos>`,`<minha agenda>`,`<agenda>`,`<auto tratamento>`,`<alarme para medicação>`,`<mihas conexões>`,`<conectar>`,`<solicitaçoes de conexões>`,`<mensagens>`,
+`<quem somos/sugestoes>`,`<compartilhar>`,`<configurações>`,`<sais/desconectar>` e clicar no botão **Selecionar**
+Então o sistema deverá apresentar a tela Selecionada.
+
+Tela inicial
+
+### Cenário: Redirecionar para UCS - Main (UCS - Main)  
+Quando eu acionar o botão **Meus Dados Pessoais**    
+Entao o sistema deverá apresentar a tela de **Cadastro de Pessoal** (Cadastro Pessoal) 
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Cadastrar Paciente
+
+## 5. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod |
+| ------                                                       | ------                     | -----  | -----   |----- |
+| Main                                                         | /main/                     |        |         |      |
+| Meus Dados Pessoais                                          | /pessoais/                 |        |         |      |
+| Meus Dados Clinicos                                          | /Clinicos/                 |        |         |      |
+| Meus Medicos                                                 | /mymedicos/                |        |         |      |
+| Minha Agenda                                                 | /minhaagenda/              |        |         |      |
+| Meus medicamentos                                            | /medicamentos /            |        |         |      |
+| Agendar                                                      | /agendar/                  |        |         |      |
+| Auto tratamento                                              | /autotratamento/           |        |         |      |
+| Alarme para medicação                                        | /alarmemedicacao/          |        |         |      |
+| Filtar                                                       | /Filtrar/                  |        |         |      |
+| Social Media                                                 | /socialmedia/              |        |         |      |
+| Minhas conexões                                              | /conexoes/                 |        |         |      |
+| Conectar                                                     | /conectar/                 |        |         |      |
+| Solicitações de conexão                                      | /solicitacaoconexoes       |        |         |      |
+| Compartilhar                                                 | /compratilhar/             |        |         |      |
+| Mensagens                                                    | /mensagens/                |        |         |      |
+| Extra                                                        | /extra/                    |        |         |      |
+| Quem somos / Sugestões                                       | /quemsomos/                |        |         |      |
+| Configurações                                                | /configurações/            |        |         |      |
+| Sair/Desconectar                                             | /sair/                     |        |         |
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso

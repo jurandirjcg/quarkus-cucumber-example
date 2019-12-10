@@ -1,0 +1,46 @@
+# UCS – Quem Somos
+
+## 1. Introdução
+Este caso de uso descreve informativo Quem Somos.
+
+## 3. Fluxo
+<!BDD.INICIO>
+### Tag
+@analise
+### Funcionalidade: UCS - Quem Somos 
+Como Usuario 
+Precisa aceitar os Termos e Condições
+
+#### Regras de Negocio:
+RN01: Usuario devera visualizar informativo
+
+### Contexto: Tela de informativo
+Dado que eu esteja na tela (Quem Somos)  
+
+### Esquema do cenario: Tela informativo
+Quando clicar no botão **Voltar**
+Então o sistema deverá apresentar a tela Menu
+
+Exemplos:
+
+|Aceite|
+|------|
+|Missão:|
+|Melhorar a prestação de serviços|
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Cadastrar Paciente
+
+## 5. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| quem somos                                                   | /quem somos/               |        |         |      |         |
+| main                                                         | /main/                     |        |         |      |         |
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
