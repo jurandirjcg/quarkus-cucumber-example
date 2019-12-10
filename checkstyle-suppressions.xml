@@ -6,4 +6,11 @@
  
 <suppressions>
   <suppress files="/generated-sources/" checks="[a-zA-Z0-9]*"/>
+  <suppress checks="MissingJavadocMethod" files="(/entity/|/rest/\w*/response/|/rest/\w*/request/)"/>
+  <suppress checks="FinalParameters" files="(/entity/|/rest/\w*/response/|/rest/\w*/request/)"/>
+  <suppress checks="DesignForExtension" files=".java"/>
+  <suppress checks="NewlineAtEndOfFile" files=".java"/>
+  <suppress checks="ParameterNumber" files=".java"/>
+  <suppress checks="LineLength" files="Endpoint.java"/>
+  <suppress checks="MagicNumber" files="/entity/"/>
 </suppressions>
