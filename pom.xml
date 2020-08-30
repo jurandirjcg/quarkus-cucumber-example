@@ -12,20 +12,28 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.parameters>true</maven.compiler.parameters>
+		<!-- <maven.compiler.source>1.8</maven.compiler.source> -->
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<skipReports>false</skipReports>
-		<test-postgresql-user>qa_user</test-postgresql-user>
+<!-- 		<maven.build.timestamp.format>dd/MM/yyyy HH:mm:ss</maven.build.timestamp.format> -->
+		<!-- FALSE FOR PROD -->
+		<skipReports>true</skipReports>
+		<skipCheck>true</skipCheck>
+		<skipTests>false</skipTests>
+		<test-postgresql-user>sa_pvfogoest</test-postgresql-user>
 		<test-postgresql-passwd>qa_pass</test-postgresql-passwd>
 		<test-postgresql-port>5433</test-postgresql-port>
 		<test-postgresql-db>qadb</test-postgresql-db>
 		<!-- dependencies -->
-		<canary.version>2.0-RC1-SNAPSHOT</canary.version>
-		<cucumber-java.version>4.7.4</cucumber-java.version>
-		<hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
-		<quarkus.version>1.0.1.Final</quarkus.version>
+		<canary.version>2.0</canary.version>
+		<cucumber-java.version>6.3.0</cucumber-java.version>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<hibernate-jpamodelgen.version>5.4.21.Final</hibernate-jpamodelgen.version>
+		<quarkus-platform.version>1.7.0.Final</quarkus-platform.version>
+		<quarkus-plugin.version>1.7.0.Final</quarkus-plugin.version>
 		<!-- plugins -->
 		<compiler-plugin.version>3.8.1</compiler-plugin.version>
-		<docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
+		<docker-maven-plugin.version>0.33.0</docker-maven-plugin.version>
 		<embedded-postgresql-maven-plugin.version>1.2.2</embedded-postgresql-maven-plugin.version>
 		<jacoco.version>0.8.4</jacoco.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -34,15 +42,14 @@
 		<maven-surefire-report-plugin.version>3.0.0-M3</maven-surefire-report-plugin.version>
 		<org.jacoco.core.version>0.8.3</org.jacoco.core.version>
 		<replacer.version>1.5.2</replacer.version>
-		<sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
-		<surefire-plugin.version>2.22.0</surefire-plugin.version>
+		<surefire-plugin.version>2.22.1</surefire-plugin.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>io.quarkus</groupId>
 				<artifactId>quarkus-bom</artifactId>
-				<version>${quarkus.version}</version>
+				<version>${quarkus-platform.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -68,20 +75,6 @@
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-smallrye-openapi</artifactId>
-			<!-- <exclusions> -->
-			<!-- <exclusion> -->
-			<!-- <groupId>io.quarkus</groupId> -->
-			<!-- <artifactId>quarkus-swagger-ui</artifactId> -->
-			<!-- </exclusion> -->
-			<!-- </exclusions> -->
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-keycloak-authorization</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-oidc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -121,11 +114,6 @@
 			<artifactId>canary</artifactId>
 			<version>${canary.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-<!-- 			<version>${hibernate-jpamodelgen.version}</version> -->
-		</dependency>
 		<!-- Test Dependecies -->
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -158,7 +146,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>paciente-service</finalName>
+		<finalName>quarkus-cucumber-example</finalName>
 		<!-- Filtrar resources -->
 		<resources>
 			<resource>
@@ -166,11 +154,17 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>io.quarkus</groupId>
 				<artifactId>quarkus-maven-plugin</artifactId>
-				<version>${quarkus.version}</version>
+				<version>${quarkus-platform.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -183,9 +177,16 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler-plugin.version}</version>
 				<configuration>
-					<compilerArguments>
-						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-					</compilerArguments>
+					<compilerArgs>
+						<arg>-AfullyAnnotationConfigured=true</arg>
+					</compilerArgs>
+					<annotationProcessorPaths>
+						<annotationProcessorPath>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>${hibernate-jpamodelgen.version}</version>
+						</annotationProcessorPath>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -224,12 +225,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- CONFIGURAR O PLUGIN DO SONAR -->
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>${sonar-maven-plugin.version}</version>
-			</plugin>
-			<plugin>
 				<groupId>com.google.code.maven-replacer-plugin</groupId>
 				<artifactId>replacer</artifactId>
 				<version>${replacer.version}</version>
@@ -247,16 +242,13 @@
 					<includes>
 						<include>docs/ucs/**/*.md</include>
 					</includes>
-					<!-- <excludes> -->
-					<!-- <exclude>docs/casos_de_uso/**/UCS01*</exclude> -->
-					<!-- </excludes> -->
 					<inputFilePattern>.md</inputFilePattern>
 					<outputFilePattern>.feature</outputFilePattern>
 					<preserveDir>false</preserveDir>
 					<outputDir>target/features</outputDir>
 					<replacements>
 						<replacement>
-							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@\w{3,10}\n{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
+							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@[\w\-\_]{3,15}\s{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
 							<value>Funcionalidade: $1</value>
 						</replacement>
 						<replacement>
@@ -272,11 +264,17 @@
 							<value>$2:$1</value>
 						</replacement>
 						<replacement>
-							<token>#+\sTAG(\s*|(\n)*)</token>
+							<token>#+\sTAG(?=[\w\@\s\#\-\_]+(\n)Funcionalidade:\s*(.*)\s?)</token>
+							<value># ${maven.build.timestamp} - Arquivo gerado automaticamente através das informações do Caso de Uso: $2 $1$1@$2</value>
+						</replacement>
+						<!-- Expressao nao funciona no java 1.8.0_241 -->
+						<replacement>
+							<token><![CDATA[(?<=\@[\w\.\-\–\_áàâãéèêíïóôõöúçñ\ ]*)[\ ](?=[\ \w\.\-\–\_áàâãéèêíïóôõöúçñ]*\n)]]></token>
 							<value></value>
 						</replacement>
+						<!-- // -->
 						<replacement>
-							<token>#+\sRegras de Neg(o|ó)cio\s?:</token>
+							<token>#+\sRegras de Neg(o|ó)cio\s?:?</token>
 							<value>Regras de Negocio:</value>
 						</replacement>
 						<replacement>
@@ -300,11 +298,15 @@
 							<value></value>
 						</replacement>
 						<replacement>
-							<token>\ \(\[?[\w\d\,\- \[\]\(\)\#áàâãéèêíïóôõöúçñ]+\){1,2}\ *</token>
+							<token>\(?(\[[\w\-]+\])\s?\([\w\-\#]+\)\)?</token>
+							<value>$1</value>
+						</replacement>
+						<replacement>
+							<token>\ \(?\[[\w\d\,\- \[\]\(\)\#áàâãéèêíïóôõöúçñ]+\){1,2}\ *</token>
 							<value></value>
 						</replacement>
 						<replacement>
-							<token>^[\ \t]*\|([\ \t]*\-{3,}[\ \t]*\|)+\ {2,}\n</token>
+							<token>[\ \t]*\|([\ \t]*\-{3,}[\ \t]*\|)+\ {0,}\n</token>
 							<value></value>
 						</replacement>
 					</replacements>
@@ -327,7 +329,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<projectName>PacienteService</projectName>
+							<projectName>QuarkusCucumberExample</projectName>
 							<skip>${skipReports}</skip>
 							<outputDirectory>${project.reporting.outputDirectory}/cucumber-report-html</outputDirectory>
 							<inputDirectory>${project.build.directory}</inputDirectory>
@@ -352,6 +354,12 @@
 							<systemProperties>
 								<jacoco-agent.destfile>${project.build.directory}/jacoco-it.exec</jacoco-agent.destfile>
 							</systemProperties>
+							<environmentVariables>
+								<test-container-pg-user>${test-postgresql-user}</test-container-pg-user>
+								<test-container-pg-passwd>${test-postgresql-passwd}</test-container-pg-passwd>
+								<test-container-pg-port>${test-postgresql-port}</test-container-pg-port>
+								<test-container-pg-db>${test-postgresql-db}</test-container-pg-db>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>
@@ -464,48 +472,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-checkstyle-plugin
-										</artifactId>
-										<versionRange>
-											[3.1.0,)
-										</versionRange>
-										<goals>
-											<goal>check</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 	<profiles>
 		<profile>
@@ -520,7 +486,7 @@
 					<plugin>
 						<groupId>io.quarkus</groupId>
 						<artifactId>quarkus-maven-plugin</artifactId>
-						<version>${quarkus.version}</version>
+						<version>${quarkus-platform.version}</version>
 						<executions>
 							<execution>
 								<goals>
@@ -563,13 +529,21 @@
 			<properties>
 				<skipTests>true</skipTests>
 				<skipReports>true</skipReports>
+				<stopServer>false</stopServer>
 			</properties>
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+        				<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<skip>${!stopServer}</skip>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>io.quarkus</groupId>
 						<artifactId>quarkus-maven-plugin</artifactId>
-						<version>${quarkus.version}</version>
+						<version>${quarkus-plugin.version}</version>
 						<configuration>
 							<skip>true</skip>
 						</configuration>
@@ -600,149 +574,14 @@
 									<goal>integration-test</goal>
 								</goals>
 								<configuration>
-									<test>RunCucumberDevelopFeatures</test>
+									<test>RunCucumberIT</test>
 									<skipTests>false</skipTests>
+									<environmentVariables>
+										<stop-server>${stopServer}</stop-server>
+										<cucumber.filter.tags>@desenv</cucumber.filter.tags>
+										<cucumber.ansi-colors.disabled>false</cucumber.ansi-colors.disabled>
+									</environmentVariables>
 								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- Profile utlizado para gerar a imagem localmente. Bitbucket configurado 
-			para realizar o build e envio da imagem para a nuvem -->
-		<profile>
-			<id>docker-build-local</id>
-			<properties>
-				<skipTests>true</skipTests>
-			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>io.fabric8</groupId>
-						<artifactId>docker-maven-plugin</artifactId>
-						<version>${docker-maven-plugin.version}</version>
-						<configuration>
-							<images>
-								<image>
-									<name>zion/${project.artifactId}:${project.version}</name>
-									<build>
-										<contextDir>${project.basedir}</contextDir>
-										<dockerFile>${project.basedir}/src/main/docker/Dockerfile.jvm</dockerFile>
-										<tags>
-											<tag>latest</tag>
-										</tags>
-									</build>
-								</image>
-							</images>
-						</configuration>
-						<executions>
-							<execution>
-								<id>docker-build</id>
-								<goals>
-									<goal>build</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>docker-postgres-test</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>develop-features</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>io.fabric8</groupId>
-						<artifactId>docker-maven-plugin</artifactId>
-						<version>${docker-maven-plugin.version}</version>
-						<configuration>
-							<images>
-								<image>
-									<name>postgres:11.5-alpine</name>
-									<alias>postgresql</alias>
-									<run>
-										<env>
-											<POSTGRES_USER>${test-postgresql-user}</POSTGRES_USER>
-											<POSTGRES_PASSWORD>${test-postgresql-passwd}</POSTGRES_PASSWORD>
-											<POSTGRES_DB>${test-postgresql-db}</POSTGRES_DB>
-										</env>
-										<ports>
-											<port>${test-postgresql-port}:5432</port>
-										</ports>
-										<wait>
-											<tcp>
-												<mode>mapped</mode>
-												<ports>
-													<port>5432</port>
-												</ports>
-											</tcp>
-											<time>10000</time>
-										</wait>
-									</run>
-								</image>
-							</images>
-							<!--Stops all postgres:10.5 images currently running, not just those 
-								we just started. Useful to stop processes still running from a previously 
-								failed integration test run -->
-							<allContainers>true</allContainers>
-						</configuration>
-						<executions>
-							<execution>
-								<id>docker-start</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>docker-stop</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>embedded-postgres-test</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.github.slavaz</groupId>
-						<artifactId>embedded-postgresql-maven-plugin</artifactId>
-						<version>${embedded-postgresql-maven-plugin.version}</version>
-						<configuration>
-							<pgServerVersion>latest</pgServerVersion>
-							<pgServerPort>${test-postgresql-port}</pgServerPort>
-							<dbName>${test-postgresql-db}</dbName>
-							<userName>${test-postgresql-user}</userName>
-							<password>${test-postgresql-passwd}</password>
-						</configuration>
-						<executions>
-							<execution>
-								<id>start-pgsql</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>stop-pgsql</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
 							</execution>
 						</executions>
 					</plugin>

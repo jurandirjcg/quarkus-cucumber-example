@@ -1,10 +1,5 @@
-package com.myh3alth.paciente.util;
+package com.jcgon.quarkus.cucumber.util;
 
-/**
- * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
- * @since 22/10/2019
- *
- */
 public abstract class Utils {
     public static final Integer MAX_COUNT = 100;
     public static final String DEFAULT_REST_PAGE = "1";
@@ -19,11 +14,9 @@ public abstract class Utils {
     public static final long BIG_TIMETOUT = 5000;
 
     /**
-     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
-     * @since 29/10/2019
-     *
-     * @param qtde {@link Integer}
-     * @return {@link Integer}
+     * 
+     * @param qtde
+     * @return
      */
     public static Integer checkLimit(final Integer qtde) {
         if (qtde > MAX_COUNT) {
@@ -33,11 +26,9 @@ public abstract class Utils {
     }
 
     /**
-     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
-     * @since 29/10/2019
-     *
-     * @param enumeration {@link Enum}
-     * @return {@link String}
+     * 
+     * @param enumeration
+     * @return
      */
     public static String[] enumStringValues(final Enum<?>... enumeration) {
         String[] listString = new String[enumeration.length];

@@ -1,4 +1,4 @@
-package com.myh3alth.paciente.test.step;
+package com.jcgon.quarkus.cucumber.test.step;
 
 import com.myh3alth.paciente.test.util.TesteUtils;
 import com.myh3alth.paciente.test.util.TesteUtils.DBTestFile;

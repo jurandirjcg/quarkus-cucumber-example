@@ -1,15 +1,10 @@
-package com.myh3alth.paciente.config;
+package com.jcgon.quarkus.cucumber.config;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-/**
- * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
- * @since 22/10/2019
- *
- */
 @ApplicationScoped
 public class ConfigController {
 
@@ -18,10 +13,8 @@ public class ConfigController {
     private String ambiente;
 
     /**
-     * @author Jurandir C. Gonçalves <jurandir> - Zion Mountain
-     * @since 29/10/2019
-     *
-     * @return {@link String}
+     * 
+     * @return
      */
     public String getAmbiente() {
         return ambiente;
