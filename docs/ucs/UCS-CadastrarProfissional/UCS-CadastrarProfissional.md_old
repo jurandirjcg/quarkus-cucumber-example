@@ -1,0 +1,87 @@
+# UCS – Cadastro Profissional
+
+## 1. Introdução
+Este caso de uso descreve as funções de Cadastro Medico do Usuario. nivel 3 informações adicionais
+
+## 3. Fluxo
+<!BDD.INICIO>
+
+### Tag
+@analise
+### Funcionalidade: UCS - Cadastro Profissional
+Como Usuario 
+Precisa efetuar o cadastro no sistema
+
+#### Regras de Negocio:
+RN01: RN01: Efetivar o cadastro por "Nome" e "Caracteristicas"
+
+### Contexto: Tela de Cadastro historico usuario
+Dado que eu esteja na tela para cadastro inicial (Cadastro Medico Usuairo)
+
+### Esquema do cenario: Tela Cadastra atributos do Usuario
+Quando eu preencher os campos `<tipo sanguineo>`,`<fator rh>`,`<transfusão de sangue>`,`<necessidades especiais>`,`<necessidade limitação>`,
+`<Preexistentes>`,`<Preexistentestipo>`,`<Preexistentesnomedoença>`,`<doenças graves na família>`,`<Nome da doença>`,`<Qual o parentesco>`,`<houve cura>`,`<alérgico>`,`<alérgico qual tipo>`,`<causa>`,`<reação>`,`<tratamento rápido>`,`<dependência química>`,
+`<não conlpartilhar com meus contatos>`,`<você é fumante, tabagista>`,`<há quanto tempo>`,`<quantos cigarros por dia>`,`<você é um alcoólatra s/n>`,`<com que frequência você bebe>`,`<você usa entorpecentes ilícitos drogas>`,`<qual>`,`<com que frequência>` (RN01) e clicar no botão **Salvar** 
+Entao o sistema deverá cadastrar itens correspondentes 
+
+Exemplos:
+
+|tipo sanguineo|Fator rh|Você fez alguma transfusão de sangue nos últimos 10 anos? s/n|
+|-------|-----|-----|
+|a|-|n|
+
+|necessidades especiais|s/n|qual é esta necessidade limitação|
+|-------|-----|
+|n|nenhuma|
+
+|doenças preexistentes| você possui alguma s/n|qual é o tipo|qual é o nome da doença|
+|-------|-----|-----|
+|n|nenhuma|nenhuma|
+
+|histórico familiar existem doenças graves na família s/n|nome da doença|qual o parentesco|Houve cura|
+|-----|-----|-----|-------|
+|n|nenhuma|nenhuma|nenhuma|
+
+|distúrbios alérgicos |Você é alérgico à alguma coisa S/N|Qual tipo|qual é a gravidade|qual a causa|qual é a reação|Há um tratamento rápido|
+|-------|-----|-----|-------|-----|-----|-------|
+|distúrbios alérgicos |n|nenhuma|nenhuma|nenhuma|nenhuma|nenhuma|
+
+|dependência química |não conlpartilhar com meus contatos|
+|-------|------|
+|dependência química|n|
+
+|você é fumante, tabagista|há quanto tempo|quantos cigarros por dia|você é um alcoólatra s/n|Com que frequência você bebe|
+|-------|-----|-------|-----|-----|
+|n|0|0|n|nenhuma|
+
+|você usa entorpecentes ilícitos drogas S/N| qual|com que frequência|
+|-------|-----|-----|
+|n|nenhuma|nenhuma|
+
+ 
+### Esquema do cenario: Realizar cadastro incorreto
+Quando eu preencher os campos `<tipo sanguineo>`
+E clicar no botão **Salvar**
+Entao o sistema deverá retornar a mensagem de "AVISO.001"
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Main 
+
+## 5. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -----  | -----   |----- |---------|
+| Cadastro Medico                                              | /usuario/                  |        |         |      |         |
+| Main                                                         | /main   /                  |        |         |      |         |
+
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+* AVISO.002
+* AVISO.003
+* AVISO.004
+* AVISO.005
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
