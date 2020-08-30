@@ -1,0 +1,66 @@
+# UCS – PerfilEmergência 
+
+## 1. Introdução
+Este caso de uso descreve as funções de Cadastro perfil emergencia.
+
+## 3. Fluxo
+<!BDD.INICIO>
+
+### Tag
+@analise
+### Funcionalidade: UCS - Cadastrar Login
+Como Usuario 
+Precisa efetuar o cadastro de emergencia
+
+#### Regras de Negocio:
+RN01: Efetivar o cadastro por "Nome"
+
+### Contexto: Tela de cadastro
+Dado que eu esteja na tela para cadastro Emergencia (Perfil de Emergência )
+
+### Esquema do cenario: Cadastrar usuarios
+Quando eu preencher os campos `<Alivar perfil de emergencia>` 
+`<contato emergência`, `<uso contínuo>`, `<hospital preferência>` 
+
+(RN01)
+E clicar no botão **Salvar**
+Então o sistema deverá apresentar a tela cadastro efetivado
+
+Exemplos:
+
+| ativar o perfil de emergencia|contato de emergencia|uso continuo|hospital de preferencia|
+| ---------------------------- |--------------|---------------|-----|
+|   n                          | 41 3333-3333 |nenhum| evangelico|
+
+ 
+### Cenario: Realizar cadastro incorreto
+Quando eu preencher os campos `<Alivar perfil de emergencia>` 
+`<contato emergência`, `<uso contínuo>`, `<hospital preferência>`
+E clicar no botão **Salvar**
+Então o sistema deverá apresentar a mensagem "AVISO.001"
+
+
+### Cenario: Redirecionar para UCS - Cadastro Pessoal (UCS - CadastrarInformacoesEmergencia) 
+Quando eu clicar no botão **Salvar**
+Então o sistema deverá direcionar para tela **Informações Emergencia** (UCS-CadastrarInformacoesEmergencia.md)
+
+<!BDD.FIM>
+
+## 4. Casos de Uso Relacionados
+* UCS - Cadastrar Paciente
+
+## 5. Casos de Uso Relacionados
+* UCS - UCS-CadastrarInformacoesEmergencia
+
+## 5. Interface
+| Protótipo                                                    | Path                       | Desenv | Homolog | Prod | Arquivo |
+| ------                                                       | ------                     | -------|---------|----- |---------|
+| Perfil de Emergência                                         | /Perfil/                   |        |         |      |         |
+| Informacoes Emergencia                                       | /InformacoesEmergencial/   |        |         |      |         |      |         |
+
+
+## 6. Mensagens ([ApplicationMessages](src/main/resources/ApplicationMessages.properties))
+* AVISO.001
+
+## 7. Projeto
+> Link para os artefatos de projeto relacionados ao caso de uso
