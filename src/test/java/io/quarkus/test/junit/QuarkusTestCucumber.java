@@ -1,277 +1,191 @@
 package io.quarkus.test.junit;
 
-import static io.quarkus.test.common.PathTestHelper.getAppClassLocation;
+import static io.quarkus.test.common.PathTestHelper.getAppClassLocationForTestLocation;
 import static io.quarkus.test.common.PathTestHelper.getTestClassesLocation;
 
-import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.nio.charset.StandardCharsets;
+import java.lang.reflect.Constructor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
-import org.junit.runners.model.InitializationError;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
+import org.apache.commons.lang3.BooleanUtils;
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
+import org.jboss.jandex.Index;
+import org.junit.runner.Description;
+import org.junit.runner.Runner;
+import org.junit.runner.notification.RunNotifier;
 
+import io.cucumber.core.options.CucumberProperties;
 import io.cucumber.junit.Cucumber;
-import io.quarkus.bootstrap.BootstrapClassLoaderFactory;
-import io.quarkus.bootstrap.BootstrapException;
-import io.quarkus.bootstrap.DefineClassVisibleURLClassLoader;
-import io.quarkus.bootstrap.util.IoUtils;
-import io.quarkus.bootstrap.util.PropertyUtils;
-import io.quarkus.builder.BuildChainBuilder;
-import io.quarkus.builder.BuildContext;
-import io.quarkus.builder.BuildStep;
-import io.quarkus.deployment.ClassOutput;
-import io.quarkus.deployment.QuarkusClassWriter;
-import io.quarkus.deployment.builditem.TestAnnotationBuildItem;
-import io.quarkus.deployment.builditem.TestClassPredicateBuildItem;
-import io.quarkus.deployment.util.IoUtil;
-import io.quarkus.runner.RuntimeRunner;
-import io.quarkus.runner.TransformerTarget;
-import io.quarkus.runtime.LaunchMode;
+import io.quarkus.bootstrap.app.AugmentAction;
+import io.quarkus.bootstrap.app.CuratedApplication;
+import io.quarkus.bootstrap.app.QuarkusBootstrap;
+import io.quarkus.bootstrap.app.RunningQuarkusApplication;
+import io.quarkus.bootstrap.app.StartupAction;
+import io.quarkus.bootstrap.model.PathsCollection;
+import io.quarkus.bootstrap.runner.Timing;
+import io.quarkus.runtime.configuration.ProfileManager;
 import io.quarkus.test.common.PathTestHelper;
 import io.quarkus.test.common.RestAssuredURLManager;
+import io.quarkus.test.common.TestClassIndexer;
+import io.quarkus.test.common.TestResourceManager;
 import io.quarkus.test.common.http.TestHTTPResourceManager;
+import io.quarkus.test.junit.QuarkusTestExtension.TestBuildChainFunction;
 
-/**
- * 
- * @author Jurandir C. Gonçalves
- * @since 28/10/2019
- *
- */
-@SuppressWarnings("rawtypes") 
-public class QuarkusTestCucumber extends Cucumber {
+public class QuarkusTestCucumber extends Runner {
 
-	private static boolean isServerRunning;
-	//TODO implementar CDI usando como referencia a classe QuarkusTestExtension
-    public QuarkusTestCucumber(Class clazz) throws InitializationError {
-		super(clazz);
-
-        restAssuredURLManager.setURL();
-
-		//Criado para tratar comportamento da classe Cucumber que chama o contrutor duas vezes
-    	if(!isServerRunning) {
-    		doJavaStart(clazz);
-    	}
-    	
-    	//Arc.initialize();
-	}
-
-	private URLClassLoader appCl;
-
-    /**
-     * As part of the test run we need to create files in the test-classes directory
-     *
-     * We attempt to clean these up with a shutdown hook, but if the processes is killed (e.g. hitting the red
-     * IDE button) it can leave these files behind which interfere with subsequent runs.
-     *
-     * To fix this we create a file that contains the names of all the files we have created, and at the start of a new
-     * run we remove them if this file exists.
-     */
-    private static final String CREATED_FILES = "CREATED_FILES.txt";
-    private final RestAssuredURLManager restAssuredURLManager = new RestAssuredURLManager(false);
-
-
+    private static ClassLoader originalCl;
+    private static RunningQuarkusApplication runningQuarkusApplication;
+    private Class<?> clazz;
+	private Cucumber cucumber;
+    
+    public QuarkusTestCucumber(Class<?> clazz) throws Exception {
+		this.clazz = clazz;
+		cucumber = new Cucumber(clazz);
+    }
+    
     /**
      * Adapatado do projeto da classe io.quarkus.test.junit.QuarkusTestExtension
-     * @author Jurandir C. Gonçalves
-     * @since 28/10/2019
      *
      * @param clazz
      */
-    private void doJavaStart(Class clazz) {
-        final LinkedBlockingDeque<Runnable> shutdownTasks = new LinkedBlockingDeque<>();
+    public void doJavaStart() {
+        if (runningQuarkusApplication != null) {
+            return;
+        }
 
-        Path appClassLocation = getAppClassLocation(clazz);
+        Closeable testResourceManager = null;
+        String TEST_LOCATION = "test-location";
+        String TEST_CLASS = "test-class";
 
-        appCl = createQuarkusBuildClassLoader(appClassLocation);
-       
-        final ClassLoader testClassLoader = clazz.getClassLoader();
-        final Path testWiringClassesDir;
-        final RuntimeRunner.Builder runnerBuilder = RuntimeRunner.builder();
+        try {
+            final LinkedBlockingDeque<Runnable> shutdownTasks = new LinkedBlockingDeque<>();
 
-        final Path testClassLocation = getTestClassesLocation(clazz);
-        if (Files.isDirectory(testClassLocation)) {
-            testWiringClassesDir = testClassLocation;
-        } else {
+            Class<?> requiredTestClass = clazz;
+            Path testClassLocation = getTestClassesLocation(requiredTestClass);
+            final Path appClassLocation = getAppClassLocationForTestLocation(testClassLocation.toString());
+
+            PathsCollection.Builder rootBuilder = PathsCollection.builder();
+
             if (!appClassLocation.equals(testClassLocation)) {
-                runnerBuilder.addAdditionalArchive(testClassLocation);
+                rootBuilder.add(testClassLocation);
+                // if test classes is a dir, we should also check whether test resources dir exists as a separate dir (gradle)
+                // TODO: this whole app/test path resolution logic is pretty dumb, it needs be re-worked using proper workspace discovery
+                final Path testResourcesLocation = PathTestHelper.getResourcesForClassesDirOrNull(testClassLocation, "test");
+                if (testResourcesLocation != null) {
+                    rootBuilder.add(testResourcesLocation);
+                }
             }
-            testWiringClassesDir = Paths.get("").normalize().toAbsolutePath().resolve("target").resolve("test-classes");
-            if (Files.exists(testWiringClassesDir)) {
-                IoUtils.recursiveDelete(testWiringClassesDir);
+            if (Files.exists(testClassLocation.getParent().resolve("testFixtures"))) {
+                rootBuilder.add(testClassLocation.getParent().resolve("testFixtures"));
             }
-            try {
-                Files.createDirectories(testWiringClassesDir);
-            } catch (IOException e) {
-                throw new IllegalStateException(
-                        "Failed to create a directory for wiring test classes at " + testWiringClassesDir, e);
-            }
-        }
 
-        Path createdFilesPath = testWiringClassesDir.resolve(CREATED_FILES);
-        if (Files.exists(createdFilesPath)) {
-            cleanupOldRun(createdFilesPath);
-        }
-        try (OutputStream created = Files.newOutputStream(createdFilesPath)) {
+            originalCl = Thread.currentThread().getContextClassLoader();
+            Map<String, String> sysPropRestore = new HashMap<>();
+            sysPropRestore.put(ProfileManager.QUARKUS_TEST_PROFILE_PROP,
+                    System.getProperty(ProfileManager.QUARKUS_TEST_PROFILE_PROP));
 
-            RuntimeRunner runtimeRunner = runnerBuilder
-                    .setLaunchMode(LaunchMode.TEST)
-                    .setClassLoader(appCl)
-                    .setTarget(appClassLocation)
-                    .addAdditionalArchive(testWiringClassesDir)
-                    .setClassOutput(new ClassOutput() {
-                        @Override
-                        public void writeClass(boolean applicationClass, String className, byte[] data) throws IOException {
-                            Path location = testWiringClassesDir.resolve(className.replace('.', '/') + ".class");
-                            Files.createDirectories(location.getParent());
-                            Files.write(location, data);
-                            handleCreatedFile(location, created, testWiringClassesDir, shutdownTasks);
-                        }
-
-                        @Override
-                        public void writeResource(String name, byte[] data) throws IOException {
-                            Path location = testWiringClassesDir.resolve(name);
-                            Files.createDirectories(location.getParent());
-                            Files.write(location, data);
-                            handleCreatedFile(location, created, testWiringClassesDir, shutdownTasks);
-                        }
-                    })
-                    .setTransformerTarget(new TransformerTarget() {
-                        @Override
-                        public void setTransformers(
-                                Map<String, List<BiFunction<String, ClassVisitor, ClassVisitor>>> functions) {
-                            ClassLoader main = Thread.currentThread().getContextClassLoader();
-
-                            //we need to use a temp class loader, or the old resource location will be cached
-                            ClassLoader temp = new ClassLoader() {
-                                @Override
-                                protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-                                    // First, check if the class has already been loaded
-                                    Class<?> c = findLoadedClass(name);
-                                    if (c == null) {
-                                        c = findClass(name);
-                                    }
-                                    if (resolve) {
-                                        resolveClass(c);
-                                    }
-                                    return c;
-                                }
-
-                                @Override
-                                public URL getResource(String name) {
-                                    return main.getResource(name);
-                                }
-
-                                @Override
-                                public Enumeration<URL> getResources(String name) throws IOException {
-                                    return main.getResources(name);
-                                }
-                            };
-                            for (Map.Entry<String, List<BiFunction<String, ClassVisitor, ClassVisitor>>> e : functions
-                                    .entrySet()) {
-                                String resourceName = e.getKey().replace('.', '/') + ".class";
-                                try (InputStream stream = temp.getResourceAsStream(resourceName)) {
-                                    if (stream == null) {
-                                        System.err.println("Failed to transform " + e.getKey());
-                                        continue;
-                                    }
-                                    byte[] data = IoUtil.readBytes(stream);
-
-                                    ClassReader cr = new ClassReader(data);
-                                    ClassWriter cw = new QuarkusClassWriter(cr,
-                                            ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES) {
-
-                                        @Override
-                                        protected ClassLoader getClassLoader() {
-                                            return temp;
-                                        }
-                                    };
-                                    ClassLoader old = Thread.currentThread().getContextClassLoader();
-                                    Thread.currentThread().setContextClassLoader(temp);
-                                    try {
-                                        ClassVisitor visitor = cw;
-                                        for (BiFunction<String, ClassVisitor, ClassVisitor> i : e.getValue()) {
-                                            visitor = i.apply(e.getKey(), visitor);
-                                        }
-                                        cr.accept(visitor, 0);
-                                    } finally {
-                                        Thread.currentThread().setContextClassLoader(old);
-                                    }
-
-                                    Path location = testWiringClassesDir.resolve(resourceName);
-                                    Files.createDirectories(location.getParent());
-                                    Files.write(location, cw.toByteArray());
-                                    handleCreatedFile(location, created, testWiringClassesDir, shutdownTasks);
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                            }
-                        }
-                    })
-                    .addChainCustomizer(new Consumer<BuildChainBuilder>() {
-                        @Override
-                        public void accept(BuildChainBuilder buildChainBuilder) {
-                            buildChainBuilder.addBuildStep(new BuildStep() {
-                                @Override
-                                public void execute(BuildContext context) {
-                                    context.produce(new TestClassPredicateBuildItem(new Predicate<String>() {
-                                        @Override
-                                        public boolean test(String className) {
-                                            return PathTestHelper.isTestClass(className, testClassLoader);
-                                        }
-                                    }));
-                                }
-                            }).produces(TestClassPredicateBuildItem.class)
-                                    .build();
-                        }
-                    })
-                    .addChainCustomizer(new Consumer<BuildChainBuilder>() {
-                        @Override
-                        public void accept(BuildChainBuilder buildChainBuilder) {
-                            buildChainBuilder.addBuildStep(new BuildStep() {
-                                @Override
-                                public void execute(BuildContext context) {
-                                    context.produce(new TestAnnotationBuildItem(QuarkusTest.class.getName()));
-                                }
-                            }).produces(TestAnnotationBuildItem.class)
-                                    .build();
-                        }
-                    })
-                    .build();
-            runtimeRunner.run();
-
-            isServerRunning = true;
+            final QuarkusBootstrap.Builder runnerBuilder = QuarkusBootstrap.builder()
+                    .setIsolateDeployment(true)
+                    .setMode(QuarkusBootstrap.Mode.TEST);
+            QuarkusTestProfile profileInstance = null;
             
-            System.setProperty("test.url", TestHTTPResourceManager.getUri());
+            final Path projectRoot = Paths.get("").normalize().toAbsolutePath();
+            runnerBuilder.setProjectRoot(projectRoot);
+            Path outputDir;
+            try {
+                // this should work for both maven and gradle
+                outputDir = projectRoot.resolve(projectRoot.relativize(testClassLocation).getName(0));
+            } catch (Exception e) {
+                // this shouldn't happen since testClassLocation is usually found under the project dir
+                outputDir = projectRoot;
+            }
+            runnerBuilder.setTargetDirectory(outputDir);
 
+            rootBuilder.add(appClassLocation);
+            final Path appResourcesLocation = PathTestHelper.getResourcesForClassesDirOrNull(appClassLocation, "main");
+            if (appResourcesLocation != null) {
+                rootBuilder.add(appResourcesLocation);
+            }
+
+            runnerBuilder.setApplicationRoot(rootBuilder.build());
+
+            CuratedApplication curatedApplication = runnerBuilder
+                    .setTest(true)
+                    .build()
+                    .bootstrap();
+
+            Index testClassesIndex = TestClassIndexer.indexTestClasses(requiredTestClass);
+            // we need to write the Index to make it reusable from other parts of the testing infrastructure that run in different ClassLoaders
+            TestClassIndexer.writeIndex(testClassesIndex, requiredTestClass);
+
+            Timing.staticInitStarted(curatedApplication.getBaseRuntimeClassLoader());
+            final Map<String, Object> props = new HashMap<>();
+            props.put(TEST_LOCATION, testClassLocation);
+            props.put(TEST_CLASS, requiredTestClass);
+            AugmentAction augmentAction = curatedApplication
+                    .createAugmentor(TestBuildChainFunction.class.getName(), props);
+            
+            StartupAction startupAction = augmentAction.createInitialRuntimeApplication();
+            Thread.currentThread().setContextClassLoader(startupAction.getClassLoader());
+            
+            //must be done after the TCCL has been set
+            testResourceManager = (Closeable) startupAction.getClassLoader().loadClass(TestResourceManager.class.getName())
+                    .getConstructor(Class.class, List.class)
+                    .newInstance(requiredTestClass,
+                            getAdditionalTestResources(profileInstance, startupAction.getClassLoader()));
+            testResourceManager.getClass().getMethod("init").invoke(testResourceManager);
+            testResourceManager.getClass().getMethod("start").invoke(testResourceManager);
+
+            
+            runningQuarkusApplication = startupAction.run();
+
+            ConfigProviderResolver.setInstance(new RunningAppConfigResolver(runningQuarkusApplication));
+
+            //configura o class path para seu valor original
+            Thread.currentThread().setContextClassLoader(originalCl);
+
+            System.setProperty("test.url", TestHTTPResourceManager.getUri(runningQuarkusApplication));
+
+            RestAssuredURLManager.setURL(false);
+
+            Closeable tm = testResourceManager;
+            
             Closeable shutdownTask = new Closeable() {
                 @Override
                 public void close() throws IOException {
-                    runtimeRunner.close();
-                    restAssuredURLManager.clearURL();
-                    while (!shutdownTasks.isEmpty()) {
-                        shutdownTasks.pop().run();
+                    try {
+                        runningQuarkusApplication.close();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    } finally {
+                        try {
+                            while (!shutdownTasks.isEmpty()) {
+                                shutdownTasks.pop().run();
+                            }
+                        } finally {
+                            for (Map.Entry<String, String> entry : sysPropRestore.entrySet()) {
+                                String val = entry.getValue();
+                                if (val == null) {
+                                    System.clearProperty(entry.getKey());
+                                } else {
+                                    System.setProperty(entry.getKey(), val);
+                                }
+                            }
+                            tm.close();
+                        }
                     }
                 }
             };
+
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -279,90 +193,74 @@ public class QuarkusTestCucumber extends Cucumber {
                         shutdownTask.close();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        curatedApplication.close();
                     }
                 }
             }, "Quarkus Test Cleanup Shutdown task"));
-            shutdownTasks.add(new DeleteRunnable(createdFilesPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        
-    }
-
-    private void cleanupOldRun(Path createdFilesPath) {
-        try (BufferedReader reader = Files.newBufferedReader(createdFilesPath)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Files.deleteIfExists(createdFilesPath.getParent().resolve(line));
+        } catch (Throwable e) {
+            try {
+                if (testResourceManager != null) {
+                    testResourceManager.close();
+                }
+            } catch (Exception ex) {
+                e.addSuppressed(ex);
             }
-            Files.deleteIfExists(createdFilesPath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+            if (originalCl != null) {
+                Thread.currentThread().setContextClassLoader(originalCl);
+            }
         }
-    }
-
-    private void handleCreatedFile(Path location, OutputStream created, Path testWiringClassesDir,
-            LinkedBlockingDeque<Runnable> shutdownTasks) throws IOException {
-        created.write((testWiringClassesDir.relativize(location).toString() + "\n").getBytes(StandardCharsets.UTF_8));
-        created.flush();
-        shutdownTasks.add(new DeleteRunnable(location));
     }
 
     /**
-     * Creates a classloader that will be used to build the test application.
-     *
-     * This method assumes that the runtime classes are already on the classpath
-     * of the classloader that loaded this class.
-     * What this method does is it resolves the required deployment classpath
-     * and creates a new URL classloader that includes the deployment CP with
-     * the classloader that loaded this class as its parent.
-     *
-     * @param appClassLocation location of the test application classes
-     * @return application build classloader
+     * Since {@link TestResourceManager} is loaded from the ClassLoader passed in as an argument,
+     * we need to convert the user input {@link QuarkusTestProfile.TestResourceEntry} into instances of
+     * {@link TestResourceManager.TestResourceClassEntry}
+     * that are loaded from that ClassLoader
      */
-    private URLClassLoader createQuarkusBuildClassLoader(Path appClassLocation) {
-        // The deployment classpath could be passed in as a system property.
-        // This is how integration with the Gradle plugin is achieved.
-        final String deploymentCp = PropertyUtils.getProperty(BootstrapClassLoaderFactory.PROP_DEPLOYMENT_CP);
-        if (deploymentCp != null && !deploymentCp.isEmpty()) {
-            final List<URL> list = new ArrayList<>();
-            for (String entry : deploymentCp.split("\\s")) {
-                try {
-                    list.add(new URL(entry));
-                } catch (MalformedURLException e) {
-                    throw new IllegalStateException("Failed to parse a deployment classpath entry " + entry, e);
-                }
-            }
-            return new DefineClassVisibleURLClassLoader(list.toArray(new URL[list.size()]), getClass().getClassLoader());
+    private List<Object> getAdditionalTestResources(
+            QuarkusTestProfile profileInstance, ClassLoader classLoader) {
+        if ((profileInstance == null) || profileInstance.testResources().isEmpty()) {
+            return Collections.emptyList();
         }
+
         try {
-            return BootstrapClassLoaderFactory.newInstance()
-                    .setAppClasses(appClassLocation)
-                    .setParent(getClass().getClassLoader())
-                    .setOffline(PropertyUtils.getBooleanOrNull(BootstrapClassLoaderFactory.PROP_OFFLINE))
-                    .setLocalProjectsDiscovery(
-                            PropertyUtils.getBoolean(BootstrapClassLoaderFactory.PROP_WS_DISCOVERY, true))
-                    .setEnableClasspathCache(PropertyUtils.getBoolean(BootstrapClassLoaderFactory.PROP_CP_CACHE, true))
-                    .newDeploymentClassLoader();
-        } catch (BootstrapException e) {
-            throw new IllegalStateException("Failed to create the boostrap class loader", e);
+            Constructor<?> testResourceClassEntryConstructor = Class
+                    .forName(TestResourceManager.TestResourceClassEntry.class.getName(), true, classLoader)
+                    .getConstructor(Class.class, Map.class);
+
+            List<QuarkusTestProfile.TestResourceEntry> testResources = profileInstance.testResources();
+            List<Object> result = new ArrayList<>(testResources.size());
+            for (QuarkusTestProfile.TestResourceEntry testResource : testResources) {
+                Object instance = testResourceClassEntryConstructor.newInstance(
+                        Class.forName(testResource.getClazz().getName(), true, classLoader), testResource.getArgs());
+                result.add(instance);
+            }
+
+            return result;
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to handle profile " + profileInstance.getClass());
         }
     }
 
-    static class DeleteRunnable implements Runnable {
-        final Path path;
+    @Override
+    public Description getDescription() {
+        return cucumber.getDescription();
+    }
 
-        DeleteRunnable(Path path) {
-            this.path = path;
+    @Override
+    public void run(RunNotifier notifier) {
+        Map<String, String> map = CucumberProperties.fromEnvironment();
+		map.putAll(CucumberProperties.fromPropertiesFile());
+        
+		if (BooleanUtils.isFalse(BooleanUtils.toBoolean(map.get("stop-server")))) {
+            doJavaStart();
         }
+        cucumber.run(notifier);
+    }
 
-        @Override
-        public void run() {
-            try {
-                Files.deleteIfExists(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public static boolean serverStaterd(){
+        return runningQuarkusApplication != null;
     }
 }

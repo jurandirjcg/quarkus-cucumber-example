@@ -1,40 +1,38 @@
 package com.jcgon.quarkus.cucumber.util;
 
-public abstract class Utils {
-    public static final Integer MAX_COUNT = 100;
-    public static final String DEFAULT_REST_PAGE = "1";
-    public static final String DEFAULT_REST_LIMIT = "20";
-    public static final long DEFAULT_CIRCUIT_BRAKER_DELAY = 10000;
-    public static final int DEFAULT_CIRCUIT_BRAKER_REQUEST_VOLUME_THRESHOLD = 5;
-    public static final double DEFAULT_CIRCUIT_BRAKER_FAILURE_RATIO = 0.75;
-    public static final int DEFAULT_CIRCUIT_BRAKER_SUCCESS_THRESHOLD = 10;
-    public static final int DEFAULT_RETRY_MAX_RETRIES = 2;
-    public static final long MEDIUM_TIMETOUT = 3000;
-    public static final long SHORT_TIMETOUT = 2000;
-    public static final long BIG_TIMETOUT = 5000;
+import java.util.Arrays;
+import java.util.List;
 
+import com.jcgon.quarkus.cucumber.config.ConfigController;
+
+public abstract class Utils {
     /**
+     * Check if "limit" parameter exceed the maximun limit value for the
+     * application, if yes return the maximun value otherwise return the parameter
+     * value
      * 
      * @param qtde
      * @return
      */
-    public static Integer checkLimit(final Integer qtde) {
-        if (qtde > MAX_COUNT) {
-            return MAX_COUNT;
+    public static Integer checkLimit(final Integer limit) {
+        if (limit > ConfigController.REST_MAX_RESULT_LIST) {
+            return ConfigController.REST_MAX_RESULT_LIST;
         }
-        return qtde;
+        return limit;
     }
 
     /**
+     * Check if fields parameter has value, if has no value return defaultFields
+     * parameter
      * 
-     * @param enumeration
+     * @param fields
+     * @param defaultFields
      * @return
      */
-    public static String[] enumStringValues(final Enum<?>... enumeration) {
-        String[] listString = new String[enumeration.length];
-        for (int i = 0; i < enumeration.length; i++) {
-            listString[i] = (enumeration[i].name());
+    public static List<String> checkFields(final List<String> fields, String... defaultFields) {
+        if (fields == null || fields.isEmpty()) {
+            return Arrays.asList(defaultFields);
         }
-        return listString;
+        return fields;
     }
 }

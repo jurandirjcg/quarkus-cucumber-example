@@ -1,0 +1,2 @@
+CREATE SEQUENCE movie_id_seq;
+CREATE TABLE movie (id INT NOT NULL DEFAULT nextval('movie_id_seq') PRIMARY KEY, "name" VARCHAR(20) NOT NULL, release_date TIMESTAMP NOT NULL, duration INT NOT NULL, "description" VARCHAR(200) NOT NULL);

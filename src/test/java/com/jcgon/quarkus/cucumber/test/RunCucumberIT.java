@@ -1,4 +1,4 @@
-package com.myh3alth.paciente.test;
+package com.jcgon.quarkus.cucumber.test;
 
 import org.junit.runner.RunWith;
 
