@@ -17,7 +17,7 @@ public class CucumberInitSteps implements Pt {
         init();
 
         Before("not @analysis", 0, (Scenario scenario) -> {
-            RestAssured.basePath = "/v1";
+            
         });
 
         After("not @analysis", 0, (Scenario scenario) -> {
@@ -35,5 +35,7 @@ public class CucumberInitSteps implements Pt {
     private static void init() {
         RestAssured.config = RestAssuredConfig.config()
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.JSONB));
+                
+        RestAssured.basePath = "/v1";
     }
 }

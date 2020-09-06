@@ -2,7 +2,7 @@
 
 ## 1. Introduction  
 
-This UCS is used to save the movie information
+Allows the user save the movie information
 
 ## 2. Requirements 
 
@@ -13,7 +13,7 @@ This UCS is used to save the movie information
 <!BDD.START>  
 
 ### Tag 
-@prod
+@desenv
 ### Feature   
 
 ### Context:
@@ -28,7 +28,7 @@ This UCS is used to save the movie information
 **Then** the data are saved  
 **And** the `'<message>'` is presented
 
-### Examples:
+Examples:
 
 | name          | releaseDate   | duration  | description                                                                                                                                               | message       |
 | ---           | ---           | ---       | ---                                                                                                                                                       | ---           |

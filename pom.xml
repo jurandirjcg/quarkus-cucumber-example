@@ -144,6 +144,18 @@
 			<scope>test</scope>
 			<version>${jacoco.version}</version>
 		</dependency>
+        <dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>1.11.4</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>1.14.3</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>quarkus-cucumber-example</finalName>
@@ -174,29 +186,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<!-- here the phase you need -->
-						<phase>validate</phase>
-						<goals>
-						<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-						<outputDirectory>${project.build.outputDirectory}/db/migration</outputDirectory>
-						<resources>          
-							<resource>
-								<directory>docs/db/scripts</directory>
-								<filtering>true</filtering>
-							</resource>
-						</resources>              
-						</configuration>            
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler-plugin.version}</version>
 				<configuration>
@@ -212,6 +201,29 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<!-- <plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id> -->
+						<!-- here the phase you need -->
+						<!-- <phase>validate</phase>
+						<goals>
+						<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+						<outputDirectory>${project.build.outputDirectory}/db/migration</outputDirectory>
+						<resources>          
+							<resource>
+								<directory>docs/db/scripts</directory>
+								<filtering>true</filtering>
+							</resource>
+						</resources>              
+						</configuration>            
+					</execution>
+				</executions>
+			</plugin> -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${surefire-plugin.version}</version>
@@ -271,15 +283,15 @@
 					<outputDir>target/features</outputDir>
 					<replacements>
 						<replacement>
-							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@[\w\-\_]{3,15}\s{1,3})[\#\ ]{2,10}Funcionalidade[\ \:]{0,5}]]></token>
-							<value>Funcionalidade: $1</value>
+							<token><![CDATA[(?<=(UCS[\ \w\-\–áàâãéèêíïóôõöúçñ]{5,150})[\s\S]{0,700}\@[\w\-\_]{3,15}\s{1,3})[\#\ ]{2,10}Feature[\ \:]{0,5}]]></token>
+							<value>Feature: $1</value>
 						</replacement>
 						<replacement>
-							<token><![CDATA[[\s\S]*<!BDD.INICIO>]]></token>
-							<value>#language: pt</value>
+							<token><![CDATA[[\s\S]*<!BDD.START>]]></token>
+							<value>#language: en</value>
 						</replacement>
 						<replacement>
-							<token><![CDATA[<!BDD.FIM>[\s\S]*]]></token>
+							<token><![CDATA[<!BDD.END>[\s\S]*]]></token>
 							<value></value>
 						</replacement>
 						<replacement>
@@ -287,8 +299,8 @@
 							<value>$2:$1</value>
 						</replacement>
 						<replacement>
-							<token>#+\sTAG(?=[\w\@\s\#\-\_]+(\n)Funcionalidade:\s*(.*)\s?)</token>
-							<value># ${maven.build.timestamp} - Arquivo gerado automaticamente através das informações do Caso de Uso: $2 $1$1@$2</value>
+							<token>#+\sTag(?=[\w\@\s\#\-\_]+(\n)Feature:\s*(.*)\s?)</token>
+							<value># ${maven.build.timestamp} - Automatically generated using the Use Case: $2 $1$1@$2</value>
 						</replacement>
 						<!-- Expressao nao funciona no java 1.8.0_241 -->
 						<replacement>
@@ -297,20 +309,20 @@
 						</replacement>
 						<!-- // -->
 						<replacement>
-							<token>#+\sRegras de Neg(o|ó)cio\s?:?</token>
-							<value>Regras de Negocio:</value>
+							<token>#+\sRule\s?:?</token>
+							<value>Rules:</value>
 						</replacement>
 						<replacement>
-							<token>#+\sContexto\s?:</token>
-							<value>Contexto:</value>
+							<token>#+\sContext\s?:</token>
+							<value>Context:</value>
 						</replacement>
 						<replacement>
-							<token>#+\s*Esquema\sdo\sCen(a|á)rio\s?:</token>
-							<value>Esquema do Cenário:</value>
+							<token>#+\s*Scenario\sOutline\s?:</token>
+							<value>Scenario Outline:</value>
 						</replacement>
 						<replacement>
-							<token>#+\sCen(a|á)rio\s?:</token>
-							<value>Cenário:</value>
+							<token>#+\sScenario\s?:</token>
+							<value>Scenario:</value>
 						</replacement>
 						<replacement>
 							<token>`</token>
